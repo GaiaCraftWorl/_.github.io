@@ -5,133 +5,450 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gaia Craft | Pulseras Artesanales</title>
   <meta name="description" content="Gaia Craft: pulseras artesanales hechas a mano con intención, amor y energía." />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#0f1216;
+      --muted:#5f6b7a;
+      --line:#e9eef5;
+      --card:#fbfcfe;
+
+      --gold:#d7b46a;
+      --gold2:#b28a3f;
+      --black:#111;
+
+      --shadow:0 14px 34px rgba(0,0,0,.08);
+      --shadowHover:0 18px 44px rgba(0,0,0,.14);
+      --r:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial}
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+
+    .wrap{width:min(1120px,92vw);margin:0 auto}
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:10;
+      background:rgba(255,255,255,.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0;
+      gap: 16px;
+    }
+    .brand{
+      display:flex; align-items:center; gap: 12px;
+      min-width: 240px;
+    }
+    .brand-logo{
+      width:54px; height:54px; border-radius: 16px;
+      object-fit: contain;
+      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      background:#fff;
+      border: 1px solid var(--line);
+      padding: 6px;
+    }
+    .brand-title{
+      margin:0;
+      font-family: Cinzel, serif;
+      font-size: 22px;
+      letter-spacing: .8px;
+      line-height: 1.1;
+    }
+    .brand-subtitle{
+      margin:3px 0 0;
+      color:var(--muted);
+      font-size: 13px;
+      line-height:1.2;
+    }
+    nav{
+      display:flex; gap: 10px; align-items:center;
+      color:#3a4558; font-size:14px;
+    }
+    nav a{
+      padding: 10px 12px;
+      border-radius: 14px;
+      transition: background .18s ease, box-shadow .18s ease, transform .05s ease;
+    }
+    nav a:hover{
+      background:#f2f4f7;
+      box-shadow: 0 10px 22px rgba(0,0,0,.06);
+    }
+
+    /* Hero */
+    .hero{
+      padding: 22px 0 10px;
+    }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.35fr .65fr;
+      gap: 14px;
+    }
+    .panel{
+      background: linear-gradient(180deg, #ffffff, #fbfbfc);
+      border: 1px solid var(--line);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+    }
+    .heroMain{
+      padding: 22px;
+      position:relative;
+      overflow:hidden;
+    }
+    .heroMain::before{
+      content:"";
+      position:absolute;
+      inset:-30% -30% auto auto;
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(215,180,106,.22), rgba(215,180,106,0) 70%);
+      filter: blur(2px);
+      transform: rotate(18deg);
+      pointer-events:none;
+    }
+    .heroTitle{
+      margin:0 0 8px;
+      font-size: 30px;
+      letter-spacing: -.35px;
+    }
+    .heroText{
+      margin:0 0 16px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+    .btnRow{display:flex; gap: 10px; flex-wrap:wrap; margin-bottom: 12px}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 8px;
+      padding: 11px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background:#fff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: box-shadow .18s ease, transform .05s ease, background .18s ease, border-color .18s ease;
+    }
+    .btn:hover{ box-shadow: var(--shadowHover); }
+    .btn:active{ transform: translateY(1px); }
+    .btn.primary{
+      background: linear-gradient(135deg, #111, #252525);
+      color: var(--gold);
+      border-color: #111;
+    }
+    .chips{display:flex; gap:8px; flex-wrap:wrap}
+    .chip{
+      padding: 7px 10px;
+      border-radius: 999px;
+      background:#f2f4f7;
+      color:#3b4456;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .heroSide{
+      display:flex; flex-direction:column; gap: 12px;
+      padding: 16px;
+    }
+    .sideCard{
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 14px;
+      background:#fff;
+      box-shadow: 0 10px 22px rgba(0,0,0,.05);
+    }
+    .sideCard h3{margin:0 0 6px; font-size: 16px}
+    .sideCard p{margin:0; color:var(--muted); line-height:1.55}
+
+    /* Sections */
+    .section{padding: 20px 0}
+    .sectionHead{
+      display:flex; justify-content:space-between; align-items:flex-end;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .sectionHead h2{
+      margin:0;
+      font-size: 18px;
+      letter-spacing: .2px;
+    }
+    .sectionHead p{
+      margin:0;
+      color:var(--muted);
+      font-size: 13.5px;
+    }
+
+    /* Grid catálogo tipo IG */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .tile{
+      position:relative;
+      border-radius: 18px;
+      overflow:hidden;
+      border: 1px solid var(--line);
+      background:#f2f3f6;
+      aspect-ratio: 1/1;
+      cursor:pointer;
+      box-shadow: 0 10px 22px rgba(0,0,0,.06);
+      transition: transform .08s ease, box-shadow .18s ease;
+    }
+    .tile:hover{ transform: translateY(-2px); box-shadow: var(--shadowHover); }
+    .tile img{ width:100%; height:100%; object-fit: cover; transform: scale(1.02); transition: transform .25s ease; }
+    .tile:hover img{ transform: scale(1.07); }
+
+    .overlay{
+      position:absolute; inset:auto 0 0 0;
+      padding: 10px 10px 9px;
+      background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.58));
+      display:flex; justify-content:space-between; align-items:flex-end;
+      gap: 10px;
+      color:#fff;
+    }
+    .overlay .name{margin:0;font-weight:800;font-size:13px;line-height:1.15}
+    .overlay .price{font-weight:900;font-size:12px;color:#f5e5bf}
+
+    .status{margin-top: 10px; color: var(--muted); font-size: 13px}
+
+    /* Sobre + Contacto */
+    .twoCol{display:grid; grid-template-columns: 1fr 1fr; gap: 12px}
+    .infoCard{
+      border:1px solid var(--line);
+      border-radius: var(--r);
+      padding: 16px;
+      background: var(--card);
+      box-shadow: 0 10px 22px rgba(0,0,0,.04);
+    }
+    .infoCard h3{margin:0 0 8px}
+    .infoCard p{margin:0; color: var(--muted); line-height: 1.65}
+
+    footer{
+      padding: 26px 0 34px;
+      color: var(--muted);
+      font-size: 13px;
+      border-top: 1px solid var(--line);
+      margin-top: 6px;
+    }
+
+    /* Modal (ventanita) */
+    .backdrop{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,.45);
+      z-index: 20;
+    }
+    dialog{
+      border:0;
+      border-radius: 18px;
+      padding:0;
+      width: min(760px, 92vw);
+      box-shadow: 0 18px 55px rgba(0,0,0,.28);
+      z-index: 21;
+    }
+    dialog::backdrop{ background: rgba(0,0,0,.45); }
+    .close{
+      position:absolute; top:10px; right:10px;
+      width:40px; height:40px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background:#fff;
+      cursor:pointer;
+      transition: box-shadow .18s ease, transform .05s ease;
+    }
+    .close:hover{ box-shadow: 0 12px 24px rgba(0,0,0,.10); }
+    .close:active{ transform: translateY(1px); }
+
+    .modalBody{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      background:#fff;
+    }
+    .modalImg{
+      background:#f2f3f6;
+      min-height: 280px;
+    }
+    .modalImg img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+    }
+    .modalInfo{ padding: 16px; }
+    .modalInfo h3{ margin:0 0 8px; font-size: 20px; }
+    .modalInfo p{ margin:0 0 12px; color:var(--muted); line-height:1.6; }
+    .meta{ display:flex; gap: 10px; align-items:center; margin-bottom: 14px; }
+    .pill{
+      font-weight: 900;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background:#fff;
+    }
+    .tag{
+      font-weight: 800;
+      font-size: 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background:#f2f4f7;
+      color:#3b4456;
+    }
+
+    @media (max-width: 920px){
+      nav{display:none}
+      .heroGrid{grid-template-columns: 1fr}
+      .grid{grid-template-columns: repeat(2, 1fr)}
+      .twoCol{grid-template-columns: 1fr}
+      .modalBody{grid-template-columns: 1fr}
+    }
+    @media (max-width: 480px){
+      .grid{grid-template-columns: 1fr}
+    }
+  </style>
 </head>
 
 <body>
-  <header class="wrap topbar">
-    <div class="brand">
-      <img class="brand-logo" src="assets/logo.png" alt="Logo Gaia Craft" />
-      <div class="brand-text">
-        <h1 class="brand-title">Gaia Craft</h1>
-        <p class="brand-subtitle">Pulseras artesanales hechas a mano • amor & energía ✨</p>
+  <header>
+    <div class="wrap topbar">
+      <div class="brand">
+        <img class="brand-logo" src="assets/logo.png" alt="Logo Gaia Craft">
+        <div>
+          <h1 class="brand-title">Gaia Craft</h1>
+          <p class="brand-subtitle">Pulseras artesanales hechas a mano • amor & energía ✨</p>
+        </div>
       </div>
-    </div>
 
-    <nav class="nav">
-      <a href="#catalogo">Catálogo</a>
-      <a href="#sobre">Sobre</a>
-      <a href="#contacto">Contacto</a>
-    </nav>
+      <nav>
+        <a href="#catalogo">Catálogo</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
   </header>
 
   <main class="wrap">
     <section class="hero">
-      <div class="hero-main">
-        <h2>Elegancia artesanal con intención <span aria-hidden="true">💎</span></h2>
-        <p>
-          Elige tu pulsera, revisa sus detalles y compra directo por WhatsApp.
-          Diseños artesanales inspirados en la naturaleza y la energía.
-        </p>
+      <div class="heroGrid">
+        <div class="panel heroMain">
+          <h2 class="heroTitle">Elegancia artesanal con intención 💎</h2>
+          <p class="heroText">
+            Elige tu pulsera, mira sus detalles y compra directo por WhatsApp.
+            Diseños artesanales inspirados en la naturaleza y la energía.
+          </p>
 
-        <div class="hero-btns">
-          <a class="btn primary" href="#catalogo">Ver catálogo</a>
-          <a class="btn" id="waTop" href="#" target="_blank" rel="noopener">WhatsApp</a>
+          <div class="btnRow">
+            <a class="btn primary" href="#catalogo">Ver catálogo</a>
+            <a class="btn" id="waTop" href="#" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+
+          <div class="chips">
+            <span class="chip">Hecho a mano</span>
+            <span class="chip">Personalizable</span>
+            <span class="chip">Perú 🇵🇪</span>
+          </div>
         </div>
 
-        <div class="chips">
-          <span class="chip">Hecho a mano</span>
-          <span class="chip">Personalizable</span>
-          <span class="chip">Perú 🇵🇪</span>
+        <div class="panel heroSide">
+          <div class="sideCard">
+            <h3>Gaia vibes</h3>
+            <p>Minerales + macramé + diseño elegante para un estilo limpio y poderoso.</p>
+          </div>
+          <div class="sideCard">
+            <h3>Pedidos</h3>
+            <p class="muted">WhatsApp: <strong>+51 903 534 944</strong></p>
+          </div>
         </div>
       </div>
-
-      <aside class="hero-side">
-        <div class="side-card">
-          <h3>Gaia vibes</h3>
-          <p>Minerales + macramé + diseño elegante para un estilo limpio y poderoso.</p>
-        </div>
-        <div class="side-card">
-          <h3>Pedidos</h3>
-          <p class="muted">WhatsApp: <strong>+51 903 534 944</strong></p>
-        </div>
-      </aside>
     </section>
 
     <section id="catalogo" class="section">
-      <div class="section-head">
-        <h3>Catálogo</h3>
-        <p>Haz clic en un producto para ver su detalle.</p>
+      <div class="sectionHead">
+        <h2>Catálogo</h2>
+        <p>Por ahora mostramos 5 productos de ejemplo.</p>
       </div>
 
-      <div id="grid" class="grid" aria-live="polite"></div>
-      <div id="status" class="status" role="status"></div>
+      <div id="grid" class="grid"></div>
+      <div id="status" class="status"></div>
     </section>
 
     <section id="sobre" class="section">
-      <div class="section-head">
-        <h3>Sobre nosotros</h3>
+      <div class="sectionHead">
+        <h2>Sobre nosotros</h2>
+        <p>Propósito, intención y detalle.</p>
       </div>
 
-      <div class="about">
-        <div class="about-card">
-          <h4>Objetivo</h4>
+      <div class="twoCol">
+        <div class="infoCard">
+          <h3>Objetivo</h3>
           <p>
-            Crear pulseras artesanales que conecten lo material con lo espiritual, fusionando la energía
-            de los minerales con el amor puesto en cada detalle. Más que accesorios, buscamos transmitir
-            intención, significado y estilo.
+            Crear pulseras artesanales que conecten lo material con lo espiritual, uniendo estética elegante
+            con el significado de cada detalle. Queremos transmitir intención, energía y autenticidad en cada pieza.
           </p>
         </div>
-
-        <div class="about-card">
-          <h4>Misión</h4>
+        <div class="infoCard">
+          <h3>Misión</h3>
           <p>
-            Diseñar piezas hechas a mano con dedicación, elegancia y autenticidad, inspiradas en la naturaleza
-            y en la energía personal de cada persona. Queremos acompañarte con símbolos que reflejen equilibrio,
-            fuerza y conexión interior.
+            Diseñar piezas hechas a mano con dedicación y amor, inspiradas en la naturaleza y la energía personal.
+            Buscamos acompañarte con símbolos que reflejen equilibrio, fuerza y conexión interior.
           </p>
         </div>
       </div>
     </section>
 
     <section id="contacto" class="section">
-      <div class="section-head">
-        <h3>Contacto</h3>
+      <div class="sectionHead">
+        <h2>Contacto</h2>
         <p>Ventas y coordinación de pedidos.</p>
       </div>
 
-      <div class="contact">
-        <div class="contact-card">
-          <h4>WhatsApp</h4>
+      <div class="twoCol">
+        <div class="infoCard">
+          <h3>WhatsApp</h3>
           <p>Pedidos y consultas.</p>
-          <a class="btn primary" id="waBottom" href="#" target="_blank" rel="noopener">Escribir</a>
-          <p class="muted small">+51 903 534 944</p>
+          <div style="margin-top:12px">
+            <a class="btn primary" id="waBottom" href="#" target="_blank" rel="noopener">Escribir</a>
+          </div>
+          <p class="muted" style="margin-top:10px">+51 903 534 944</p>
         </div>
 
-        <div class="contact-card">
-          <h4>Envíos</h4>
-          <p>Por el momento vendemos y coordinamos envíos <strong>solo dentro de Perú</strong>.</p>
-          <p class="muted small">Próximamente ampliaremos cobertura.</p>
+        <div class="infoCard">
+          <h3>Envíos</h3>
+          <p>
+            Por el momento vendemos y coordinamos envíos <strong>solo dentro de Perú</strong>.
+            Próximamente ampliaremos cobertura.
+          </p>
         </div>
       </div>
     </section>
+
+    <footer>
+      © <span id="year"></span> Gaia Craft
+    </footer>
   </main>
 
   <!-- Modal -->
   <div id="backdrop" class="backdrop" hidden></div>
-  <dialog id="modal" class="modal">
+  <dialog id="modal">
     <button id="closeModal" class="close" aria-label="Cerrar">✕</button>
 
-    <div class="modal-body">
-      <div class="modal-img">
-        <img id="mImg" alt="" />
+    <div class="modalBody">
+      <div class="modalImg">
+        <img id="mImg" alt="">
       </div>
 
-      <div class="modal-info">
+      <div class="modalInfo">
         <h3 id="mTitle"></h3>
         <p id="mDesc"></p>
 
-        <div class="modal-meta">
+        <div class="meta">
           <span id="mPrice" class="pill"></span>
           <span id="mTag" class="tag"></span>
         </div>
@@ -141,10 +458,117 @@
     </div>
   </dialog>
 
-  <footer class="wrap footer">
-    <p>© <span id="year"></span> Gaia Craft</p>
-  </footer>
+  <script>
+    const WHATSAPP_NUMBER = "51903534944";
 
-  <script src="script.js"></script>
+    const PRODUCTS = [
+      { id:"gc-001", nombre:"Título 1", precio:0, tag:"Nuevo", descripcion:"Descripción temporal. Luego la cambiamos.", img:"https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=900&q=80" },
+      { id:"gc-002", nombre:"Título 2", precio:0, tag:"Artesanal", descripcion:"Descripción temporal. Luego la cambiamos.", img:"https://images.unsplash.com/photo-1611599537845-1c7aca0094a7?auto=format&fit=crop&w=900&q=80" },
+      { id:"gc-003", nombre:"Título 3", precio:0, tag:"Edición", descripcion:"Descripción temporal. Luego la cambiamos.", img:"https://images.unsplash.com/photo-1617038260897-41a3c5d1c6d9?auto=format&fit=crop&w=900&q=80" },
+      { id:"gc-004", nombre:"Título 4", precio:0, tag:"Popular", descripcion:"Descripción temporal. Luego la cambiamos.", img:"https://images.unsplash.com/photo-1618354691373-d851c5c58b5b?auto=format&fit=crop&w=900&q=80" },
+      { id:"gc-005", nombre:"Título 5", precio:0, tag:"Top", descripcion:"Descripción temporal. Luego la cambiamos.", img:"https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=80" }
+    ];
+
+    const grid = document.getElementById("grid");
+    const statusEl = document.getElementById("status");
+
+    const modal = document.getElementById("modal");
+    const backdrop = document.getElementById("backdrop");
+    const closeBtn = document.getElementById("closeModal");
+
+    const mImg = document.getElementById("mImg");
+    const mTitle = document.getElementById("mTitle");
+    const mDesc = document.getElementById("mDesc");
+    const mPrice = document.getElementById("mPrice");
+    const mTag = document.getElementById("mTag");
+    const mWA = document.getElementById("mWA");
+
+    const waTop = document.getElementById("waTop");
+    const waBottom = document.getElementById("waBottom");
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function waLink(message){
+      return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    }
+    function setGenericWA(){
+      const msg="Hola 😊 Estoy interesado/a en pulseras de Gaia Craft. ¿Me compartes el catálogo?";
+      const link=waLink(msg);
+      waTop.href=link; waBottom.href=link;
+    }
+
+    function money(v){
+      if(Number(v) === 0) return "Precio: consultar";
+      return `S/ ${Number(v).toFixed(2)}`;
+    }
+
+    function createTile(p){
+      const b = document.createElement("button");
+      b.className = "tile";
+      b.type = "button";
+      b.setAttribute("aria-label", `Ver ${p.nombre}`);
+
+      const img = document.createElement("img");
+      img.loading = "lazy";
+      img.src = p.img;
+      img.alt = p.nombre;
+
+      const ov = document.createElement("div");
+      ov.className = "overlay";
+
+      const name = document.createElement("p");
+      name.className = "name";
+      name.textContent = p.nombre;
+
+      const price = document.createElement("span");
+      price.className = "price";
+      price.textContent = money(p.precio);
+
+      ov.appendChild(name);
+      ov.appendChild(price);
+
+      b.appendChild(img);
+      b.appendChild(ov);
+
+      b.addEventListener("click", () => openProduct(p));
+      return b;
+    }
+
+    function openProduct(p){
+      mImg.src = p.img;
+      mImg.alt = p.nombre;
+      mTitle.textContent = p.nombre;
+      mDesc.textContent = p.descripcion;
+      mPrice.textContent = money(p.precio);
+      mTag.textContent = p.tag;
+
+      const msg = `Hola 😊 Me interesa: ${p.nombre} (ID: ${p.id}). ${money(p.precio)}. ¿Hay stock y opciones?`;
+      mWA.href = waLink(msg);
+
+      if(typeof modal.showModal === "function") modal.showModal();
+      backdrop.hidden = false;
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal(){
+      if(typeof modal.close === "function") modal.close();
+      backdrop.hidden = true;
+      document.body.style.overflow = "";
+    }
+
+    closeBtn.addEventListener("click", closeModal);
+    backdrop.addEventListener("click", closeModal);
+    document.addEventListener("keydown",(e)=>{ if(e.key==="Escape" && !backdrop.hidden) closeModal(); });
+
+    function render(){
+      grid.innerHTML="";
+      PRODUCTS.forEach(p => grid.appendChild(createTile(p)));
+      statusEl.textContent = `Mostrando ${PRODUCTS.length} productos.`;
+    }
+
+    setGenericWA();
+    render();
+  </script>
 </body>
 </html>
+
