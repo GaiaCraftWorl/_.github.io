@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gaia Craft | Pulseras Artesanales</title>
   <meta name="description" content="Gaia Craft: pulseras artesanales hechas a mano con intención, amor y energía." />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -23,73 +24,81 @@
 
       --shadow:0 14px 34px rgba(0,0,0,.08);
       --shadowHover:0 18px 44px rgba(0,0,0,.14);
-      --r:18px;
+      --r:20px;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial}
     a{text-decoration:none;color:inherit}
     img{display:block;max-width:100%}
 
-    .wrap{width:min(1120px,92vw);margin:0 auto}
+    /* más ancho para que se sienta "grande" */
+    .wrap{width:min(1200px,94vw);margin:0 auto}
 
     /* Header */
     header{
       position:sticky; top:0; z-index:10;
-      background:rgba(255,255,255,.85);
+      background:rgba(255,255,255,.86);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--line);
     }
     .topbar{
       display:flex; align-items:center; justify-content:space-between;
-      padding: 14px 0;
-      gap: 16px;
+      padding: 18px 0;
+      gap: 18px;
     }
     .brand{
-      display:flex; align-items:center; gap: 12px;
-      min-width: 240px;
+      display:flex; align-items:center; gap: 14px;
+      min-width: 280px;
     }
+
+    /* LOGO más grande y “premium” */
     .brand-logo{
-      width:54px; height:54px; border-radius: 16px;
-      object-fit: contain;
-      box-shadow: 0 10px 24px rgba(0,0,0,.08);
+      width:72px; height:72px; border-radius: 18px;
+      object-fit: cover;
+      box-shadow: 0 16px 34px rgba(0,0,0,.12);
       background:#fff;
       border: 1px solid var(--line);
       padding: 6px;
     }
+
     .brand-title{
       margin:0;
       font-family: Cinzel, serif;
-      font-size: 22px;
-      letter-spacing: .8px;
-      line-height: 1.1;
+      font-size: 28px;      /* más grande */
+      letter-spacing: 1.2px;
+      line-height: 1.05;
     }
     .brand-subtitle{
-      margin:3px 0 0;
+      margin:5px 0 0;
       color:var(--muted);
-      font-size: 13px;
-      line-height:1.2;
+      font-size: 14px;
+      line-height:1.25;
     }
+
     nav{
       display:flex; gap: 10px; align-items:center;
-      color:#3a4558; font-size:14px;
+      color:#3a4558; font-size:15px;
     }
     nav a{
-      padding: 10px 12px;
+      padding: 11px 14px;
       border-radius: 14px;
-      transition: background .18s ease, box-shadow .18s ease, transform .05s ease;
+      border: 1px solid transparent;
+      transition: background .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease;
     }
+
+    /* hover dorado en menú */
     nav a:hover{
-      background:#f2f4f7;
-      box-shadow: 0 10px 22px rgba(0,0,0,.06);
+      background: rgba(215,180,106,.14);
+      border-color: rgba(215,180,106,.45);
+      color: #2b2416;
+      box-shadow: 0 12px 24px rgba(0,0,0,.08);
     }
 
     /* Hero */
-    .hero{
-      padding: 22px 0 10px;
-    }
+    .hero{ padding: 28px 0 12px; }
     .heroGrid{
       display:grid;
-      grid-template-columns: 1.35fr .65fr;
+      grid-template-columns: 1.4fr .6fr;
       gap: 14px;
     }
     .panel{
@@ -99,66 +108,86 @@
       box-shadow: var(--shadow);
     }
     .heroMain{
-      padding: 22px;
+      padding: 28px; /* más espacio */
       position:relative;
       overflow:hidden;
     }
     .heroMain::before{
       content:"";
       position:absolute;
-      inset:-30% -30% auto auto;
-      width: 320px; height: 320px;
-      background: radial-gradient(circle, rgba(215,180,106,.22), rgba(215,180,106,0) 70%);
+      inset:-35% -35% auto auto;
+      width: 420px; height: 420px;
+      background: radial-gradient(circle, rgba(215,180,106,.26), rgba(215,180,106,0) 70%);
       filter: blur(2px);
       transform: rotate(18deg);
       pointer-events:none;
     }
+
+    /* título hero más grande */
     .heroTitle{
-      margin:0 0 8px;
-      font-size: 30px;
-      letter-spacing: -.35px;
+      margin:0 0 10px;
+      font-size: 38px;
+      letter-spacing: -0.6px;
+      line-height: 1.05;
     }
     .heroText{
-      margin:0 0 16px;
+      margin:0 0 18px;
       color: var(--muted);
-      line-height: 1.6;
-      font-size: 15px;
+      line-height: 1.65;
+      font-size: 16px;
+      max-width: 62ch;
     }
-    .btnRow{display:flex; gap: 10px; flex-wrap:wrap; margin-bottom: 12px}
+
+    .btnRow{display:flex; gap: 12px; flex-wrap:wrap; margin-bottom: 14px}
+
     .btn{
       display:inline-flex;
       align-items:center;
       justify-content:center;
       gap: 8px;
-      padding: 11px 14px;
-      border-radius: 14px;
+      padding: 13px 16px; /* más grande */
+      border-radius: 16px;
       border: 1px solid var(--line);
       background:#fff;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
-      transition: box-shadow .18s ease, transform .05s ease, background .18s ease, border-color .18s ease;
+      transition: background .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease, transform .05s ease;
     }
-    .btn:hover{ box-shadow: var(--shadowHover); }
     .btn:active{ transform: translateY(1px); }
+
+    /* hover dorado en BOTONES */
+    .btn:hover{
+      background: linear-gradient(135deg, rgba(215,180,106,.28), rgba(178,138,63,.12));
+      border-color: rgba(215,180,106,.7);
+      color: #1a1408;
+      box-shadow: var(--shadowHover);
+    }
+
     .btn.primary{
       background: linear-gradient(135deg, #111, #252525);
       color: var(--gold);
       border-color: #111;
     }
+
+    /* hover dorado también para primary */
+    .btn.primary:hover{
+      background: linear-gradient(135deg, rgba(215,180,106,.95), rgba(178,138,63,.85));
+      color: #111;
+      border-color: rgba(215,180,106,.9);
+      box-shadow: var(--shadowHover);
+    }
+
     .chips{display:flex; gap:8px; flex-wrap:wrap}
     .chip{
-      padding: 7px 10px;
+      padding: 8px 12px;
       border-radius: 999px;
       background:#f2f4f7;
       color:#3b4456;
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 12.5px;
+      font-weight: 700;
     }
 
-    .heroSide{
-      display:flex; flex-direction:column; gap: 12px;
-      padding: 16px;
-    }
+    .heroSide{display:flex; flex-direction:column; gap: 12px; padding: 16px;}
     .sideCard{
       border: 1px solid var(--line);
       border-radius: 16px;
@@ -170,24 +199,16 @@
     .sideCard p{margin:0; color:var(--muted); line-height:1.55}
 
     /* Sections */
-    .section{padding: 20px 0}
+    .section{padding: 22px 0}
     .sectionHead{
       display:flex; justify-content:space-between; align-items:flex-end;
       gap: 10px;
       margin-bottom: 12px;
     }
-    .sectionHead h2{
-      margin:0;
-      font-size: 18px;
-      letter-spacing: .2px;
-    }
-    .sectionHead p{
-      margin:0;
-      color:var(--muted);
-      font-size: 13.5px;
-    }
+    .sectionHead h2{ margin:0; font-size: 19px; letter-spacing: .2px; }
+    .sectionHead p{ margin:0; color:var(--muted); font-size: 13.5px; }
 
-    /* Grid catálogo tipo IG */
+    /* Grid catálogo */
     .grid{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
@@ -202,21 +223,25 @@
       aspect-ratio: 1/1;
       cursor:pointer;
       box-shadow: 0 10px 22px rgba(0,0,0,.06);
-      transition: transform .08s ease, box-shadow .18s ease;
+      transition: transform .08s ease, box-shadow .18s ease, border-color .18s ease;
     }
-    .tile:hover{ transform: translateY(-2px); box-shadow: var(--shadowHover); }
+    .tile:hover{
+      transform: translateY(-2px);
+      box-shadow: var(--shadowHover);
+      border-color: rgba(215,180,106,.55); /* toque dorado al hover */
+    }
     .tile img{ width:100%; height:100%; object-fit: cover; transform: scale(1.02); transition: transform .25s ease; }
     .tile:hover img{ transform: scale(1.07); }
 
     .overlay{
       position:absolute; inset:auto 0 0 0;
       padding: 10px 10px 9px;
-      background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.58));
+      background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.62));
       display:flex; justify-content:space-between; align-items:flex-end;
       gap: 10px;
       color:#fff;
     }
-    .overlay .name{margin:0;font-weight:800;font-size:13px;line-height:1.15}
+    .overlay .name{margin:0;font-weight:900;font-size:13px;line-height:1.15}
     .overlay .price{font-weight:900;font-size:12px;color:#f5e5bf}
 
     .status{margin-top: 10px; color: var(--muted); font-size: 13px}
@@ -241,7 +266,7 @@
       margin-top: 6px;
     }
 
-    /* Modal (ventanita) */
+    /* Modal */
     .backdrop{
       position:fixed; inset:0;
       background: rgba(0,0,0,.45);
@@ -251,14 +276,14 @@
       border:0;
       border-radius: 18px;
       padding:0;
-      width: min(760px, 92vw);
+      width: min(820px, 94vw);
       box-shadow: 0 18px 55px rgba(0,0,0,.28);
       z-index: 21;
     }
     dialog::backdrop{ background: rgba(0,0,0,.45); }
     .close{
       position:absolute; top:10px; right:10px;
-      width:40px; height:40px;
+      width:42px; height:42px;
       border-radius: 14px;
       border: 1px solid var(--line);
       background:#fff;
@@ -275,7 +300,7 @@
     }
     .modalImg{
       background:#f2f3f6;
-      min-height: 280px;
+      min-height: 300px;
     }
     .modalImg img{
       width:100%;
@@ -308,9 +333,13 @@
       .grid{grid-template-columns: repeat(2, 1fr)}
       .twoCol{grid-template-columns: 1fr}
       .modalBody{grid-template-columns: 1fr}
+      .brand-logo{width:64px;height:64px}
+      .brand-title{font-size:26px}
+      .heroTitle{font-size:34px}
     }
     @media (max-width: 480px){
       .grid{grid-template-columns: 1fr}
+      .heroTitle{font-size:30px}
     }
   </style>
 </head>
@@ -319,9 +348,10 @@
   <header>
     <div class="wrap topbar">
       <div class="brand">
+        <!-- PON TU IMAGEN AQUÍ: guarda tu logo como assets/logo.png -->
         <img class="brand-logo" src="assets/logo.png" alt="Logo Gaia Craft">
         <div>
-          <h1 class="brand-title">Gaia Craft</h1>
+          <h1 class="brand-title">GAIA CRAFT</h1>
           <p class="brand-subtitle">Pulseras artesanales hechas a mano • amor & energía ✨</p>
         </div>
       </div>
@@ -341,7 +371,7 @@
           <h2 class="heroTitle">Elegancia artesanal con intención 💎</h2>
           <p class="heroText">
             Elige tu pulsera, mira sus detalles y compra directo por WhatsApp.
-            Diseños artesanales inspirados en la naturaleza y la energía.
+            Diseños inspirados en la naturaleza y la energía.
           </p>
 
           <div class="btnRow">
@@ -372,7 +402,7 @@
     <section id="catalogo" class="section">
       <div class="sectionHead">
         <h2>Catálogo</h2>
-        <p>Por ahora mostramos 5 productos de ejemplo.</p>
+        <p>Por ahora mostramos 5 productos de ejemplo (placeholders).</p>
       </div>
 
       <div id="grid" class="grid"></div>
@@ -461,12 +491,36 @@
   <script>
     const WHATSAPP_NUMBER = "51903534944";
 
+    // placeholders SIN links externos (no Unsplash)
+    function placeholderDataURI(seed){
+      // SVG simple con “Producto” (se ve fino y no depende de internet)
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#f3f4f7"/>
+              <stop offset="50%" stop-color="#efe7d6"/>
+              <stop offset="100%" stop-color="#f7f7fb"/>
+            </linearGradient>
+          </defs>
+          <rect width="1200" height="1200" fill="url(#g)"/>
+          <circle cx="600" cy="520" r="210" fill="rgba(215,180,106,.22)"/>
+          <text x="600" y="610" text-anchor="middle"
+                font-family="Inter, Arial" font-size="64" font-weight="800"
+                fill="#1a1a1a" opacity=".85">Producto ${seed}</text>
+          <text x="600" y="690" text-anchor="middle"
+                font-family="Inter, Arial" font-size="30" font-weight="600"
+                fill="#5f6b7a">Imagen temporal</text>
+        </svg>`;
+      return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+    }
+
     const PRODUCTS = [
-      { id:"gc-001", nombre:"Título 1", precio:0, tag:"Nuevo", descripcion:"Descripción temporal. Luego la cambiamos.", img:"https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3?auto=format&fit=crop&w=900&q=80" },
-      { id:"gc-002", nombre:"Título 2", precio:0, tag:"Artesanal", descripcion:"Descripción temporal. Luego la cambiamos.", img:"https://images.unsplash.com/photo-1611599537845-1c7aca0094a7?auto=format&fit=crop&w=900&q=80" },
-      { id:"gc-003", nombre:"Título 3", precio:0, tag:"Edición", descripcion:"Descripción temporal. Luego la cambiamos.", img:"https://images.unsplash.com/photo-1617038260897-41a3c5d1c6d9?auto=format&fit=crop&w=900&q=80" },
-      { id:"gc-004", nombre:"Título 4", precio:0, tag:"Popular", descripcion:"Descripción temporal. Luego la cambiamos.", img:"https://images.unsplash.com/photo-1618354691373-d851c5c58b5b?auto=format&fit=crop&w=900&q=80" },
-      { id:"gc-005", nombre:"Título 5", precio:0, tag:"Top", descripcion:"Descripción temporal. Luego la cambiamos.", img:"https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=900&q=80" }
+      { id:"gc-001", nombre:"Pulsera 1", precio:0, tag:"Nuevo", descripcion:"Próximamente: foto real + detalles.", img: placeholderDataURI(1) },
+      { id:"gc-002", nombre:"Pulsera 2", precio:0, tag:"Artesanal", descripcion:"Próximamente: foto real + detalles.", img: placeholderDataURI(2) },
+      { id:"gc-003", nombre:"Pulsera 3", precio:0, tag:"Edición", descripcion:"Próximamente: foto real + detalles.", img: placeholderDataURI(3) },
+      { id:"gc-004", nombre:"Pulsera 4", precio:0, tag:"Popular", descripcion:"Próximamente: foto real + detalles.", img: placeholderDataURI(4) },
+      { id:"gc-005", nombre:"Pulsera 5", precio:0, tag:"Top", descripcion:"Próximamente: foto real + detalles.", img: placeholderDataURI(5) }
     ];
 
     const grid = document.getElementById("grid");
@@ -571,4 +625,3 @@
   </script>
 </body>
 </html>
-
