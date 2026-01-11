@@ -6,9 +6,12 @@
   <title>Gaia Craft | Pulseras Artesanales</title>
   <meta name="description" content="Gaia Craft: pulseras artesanales hechas a mano con intención, amor y energía." />
 
-  <!-- ✅ FAVICON en raíz (sin carpeta) -->
-  <link rel="icon" type="image/png" href="faviconemp.PNG" />
-  <link rel="apple-touch-icon" href="faviconemp.PNG" />
+  <!-- ✅ FAVICON (GitHub Pages: case-sensitive + cache hard) -->
+  <!-- OJO: el archivo debe llamarse EXACTO: faviconemp.PNG -->
+  <link rel="icon" href="faviconemp.PNG?v=2" type="image/png">
+  <link rel="shortcut icon" href="faviconemp.png?v=2" type="image/png">
+  <link rel="apple-touch-icon" href="faviconemp.png?v=2">
+  <meta name="theme-color" content="#07080a">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,8 +30,8 @@
       --shadowSoft: 0 14px 34px rgba(0,0,0,.12);
       --r: 18px;
 
-      --secGrey:#f2f3f6;   /* plomo discreto */
-      --secBlack:#07080a;  /* negro elegante */
+      --secGrey:#f2f3f6;
+      --secBlack:#07080a;
       --lineSoft: rgba(0,0,0,.08);
     }
 
@@ -39,7 +42,6 @@
 
     .wrap{width:min(1200px, 92vw); margin: 0 auto;}
 
-    /* HEADER */
     header{
       position: fixed;
       left: 0; right: 0; top: 0;
@@ -94,7 +96,6 @@
       gap: 10px;
     }
 
-    /* Menú estilo "botones" elegantes */
     .navBtn{
       padding: 10px 14px;
       border-radius: 999px;
@@ -252,7 +253,9 @@
       margin:0 0 20px;
       color: #5d6a7c;
       line-height:1.7;
+      font-size: 16px;
     }
+    .lead b{color:#1a1408}
 
     /* catálogo */
     .grid{
@@ -292,22 +295,23 @@
       align-items:flex-end;
       gap: 10px;
       color:#fff;
-      background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.70));
+      background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.72));
     }
 
-    /* ✅ LETRAS MÁS GRANDES (título y precio en tarjeta) */
+    /* ✅ MÁS GRANDE (nombre y precio en tarjeta) */
     .overlay .name{
       margin:0;
-      font-weight: 900;
-      font-size: 16px;   /* antes 13px */
+      font-weight: 950;
+      font-size: 18px; /* subido */
       line-height:1.15;
-      text-shadow: 0 10px 22px rgba(0,0,0,.35);
+      text-shadow: 0 10px 22px rgba(0,0,0,.40);
     }
     .overlay .price{
-      font-weight: 900;
-      font-size: 14px;  /* antes 12px */
+      font-weight: 950;
+      font-size: 16px; /* subido */
       color: #f5e5bf;
-      text-shadow: 0 10px 22px rgba(0,0,0,.35);
+      text-shadow: 0 10px 22px rgba(0,0,0,.40);
+      white-space: nowrap;
     }
 
     .twoCol{
@@ -356,7 +360,7 @@
       gap: 10px;
       padding: 14px 18px;
       border-radius: 999px;
-      font-weight: 900;
+      font-weight: 950;
       border: 1px solid rgba(215,180,106,.55);
       background: linear-gradient(135deg, rgba(215,180,106,.95), rgba(178,138,63,.85));
       color: #111;
@@ -421,14 +425,14 @@
     .modalInfo p{ margin:0 0 12px; color:#5d6a7c; line-height:1.7; }
     .meta{ display:flex; gap: 10px; align-items:center; margin-bottom: 14px; flex-wrap:wrap;}
     .pill{
-      font-weight: 900;
+      font-weight: 950;
       padding: 8px 10px;
       border-radius: 999px;
       border: 1px solid rgba(0,0,0,.10);
       background:#fff;
     }
     .tag{
-      font-weight: 900;
+      font-weight: 950;
       font-size: 12px;
       padding: 7px 10px;
       border-radius: 999px;
@@ -437,7 +441,6 @@
       border: 1px solid rgba(215,180,106,.35);
     }
 
-    /* responsive */
     @media (max-width: 920px){
       .menuToggle{display:inline-flex; align-items:center; justify-content:center;}
       nav{display:none}
@@ -447,15 +450,14 @@
       .grid{grid-template-columns: repeat(2, 1fr)}
       .twoCol{grid-template-columns: 1fr}
       .modalBody{grid-template-columns: 1fr}
-      .overlay .name{font-size:15px}
-      .overlay .price{font-size:13px}
+      .overlay .name{font-size:17px}
+      .overlay .price{font-size:15px}
     }
     @media (max-width: 520px){
       .brand-name span{display:none}
       .grid{grid-template-columns: 1fr}
     }
 
-    /* menú móvil */
     .mobileNav{
       position: fixed;
       top: 78px;
@@ -479,7 +481,6 @@
   <header>
     <div class="wrap topbar">
       <div class="brand">
-        <!-- LOGO en raíz (sin carpeta) -->
         <img class="brand-logo" src="LogoEmp.jpeg" alt="Logo Gaia Craft">
         <div class="brand-name">
           <strong>GAIA CRAFT</strong>
@@ -526,8 +527,11 @@
       <div class="wrap">
         <h2>Catálogo</h2>
         <p class="lead">
-          Ya tenemos <strong>Eclipse Azul</strong> 🔥 y dejamos dos espacios en “Próximamente”.
-          (La descripción se edita en el arreglo <code>PRODUCTS</code> abajo en el JS).
+          🔥 <b>¡Ya salió nuestro primer lanzamiento!</b> Con ustedes: <b>Eclipse Azul</b>.
+          Una pulsera que se ve elegante, intensa y con presencia de verdad.  
+          Dale click para ver detalles y si te vacila, la compras directo por WhatsApp. 😮‍💨✨
+          <br><br>
+          Y ojo… <b>ya se vienen dos diseños más</b> (están cocinándose, pronto los soltamos) 👀
         </p>
 
         <div id="grid" class="grid"></div>
@@ -639,14 +643,11 @@
   <script>
     const WHATSAPP_NUMBER = "51903534944";
 
-    // ✅ Cómo poner DESCRIPCIÓN:
-    // En cada producto del arreglo PRODUCTS, usa:
-    // descripcion: "Aquí escribes la descripción de la pulsera..."
-    //
-    // ✅ Cómo poner IMAGEN:
-    // img: "Eclipzu.jpeg"  (archivo en la raíz del repo, sin carpeta)
+    // ✅ Cómo editar la descripción:
+    // En cada producto: descripcion: "TU TEXTO AQUÍ"
+    // ✅ Cómo editar la imagen:
+    // img: "Eclipzu.jpeg" (archivo en la raíz, sin carpeta)
 
-    // Placeholder simple para "Próximamente"
     function comingSoonDataURI(){
       const svg = `
         <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200">
@@ -669,16 +670,13 @@
       return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
     }
 
-    // ✅ CATÁLOGO (1 real + 2 slots)
     const PRODUCTS = [
       {
         id: "gc-001",
         nombre: "Eclipse Azul",
-        precio: 40,              // ✅ precio en soles
+        precio: 40,
         tag: "Disponible",
-        // ✅ AQUÍ pones la descripción (cámbiala cuando quieras)
-        descripcion: "Pulsera artesanal con una vibra elegante y potente. Ideal para un look limpio y con presencia. (Edita este texto en el JS).",
-        // ✅ imagen real en la raíz
+        descripcion: "Pulsera artesanal con estilo elegante y presencia fuerte. Perfecta para un look limpio y con actitud. (Edita este texto en el JS cuando quieras).",
         img: "Eclipzu.jpeg"
       },
       {
@@ -798,7 +796,6 @@
       PRODUCTS.forEach(p => grid.appendChild(createTile(p)));
     }
 
-    // menú móvil
     function closeMobile(){
       mobileNav.classList.remove("show");
     }
