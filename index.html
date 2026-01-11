@@ -6,11 +6,11 @@
   <title>Gaia Craft | Pulseras Artesanales</title>
   <meta name="description" content="Gaia Craft: pulseras artesanales hechas a mano con intención, amor y energía." />
 
-  <!-- ✅ FAVICON (GitHub Pages: case-sensitive + cache hard) -->
-  <!-- OJO: el archivo debe llamarse EXACTO: faviconemp.PNG -->
-  <link rel="icon" href="faviconemp.PNG?v=2" type="image/png">
-  <link rel="shortcut icon" href="faviconemp.png?v=2" type="image/png">
-  <link rel="apple-touch-icon" href="faviconemp.png?v=2">
+  <!-- ✅ FAVICON (todo consistente con el nombre real) -->
+  <!-- Si tu archivo se llama faviconemp.PNG (con mayúsculas), debe ser EXACTO -->
+  <link rel="icon" type="image/png" href="faviconemp.PNG?v=3">
+  <link rel="shortcut icon" type="image/png" href="faviconemp.PNG?v=3">
+  <link rel="apple-touch-icon" href="faviconemp.PNG?v=3">
   <meta name="theme-color" content="#07080a">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,13 +26,12 @@
       --gold:#d7b46a;
       --gold2:#b28a3f;
 
-      --shadow: 0 18px 55px rgba(0,0,0,.22);
-      --shadowSoft: 0 14px 34px rgba(0,0,0,.12);
       --r: 18px;
 
       --secGrey:#f2f3f6;
       --secBlack:#07080a;
-      --lineSoft: rgba(0,0,0,.08);
+
+      --headerH: 78px; /* altura aproximada header desktop */
     }
 
     *{box-sizing:border-box}
@@ -42,6 +41,11 @@
 
     .wrap{width:min(1200px, 92vw); margin: 0 auto;}
 
+    /* Para que al dar click en "Catálogo/Sobre/Contacto" no quede tapado por header */
+    #catalogo, #sobre, #contacto{
+      scroll-margin-top: calc(var(--headerH) + 14px);
+    }
+
     header{
       position: fixed;
       left: 0; right: 0; top: 0;
@@ -50,19 +54,21 @@
       backdrop-filter: blur(10px);
       border-bottom: 1px solid rgba(0,0,0,.06);
     }
+
     .topbar{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap: 16px;
-      padding: 14px 0;
+      gap: 14px;
+      padding: 12px 0;
+      min-height: var(--headerH);
     }
 
     .brand{
       display:flex;
       align-items:center;
       gap: 12px;
-      min-width: 260px;
+      min-width: 240px;
     }
     .brand-logo{
       width: 54px;
@@ -72,6 +78,7 @@
       border: 1px solid rgba(0,0,0,.08);
       background: #fff;
       box-shadow: 0 12px 28px rgba(0,0,0,.12);
+      flex: 0 0 auto;
     }
     .brand-name{
       display:flex;
@@ -80,7 +87,7 @@
     }
     .brand-name strong{
       font-family: Cinzel, serif;
-      letter-spacing: 1.6px;
+      letter-spacing: 1.4px;
       font-size: 20px;
     }
     .brand-name span{
@@ -106,6 +113,7 @@
       font-size: 14px;
       color: #1b1f26;
       transition: transform .08s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+      white-space: nowrap;
     }
     .navBtn:hover{
       transform: translateY(-1px);
@@ -140,23 +148,27 @@
 
     /* HERO */
     .hero{
-      min-height: 92vh;
+      min-height: 100svh; /* mejor en móvil que 92vh */
       display:flex;
       align-items:center;
       position: relative;
-      padding-top: 84px;
+      padding-top: calc(var(--headerH) + 18px);
+      padding-bottom: 44px;
       overflow:hidden;
       background:#0b0b0d;
     }
+
     .hero::before{
       content:"";
       position:absolute;
       inset:0;
       background:
-        linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.62)),
+        linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.70)),
         url("Hero.jpeg") center/cover no-repeat;
       transform: scale(1.02);
     }
+
+    /* glow dorado sutil */
     .hero::after{
       content:"";
       position:absolute;
@@ -168,38 +180,54 @@
       pointer-events:none;
       transform: rotate(12deg);
     }
+
     .heroInner{
       position: relative;
       z-index: 2;
       width: 100%;
-      padding: 56px 0 70px;
       color: #fff;
       text-align:center;
     }
+
+    /* ✅ Caja para que en móvil se vea PRO y legible */
+    .heroBox{
+      width: min(860px, 92vw);
+      margin: 0 auto;
+      padding: 22px 22px 20px;
+      border-radius: 22px;
+      background: rgba(0,0,0,.32);
+      border: 1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 22px 80px rgba(0,0,0,.35);
+    }
+
     .kicker{
       font-weight: 900;
       letter-spacing: 2.2px;
       font-size: 12px;
-      color: rgba(255,255,255,.80);
+      color: rgba(255,255,255,.85);
       text-transform: uppercase;
       margin-bottom: 10px;
     }
+
     .heroTitle{
       margin: 0 auto 14px;
-      font-size: clamp(42px, 5.2vw, 78px);
+      font-size: clamp(38px, 5.2vw, 74px);
       line-height: 1.02;
       font-weight: 900;
       letter-spacing: -1px;
-      max-width: 16ch;
+      max-width: 18ch;
       text-shadow: 0 22px 60px rgba(0,0,0,.38);
     }
+
     .heroText{
-      margin: 0 auto 24px;
+      margin: 0 auto 22px;
       max-width: 70ch;
-      color: rgba(255,255,255,.86);
+      color: rgba(255,255,255,.88);
       line-height: 1.7;
       font-size: 16px;
     }
+
     .ctaRow{
       display:flex;
       justify-content:center;
@@ -207,6 +235,7 @@
       flex-wrap:wrap;
       margin-top: 10px;
     }
+
     .cta{
       display:inline-flex;
       align-items:center;
@@ -220,6 +249,7 @@
       font-weight: 900;
       box-shadow: 0 16px 44px rgba(0,0,0,.25);
       transition: transform .08s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+      min-width: 180px;
     }
     .cta:hover{
       transform: translateY(-1px);
@@ -298,17 +328,16 @@
       background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.72));
     }
 
-    /* ✅ MÁS GRANDE (nombre y precio en tarjeta) */
     .overlay .name{
       margin:0;
       font-weight: 950;
-      font-size: 18px; /* subido */
+      font-size: 18px;
       line-height:1.15;
       text-shadow: 0 10px 22px rgba(0,0,0,.40);
     }
     .overlay .price{
       font-weight: 950;
-      font-size: 16px; /* subido */
+      font-size: 16px;
       color: #f5e5bf;
       text-shadow: 0 10px 22px rgba(0,0,0,.40);
       white-space: nowrap;
@@ -441,11 +470,14 @@
       border: 1px solid rgba(215,180,106,.35);
     }
 
+    /* ✅ RESPONSIVE MOBILE (aquí está el fix real) */
     @media (max-width: 920px){
+      :root{ --headerH: 72px; }
       .menuToggle{display:inline-flex; align-items:center; justify-content:center;}
       nav{display:none}
       .heroInner{text-align:left}
-      .heroTitle{max-width: 18ch}
+      .heroBox{ padding: 18px; }
+      .heroTitle{ max-width: 18ch; font-size: clamp(34px, 7vw, 52px); }
       .ctaRow{justify-content:flex-start}
       .grid{grid-template-columns: repeat(2, 1fr)}
       .twoCol{grid-template-columns: 1fr}
@@ -453,14 +485,38 @@
       .overlay .name{font-size:17px}
       .overlay .price{font-size:15px}
     }
+
     @media (max-width: 520px){
-      .brand-name span{display:none}
+      :root{ --headerH: 68px; }
+
+      .wrap{width: min(1100px, 92vw);}
+
+      .topbar{padding: 10px 0;}
+      .brand{min-width: unset;}
+      .brand-logo{width: 48px; height: 48px;}
+      .brand-name strong{font-size: 18px;}
+      .brand-name span{display:none;}
+
+      /* Hero mejor para celular */
+      .hero{ padding-top: calc(var(--headerH) + 14px); }
+      .hero::before{
+        background-position: 55% center; /* mueve un poquito el enfoque en celular */
+      }
+      .heroBox{ width: 92vw; padding: 16px; border-radius: 18px; }
+      .kicker{font-size: 11px; letter-spacing: 1.8px;}
+      .heroText{font-size: 15px}
+
+      /* ✅ Botones full width en celular */
+      .ctaRow{ flex-direction: column; gap: 10px; }
+      .cta{ width: 100%; min-width: unset; }
+
       .grid{grid-template-columns: 1fr}
     }
 
+    /* menú móvil */
     .mobileNav{
       position: fixed;
-      top: 78px;
+      top: calc(var(--headerH) + 10px);
       right: 4vw;
       left: 4vw;
       z-index: 80;
@@ -508,27 +564,28 @@
 
   <section class="hero" id="inicio">
     <div class="wrap heroInner">
-      <div class="kicker">PULSERAS • ARTESANAL • PERÚ</div>
-      <h1 class="heroTitle">Descubre tu energía con estilo</h1>
-      <p class="heroText">
-        Diseños artesanales inspirados en la naturaleza. Mira el catálogo, abre un producto y compra directo por WhatsApp.
-      </p>
+      <div class="heroBox">
+        <div class="kicker">PULSERAS • ARTESANAL • PERÚ</div>
+        <h1 class="heroTitle">Descubre tu energía con estilo</h1>
+        <p class="heroText">
+          Diseños artesanales inspirados en la naturaleza. Mira el catálogo, abre un producto y compra directo por WhatsApp.
+        </p>
 
-      <div class="ctaRow">
-        <a class="cta primary" href="#catalogo">Ver catálogo</a>
-        <a class="cta" id="waTop" href="#" target="_blank" rel="noopener">Comprar por WhatsApp</a>
+        <div class="ctaRow">
+          <a class="cta primary" href="#catalogo">Ver catálogo</a>
+          <a class="cta" id="waTop" href="#" target="_blank" rel="noopener">Comprar por WhatsApp</a>
+        </div>
       </div>
     </div>
   </section>
 
   <main>
-    <!-- CATALOGO -->
     <section id="catalogo" class="section sectionDivider">
       <div class="wrap">
         <h2>Catálogo</h2>
         <p class="lead">
           🔥 <b>¡Ya salió nuestro primer lanzamiento!</b> Con ustedes: <b>Eclipse Azul</b>.
-          Una pulsera que se ve elegante, intensa y con presencia de verdad.  
+          Una pulsera elegante, intensa y con presencia real.
           Dale click para ver detalles y si te vacila, la compras directo por WhatsApp. 😮‍💨✨
           <br><br>
           Y ojo… <b>ya se vienen dos diseños más</b> (están cocinándose, pronto los soltamos) 👀
@@ -538,7 +595,6 @@
       </div>
     </section>
 
-    <!-- SOBRE (plomo) -->
     <section id="sobre" class="section sectionGrey sectionDivider">
       <div class="wrap">
         <h2>Sobre nosotros</h2>
@@ -572,7 +628,6 @@
       </div>
     </section>
 
-    <!-- CONTACTO (negro total) -->
     <section id="contacto" class="section sectionBlack sectionDivider">
       <div class="wrap">
         <h2>Contacto</h2>
@@ -615,7 +670,6 @@
     </footer>
   </main>
 
-  <!-- Modal -->
   <div id="backdrop" class="backdrop" hidden></div>
   <dialog id="modal">
     <button id="closeModal" class="close" aria-label="Cerrar">✕</button>
@@ -642,11 +696,6 @@
 
   <script>
     const WHATSAPP_NUMBER = "51903534944";
-
-    // ✅ Cómo editar la descripción:
-    // En cada producto: descripcion: "TU TEXTO AQUÍ"
-    // ✅ Cómo editar la imagen:
-    // img: "Eclipzu.jpeg" (archivo en la raíz, sin carpeta)
 
     function comingSoonDataURI(){
       const svg = `
@@ -676,7 +725,7 @@
         nombre: "Eclipse Azul",
         precio: 40,
         tag: "Disponible",
-        descripcion: "Eclipse Azul — Pulsera de Ojo de Tigre Azul 💙✨ Hecha con Ojo de Tigre Azul (Ojo de Halcón), una piedra semipreciosa de tonos azules intensos. Esta piedra preciosa aporta protección, calma, claridad mental y enfoque, ayudando a alejar energías negativas y reforzando la confianza, la creatividad y el equilibrio emocional. En pareja es perfecta: simboliza paciencia, comprensión y conexión, ideal como amuleto de buena vibra para ambos.<br><br><strong>Incluye:</strong><br>• Regalo: Origen y beneficios del Ojo de Tigre Azul<br>• Cajita de regalo GaiaCraft<br>• Bolsa junto con la pulsera ECLIPSE AZUL <br><br>🔥 <strong>Promo primera compra:</strong> 2 pulseras por S/ 70 para ti y tu pareja. ¡Aprovecha!",
+        descripcion: "Pega tu descripción aquí (entre comillas). Si quieres saltos de línea usa \\n, o usa <br> y mantenemos innerHTML.",
         img: "Eclipzu.jpeg"
       },
       {
@@ -692,7 +741,7 @@
         nombre: "Próximamente",
         precio: 0,
         tag: "Nuevo",
-        descripcion: "Estamos preparando un nuevo modelo. Vuelve en unas horas o consulta por WhatsApp.",
+        descripcion: "Estamos preparando un nuevo modelo. Vuelve luego o consulta por WhatsApp.",
         img: comingSoonDataURI()
       }
     ];
@@ -769,7 +818,11 @@
       mImg.src = p.img;
       mImg.alt = p.nombre;
       mTitle.textContent = p.nombre;
+
+      // Si vas a usar <br> en descripción, deja innerHTML.
+      // Si quieres solo texto plano, cambia a: mDesc.textContent = p.descripcion;
       mDesc.innerHTML = p.descripcion;
+
       mPrice.textContent = money(p.precio);
       mTag.textContent = p.tag;
 
@@ -814,4 +867,3 @@
   </script>
 </body>
 </html>
-
