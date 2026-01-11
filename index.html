@@ -19,12 +19,13 @@
       --gold:#d7b46a;
       --gold2:#b28a3f;
 
-      --line: rgba(255,255,255,.18);
-      --card: rgba(255,255,255,.08);
-
       --shadow: 0 18px 55px rgba(0,0,0,.22);
       --shadowSoft: 0 14px 34px rgba(0,0,0,.12);
       --r: 18px;
+
+      --secGrey:#f2f3f6;   /* plomo discreto */
+      --secBlack:#07080a;  /* negro elegante */
+      --lineSoft: rgba(0,0,0,.08);
     }
 
     *{box-sizing:border-box}
@@ -241,12 +242,18 @@
     }
 
     /* SECCIONES */
-    main{
-      background:#fff;
-    }
+    main{background:#fff;}
+
     .section{
-      padding: 56px 0;
+      padding: 62px 0;
+      position: relative;
     }
+
+    /* Separadores discretos entre secciones */
+    .sectionDivider{
+      border-top: 1px solid rgba(0,0,0,.08);
+    }
+
     .section h2{
       margin:0 0 10px;
       font-size: 28px;
@@ -323,14 +330,70 @@
       box-shadow: 0 14px 34px rgba(0,0,0,.08);
       padding: 18px;
     }
-    .card h3{margin:0 0 8px}
-    .card p{margin:0;color:#5d6a7c;line-height:1.7}
+    .card h3{margin:0 0 10px}
+    .card p{margin:0;color:#5d6a7c;line-height:1.75}
+
+    /* ====== SOBRE (fondo plomo) ====== */
+    .sectionGrey{
+      background: var(--secGrey);
+    }
+    .sectionGrey .card{
+      background: rgba(255,255,255,.72);
+      border-color: rgba(0,0,0,.07);
+    }
+
+    /* ====== CONTACTO (fondo negro) ====== */
+    .sectionBlack{
+      background: var(--secBlack);
+      color:#fff;
+    }
+    .sectionBlack h2{color:#fff}
+    .sectionBlack p.lead{color: rgba(255,255,255,.72)}
+
+    .sectionBlack .card{
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 18px 55px rgba(0,0,0,.35);
+    }
+    .sectionBlack .card p{
+      color: rgba(255,255,255,.74);
+    }
+
+    /* Botón WhatsApp en sección negra */
+    .waBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-radius: 999px;
+      font-weight: 900;
+      border: 1px solid rgba(215,180,106,.55);
+      background: linear-gradient(135deg, rgba(215,180,106,.95), rgba(178,138,63,.85));
+      color: #111;
+      box-shadow: 0 18px 55px rgba(0,0,0,.35);
+      transition: transform .08s ease, box-shadow .18s ease, filter .18s ease;
+    }
+    .waBtn:hover{
+      transform: translateY(-1px);
+      box-shadow: 0 24px 70px rgba(0,0,0,.45);
+      filter: brightness(1.02);
+    }
+
+    /* texto número en negro */
+    .waNumber{
+      margin-top: 12px;
+      color: rgba(255,255,255,.78);
+      font-weight: 800;
+      letter-spacing: .2px;
+    }
 
     footer{
-      border-top: 1px solid rgba(0,0,0,.08);
+      border-top: 1px solid rgba(255,255,255,.10);
       padding: 24px 0 34px;
-      color:#637083;
+      color: rgba(255,255,255,.65);
       font-size: 13px;
+      background: var(--secBlack);
     }
 
     /* modal */
@@ -471,7 +534,8 @@
   </section>
 
   <main>
-    <section id="catalogo" class="section">
+    <!-- CATALOGO -->
+    <section id="catalogo" class="section sectionDivider">
       <div class="wrap">
         <h2>Catálogo</h2>
         <p class="lead">Mostramos 5 productos de ejemplo (placeholders). Luego cambias nombre/precio/foto.</p>
@@ -480,7 +544,8 @@
       </div>
     </section>
 
-    <section id="sobre" class="section">
+    <!-- SOBRE (plomo) -->
+    <section id="sobre" class="section sectionGrey sectionDivider">
       <div class="wrap">
         <h2>Sobre nosotros</h2>
         <p class="lead">Propósito, intención y detalle en cada pieza.</p>
@@ -488,36 +553,62 @@
         <div class="twoCol">
           <div class="card">
             <h3>Objetivo</h3>
-            <p>Crear pulseras artesanales que conecten lo material con lo espiritual, uniendo estética elegante con significado.</p>
+            <p>
+              Crear pulseras artesanales que conecten lo material con lo espiritual, combinando una estética fina y moderna
+              con el significado real de cada piedra, nudo y detalle. Buscamos que cada pieza no sea “una pulsera más”, sino
+              un símbolo de intención: calma, protección, enfoque o energía personal.
+              <br><br>
+              Nuestro objetivo es que puedas elegir una pulsera que represente tu estilo y, al mismo tiempo, tu esencia.
+              Piezas hechas a mano con dedicación, listas para acompañarte día a día.
+            </p>
           </div>
+
           <div class="card">
             <h3>Misión</h3>
-            <p>Diseñar piezas hechas a mano con dedicación y amor, inspiradas en la naturaleza y la energía personal.</p>
+            <p>
+              Diseñar y elaborar piezas hechas a mano con amor, precisión y un acabado elegante, inspiradas en la naturaleza
+              y en la energía personal. Seleccionamos materiales con intención y cuidamos cada etapa: desde el diseño, la
+              combinación de colores, hasta el armado final.
+              <br><br>
+              Nuestra misión es que Gaia Craft se sienta como un detalle especial: una pulsera que te levante el look, pero
+              también te recuerde lo que quieres atraer, fortalecer o proteger en tu vida.
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="contacto" class="section">
+    <!-- CONTACTO (negro total) -->
+    <section id="contacto" class="section sectionBlack sectionDivider">
       <div class="wrap">
         <h2>Contacto</h2>
-        <p class="lead">Ventas y coordinación de pedidos.</p>
+        <p class="lead">Ventas y coordinación de pedidos. Respuesta rápida por WhatsApp.</p>
 
         <div class="twoCol">
           <div class="card">
             <h3>WhatsApp</h3>
-            <p>Escríbenos y coordinamos tu pedido al toque.</p>
-            <div style="margin-top:12px">
-              <a class="navBtn primary" id="waBottom" href="#" target="_blank" rel="noopener" style="display:inline-block;">
+            <p>
+              Escríbenos para precios, personalización (colores/piedras) y stock disponible.
+              Te asesoramos para que elijas la pulsera ideal.
+            </p>
+
+            <div style="margin-top:14px">
+              <a class="waBtn" id="waBottom" href="#" target="_blank" rel="noopener">
                 Escribir por WhatsApp
               </a>
             </div>
-            <p style="margin-top:12px;color:#5d6a7c"><strong>+51 903 534 944</strong></p>
+
+            <div class="waNumber">+51 903 534 944</div>
           </div>
 
           <div class="card">
             <h3>Envíos</h3>
-            <p>Por ahora vendemos y coordinamos envíos <strong>solo dentro de Perú</strong>. Próximamente ampliaremos cobertura.</p>
+            <p>
+              Somos de <strong>Arequipa</strong> y realizamos envíos a <strong>todo el Perú</strong>.
+              Coordinamos por WhatsApp el método de envío, tiempos estimados y costo según tu ciudad.
+              <br><br>
+              También puedes recoger tu pedido en Arequipa (previa coordinación).
+            </p>
           </div>
         </div>
       </div>
@@ -698,8 +789,6 @@
     mobileNav.querySelectorAll("a").forEach(a=>{
       a.addEventListener("click", closeMobile);
     });
-
-    // cerrar menú móvil al scrollear un poco
     window.addEventListener("scroll", ()=>{
       if(mobileNav.classList.contains("show")) closeMobile();
     });
@@ -709,3 +798,4 @@
   </script>
 </body>
 </html>
+
