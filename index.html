@@ -8,343 +8,420 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
       --bg:#ffffff;
       --text:#0f1216;
-      --muted:#5f6b7a;
-      --line:#e9eef5;
-      --card:#fbfcfe;
+      --muted:#637083;
 
       --gold:#d7b46a;
       --gold2:#b28a3f;
-      --black:#111;
 
-      --shadow:0 14px 34px rgba(0,0,0,.08);
-      --shadowHover:0 18px 44px rgba(0,0,0,.14);
-      --r:20px;
+      --line: rgba(255,255,255,.18);
+      --card: rgba(255,255,255,.08);
+
+      --shadow: 0 18px 55px rgba(0,0,0,.22);
+      --shadowSoft: 0 14px 34px rgba(0,0,0,.12);
+      --r: 18px;
     }
+
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial}
+    html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--text);background:var(--bg)}
     a{text-decoration:none;color:inherit}
     img{display:block;max-width:100%}
 
-    /* más ancho para que se sienta "grande" */
-    .wrap{width:min(1200px,94vw);margin:0 auto}
+    .wrap{width:min(1200px, 92vw); margin: 0 auto;}
 
-    /* Header */
+    /* HEADER */
     header{
-      position:sticky; top:0; z-index:10;
-      background:rgba(255,255,255,.86);
+      position: fixed;
+      left: 0; right: 0; top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,.88);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--line);
+      border-bottom: 1px solid rgba(0,0,0,.06);
     }
     .topbar{
-      display:flex; align-items:center; justify-content:space-between;
-      padding: 18px 0;
-      gap: 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 16px;
+      padding: 14px 0;
     }
+
     .brand{
-      display:flex; align-items:center; gap: 14px;
-      min-width: 280px;
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 260px;
     }
-
-    /* LOGO más grande y “premium” */
     .brand-logo{
-    width:130px;              /* 🔥 MUCHO más grande */
-    height:130px;
-    border-radius: 26px;
-    object-fit: contain;
-    box-shadow: 0 22px 50px rgba(0,0,0,.22);
-    background:#fff;
-    border: 1px solid var(--line);
-    padding: 10px;
-      }
-
-
-    .brand-title{
-    margin:0;
-    font-family: Cinzel, serif;
-    font-size: 44px;          /* 🔥 MUY grande */
-    letter-spacing: 2.5px;
-    line-height: 1;  
+      width: 54px;
+      height: 54px;
+      border-radius: 14px;
+      object-fit: cover;
+      border: 1px solid rgba(0,0,0,.08);
+      background: #fff;
+      box-shadow: 0 12px 28px rgba(0,0,0,.12);
     }
-
-    .brand-subtitle{
-      margin:5px 0 0;
-      color:var(--muted);
-      font-size: 14px;
-      line-height:1.25;
+    .brand-name{
+      display:flex;
+      flex-direction:column;
+      line-height:1.05;
+    }
+    .brand-name strong{
+      font-family: Cinzel, serif;
+      letter-spacing: 1.6px;
+      font-size: 20px;
+    }
+    .brand-name span{
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-top: 3px;
+      font-weight: 600;
     }
 
     nav{
-      display:flex; gap: 10px; align-items:center;
-      color:#3a4558; font-size:15px;
+      display:flex;
+      align-items:center;
+      gap: 10px;
     }
-    nav a{
-      padding: 11px 14px;
+
+    /* Menú estilo "botones" elegantes */
+    .navBtn{
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.72);
+      box-shadow: 0 10px 22px rgba(0,0,0,.08);
+      font-weight: 800;
+      font-size: 14px;
+      color: #1b1f26;
+      transition: transform .08s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+    }
+    .navBtn:hover{
+      transform: translateY(-1px);
+      background: linear-gradient(135deg, rgba(215,180,106,.30), rgba(178,138,63,.14));
+      border-color: rgba(215,180,106,.70);
+      color: #1a1408;
+      box-shadow: 0 18px 44px rgba(0,0,0,.16);
+    }
+
+    .navBtn.primary{
+      background: linear-gradient(135deg, #111, #252525);
+      border-color: #111;
+      color: var(--gold);
+      box-shadow: 0 18px 44px rgba(0,0,0,.18);
+    }
+    .navBtn.primary:hover{
+      background: linear-gradient(135deg, rgba(215,180,106,.95), rgba(178,138,63,.85));
+      border-color: rgba(215,180,106,.95);
+      color: #111;
+    }
+
+    .menuToggle{
+      display:none;
+      width: 46px; height: 46px;
       border-radius: 14px;
-      border: 1px solid transparent;
-      transition: background .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.85);
+      box-shadow: 0 10px 22px rgba(0,0,0,.10);
+      cursor:pointer;
+      font-size: 18px;
     }
 
-    /* hover dorado en menú */
-    nav a:hover{
-      background: rgba(215,180,106,.14);
-      border-color: rgba(215,180,106,.45);
-      color: #2b2416;
-      box-shadow: 0 12px 24px rgba(0,0,0,.08);
-    }
-
-    /* Hero */
-    .hero{ padding: 28px 0 12px; }
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.4fr .6fr;
-      gap: 14px;
-    }
-    .panel{
-      background: linear-gradient(180deg, #ffffff, #fbfbfc);
-      border: 1px solid var(--line);
-      border-radius: var(--r);
-      box-shadow: var(--shadow);
-    }
-    .heroMain{
-      padding: 28px; /* más espacio */
-      position:relative;
+    /* HERO estilo Traveler */
+    .hero{
+      min-height: 92vh;
+      display:flex;
+      align-items:center;
+      position: relative;
+      padding-top: 84px; /* espacio del header fijo */
       overflow:hidden;
+      background:#0b0b0d;
     }
-    .heroMain::before{
+
+    /* Fondo con imagen */
+    .hero::before{
       content:"";
       position:absolute;
-      inset:-35% -35% auto auto;
-      width: 420px; height: 420px;
-      background: radial-gradient(circle, rgba(215,180,106,.26), rgba(215,180,106,0) 70%);
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.62)),
+        url("Hero.jpeg") center/cover no-repeat;
+      transform: scale(1.02);
+    }
+
+    /* Glow dorado suave */
+    .hero::after{
+      content:"";
+      position:absolute;
+      inset:-40% -30% auto auto;
+      width: 540px;
+      height: 540px;
+      background: radial-gradient(circle, rgba(215,180,106,.25), rgba(215,180,106,0) 70%);
       filter: blur(2px);
-      transform: rotate(18deg);
       pointer-events:none;
+      transform: rotate(12deg);
     }
 
-    /* título hero más grande */
+    .heroInner{
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: 56px 0 70px;
+      color: #fff;
+      text-align:center;
+    }
+
+    .kicker{
+      font-weight: 900;
+      letter-spacing: 2.2px;
+      font-size: 12px;
+      color: rgba(255,255,255,.80);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
     .heroTitle{
-      margin:0 0 10px;
-      font-size: 38px;
-      letter-spacing: -0.6px;
-      line-height: 1.05;
+      margin: 0 auto 14px;
+      font-size: clamp(42px, 5.2vw, 78px);
+      line-height: 1.02;
+      font-weight: 900;
+      letter-spacing: -1px;
+      max-width: 16ch;
+      text-shadow: 0 22px 60px rgba(0,0,0,.38);
     }
+
     .heroText{
-      margin:0 0 18px;
-      color: var(--muted);
-      line-height: 1.65;
+      margin: 0 auto 24px;
+      max-width: 70ch;
+      color: rgba(255,255,255,.86);
+      line-height: 1.7;
       font-size: 16px;
-      max-width: 62ch;
     }
 
-    .btnRow{display:flex; gap: 12px; flex-wrap:wrap; margin-bottom: 14px}
+    .ctaRow{
+      display:flex;
+      justify-content:center;
+      gap: 12px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+    }
 
-    .btn{
+    .cta{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      gap: 8px;
-      padding: 13px 16px; /* más grande */
-      border-radius: 16px;
-      border: 1px solid var(--line);
-      background:#fff;
-      font-weight: 800;
-      cursor: pointer;
-      transition: background .18s ease, color .18s ease, border-color .18s ease, box-shadow .18s ease, transform .05s ease;
-    }
-    .btn:active{ transform: translateY(1px); }
-
-    /* hover dorado en BOTONES */
-    .btn:hover{
-      background: linear-gradient(135deg, rgba(215,180,106,.28), rgba(178,138,63,.12));
-      border-color: rgba(215,180,106,.7);
-      color: #1a1408;
-      box-shadow: var(--shadowHover);
-    }
-
-    .btn.primary{
-      background: linear-gradient(135deg, #111, #252525);
-      color: var(--gold);
-      border-color: #111;
-    }
-
-    /* hover dorado también para primary */
-    .btn.primary:hover{
-      background: linear-gradient(135deg, rgba(215,180,106,.95), rgba(178,138,63,.85));
-      color: #111;
-      border-color: rgba(215,180,106,.9);
-      box-shadow: var(--shadowHover);
-    }
-
-    .chips{display:flex; gap:8px; flex-wrap:wrap}
-    .chip{
-      padding: 8px 12px;
-      border-radius: 999px;
-      background:#f2f4f7;
-      color:#3b4456;
-      font-size: 12.5px;
-      font-weight: 700;
-    }
-
-    .heroSide{display:flex; flex-direction:column; gap: 12px; padding: 16px;}
-    .sideCard{
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 14px;
-      background:#fff;
-      box-shadow: 0 10px 22px rgba(0,0,0,.05);
-    }
-    .sideCard h3{margin:0 0 6px; font-size: 16px}
-    .sideCard p{margin:0; color:var(--muted); line-height:1.55}
-
-    /* Sections */
-    .section{padding: 22px 0}
-    .sectionHead{
-      display:flex; justify-content:space-between; align-items:flex-end;
       gap: 10px;
-      margin-bottom: 12px;
+      padding: 14px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.10);
+      color:#fff;
+      font-weight: 900;
+      box-shadow: 0 16px 44px rgba(0,0,0,.25);
+      transition: transform .08s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
     }
-    .sectionHead h2{ margin:0; font-size: 19px; letter-spacing: .2px; }
-    .sectionHead p{ margin:0; color:var(--muted); font-size: 13.5px; }
+    .cta:hover{
+      transform: translateY(-1px);
+      background: linear-gradient(135deg, rgba(215,180,106,.35), rgba(178,138,63,.12));
+      border-color: rgba(215,180,106,.7);
+    }
 
-    /* Grid catálogo */
+    .cta.primary{
+      background: linear-gradient(135deg, rgba(215,180,106,.95), rgba(178,138,63,.85));
+      border-color: rgba(215,180,106,.95);
+      color:#111;
+    }
+    .cta.primary:hover{
+      box-shadow: 0 22px 60px rgba(0,0,0,.34);
+    }
+
+    /* SECCIONES */
+    main{
+      background:#fff;
+    }
+    .section{
+      padding: 56px 0;
+    }
+    .section h2{
+      margin:0 0 10px;
+      font-size: 28px;
+      letter-spacing: -.3px;
+    }
+    .section p.lead{
+      margin:0 0 20px;
+      color: #5d6a7c;
+      line-height:1.7;
+    }
+
+    /* catálogo */
     .grid{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      gap: 12px;
     }
     .tile{
-      position:relative;
       border-radius: 18px;
       overflow:hidden;
-      border: 1px solid var(--line);
-      background:#f2f3f6;
+      border: 1px solid rgba(0,0,0,.08);
+      background: #f4f6fb;
       aspect-ratio: 1/1;
+      box-shadow: 0 14px 34px rgba(0,0,0,.08);
       cursor:pointer;
-      box-shadow: 0 10px 22px rgba(0,0,0,.06);
+      position:relative;
       transition: transform .08s ease, box-shadow .18s ease, border-color .18s ease;
     }
     .tile:hover{
       transform: translateY(-2px);
-      box-shadow: var(--shadowHover);
-      border-color: rgba(215,180,106,.55); /* toque dorado al hover */
+      border-color: rgba(215,180,106,.55);
+      box-shadow: 0 20px 48px rgba(0,0,0,.14);
     }
-    .tile img{ width:100%; height:100%; object-fit: cover; transform: scale(1.02); transition: transform .25s ease; }
-    .tile:hover img{ transform: scale(1.07); }
+    .tile img{
+      width:100%; height:100%;
+      object-fit: cover;
+      transform: scale(1.03);
+      transition: transform .25s ease;
+    }
+    .tile:hover img{ transform: scale(1.08); }
 
     .overlay{
-      position:absolute; inset:auto 0 0 0;
+      position:absolute; left:0; right:0; bottom:0;
       padding: 10px 10px 9px;
-      background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.62));
-      display:flex; justify-content:space-between; align-items:flex-end;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
       gap: 10px;
       color:#fff;
+      background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.65));
     }
-    .overlay .name{margin:0;font-weight:900;font-size:13px;line-height:1.15}
-    .overlay .price{font-weight:900;font-size:12px;color:#f5e5bf}
-
-    .status{margin-top: 10px; color: var(--muted); font-size: 13px}
-
-    /* Sobre + Contacto */
-    .twoCol{display:grid; grid-template-columns: 1fr 1fr; gap: 12px}
-    .infoCard{
-      border:1px solid var(--line);
-      border-radius: var(--r);
-      padding: 16px;
-      background: var(--card);
-      box-shadow: 0 10px 22px rgba(0,0,0,.04);
+    .overlay .name{
+      margin:0;
+      font-weight: 900;
+      font-size: 13px;
+      line-height:1.1;
     }
-    .infoCard h3{margin:0 0 8px}
-    .infoCard p{margin:0; color: var(--muted); line-height: 1.65}
+    .overlay .price{
+      font-weight: 900;
+      font-size: 12px;
+      color: #f5e5bf;
+    }
+
+    .twoCol{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .card{
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 18px;
+      background:#fff;
+      box-shadow: 0 14px 34px rgba(0,0,0,.08);
+      padding: 18px;
+    }
+    .card h3{margin:0 0 8px}
+    .card p{margin:0;color:#5d6a7c;line-height:1.7}
 
     footer{
-      padding: 26px 0 34px;
-      color: var(--muted);
+      border-top: 1px solid rgba(0,0,0,.08);
+      padding: 24px 0 34px;
+      color:#637083;
       font-size: 13px;
-      border-top: 1px solid var(--line);
-      margin-top: 6px;
     }
 
-    /* Modal */
+    /* modal */
     .backdrop{
       position:fixed; inset:0;
       background: rgba(0,0,0,.45);
-      z-index: 20;
+      z-index: 60;
     }
     dialog{
       border:0;
-      border-radius: 18px;
       padding:0;
-      width: min(820px, 94vw);
-      box-shadow: 0 18px 55px rgba(0,0,0,.28);
-      z-index: 21;
+      border-radius: 18px;
+      width: min(880px, 94vw);
+      box-shadow: 0 22px 80px rgba(0,0,0,.35);
+      z-index: 61;
     }
     dialog::backdrop{ background: rgba(0,0,0,.45); }
+
     .close{
       position:absolute; top:10px; right:10px;
-      width:42px; height:42px;
+      width: 44px; height: 44px;
       border-radius: 14px;
-      border: 1px solid var(--line);
+      border: 1px solid rgba(0,0,0,.10);
       background:#fff;
       cursor:pointer;
-      transition: box-shadow .18s ease, transform .05s ease;
+      box-shadow: 0 12px 24px rgba(0,0,0,.12);
+      transition: transform .08s ease, box-shadow .18s ease;
     }
-    .close:hover{ box-shadow: 0 12px 24px rgba(0,0,0,.10); }
-    .close:active{ transform: translateY(1px); }
+    .close:hover{ transform: translateY(-1px); box-shadow: 0 18px 40px rgba(0,0,0,.18); }
 
     .modalBody{
       display:grid;
       grid-template-columns: 1fr 1fr;
       background:#fff;
     }
-    .modalImg{
-      background:#f2f3f6;
-      min-height: 300px;
-    }
-    .modalImg img{
-      width:100%;
-      height:100%;
-      object-fit: cover;
-    }
-    .modalInfo{ padding: 16px; }
-    .modalInfo h3{ margin:0 0 8px; font-size: 20px; }
-    .modalInfo p{ margin:0 0 12px; color:var(--muted); line-height:1.6; }
-    .meta{ display:flex; gap: 10px; align-items:center; margin-bottom: 14px; }
+    .modalImg{ background:#f4f6fb; min-height: 320px; }
+    .modalImg img{ width:100%; height:100%; object-fit: cover; }
+    .modalInfo{ padding: 18px; }
+    .modalInfo h3{ margin:0 0 8px; font-size: 22px; }
+    .modalInfo p{ margin:0 0 12px; color:#5d6a7c; line-height:1.7; }
+    .meta{ display:flex; gap: 10px; align-items:center; margin-bottom: 14px; flex-wrap:wrap;}
     .pill{
       font-weight: 900;
       padding: 8px 10px;
       border-radius: 999px;
-      border: 1px solid var(--line);
+      border: 1px solid rgba(0,0,0,.10);
       background:#fff;
     }
     .tag{
-      font-weight: 800;
+      font-weight: 900;
       font-size: 12px;
       padding: 7px 10px;
       border-radius: 999px;
-      background:#f2f4f7;
-      color:#3b4456;
+      background: rgba(215,180,106,.18);
+      color: #2b2416;
+      border: 1px solid rgba(215,180,106,.35);
     }
 
+    /* responsive */
     @media (max-width: 920px){
+      .menuToggle{display:inline-flex; align-items:center; justify-content:center;}
       nav{display:none}
-      .heroGrid{grid-template-columns: 1fr}
+      .heroInner{text-align:left}
+      .heroTitle{max-width: 18ch}
+      .ctaRow{justify-content:flex-start}
       .grid{grid-template-columns: repeat(2, 1fr)}
       .twoCol{grid-template-columns: 1fr}
       .modalBody{grid-template-columns: 1fr}
-      .brand-logo{width:64px;height:64px}
-      .brand-title{font-size:26px}
-      .heroTitle{font-size:34px}
     }
-    @media (max-width: 480px){
+    @media (max-width: 520px){
+      .brand-name span{display:none}
       .grid{grid-template-columns: 1fr}
-      .heroTitle{font-size:30px}
     }
+
+    /* menú móvil */
+    .mobileNav{
+      position: fixed;
+      top: 78px;
+      right: 4vw;
+      left: 4vw;
+      z-index: 80;
+      border-radius: 18px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 22px 60px rgba(0,0,0,.18);
+      padding: 12px;
+      display:none;
+    }
+    .mobileNav a{display:block; text-align:center; margin: 8px 0;}
+    .mobileNav.show{display:block}
   </style>
 </head>
 
@@ -352,119 +429,104 @@
   <header>
     <div class="wrap topbar">
       <div class="brand">
-        <!-- PON TU IMAGEN AQUÍ: guarda tu logo como assets/logo.png -->
-        <img class="brand-logo" src="Logo.jpeg" alt="Logo Gaia Craft">
-        <div>
-          <h1 class="brand-title">GAIA CRAFT</h1>
-          <p class="brand-subtitle">Pulseras artesanales hechas a mano • amor & energía ✨</p>
+        <!-- LOGO en raíz (sin carpeta) -->
+        <img class="brand-logo" src="LogoEmp.jpeg" alt="Logo Gaia Craft">
+        <div class="brand-name">
+          <strong>GAIA CRAFT</strong>
+          <span>Pulseras artesanales • amor & energía ✨</span>
         </div>
       </div>
 
-      <nav>
-        <a href="#catalogo">Catálogo</a>
-        <a href="#sobre">Sobre</a>
-        <a href="#contacto">Contacto</a>
+      <button class="menuToggle" id="menuToggle" aria-label="Abrir menú">☰</button>
+
+      <nav aria-label="Navegación">
+        <a class="navBtn" href="#catalogo">Catálogo</a>
+        <a class="navBtn" href="#sobre">Sobre</a>
+        <a class="navBtn" href="#contacto">Contacto</a>
+        <a class="navBtn primary" href="#catalogo">Ver productos</a>
       </nav>
     </div>
   </header>
 
-  <main class="wrap">
-    <section class="hero">
-      <div class="heroGrid">
-        <div class="panel heroMain">
-          <h2 class="heroTitle">Elegancia artesanal con intención 💎</h2>
-          <p class="heroText">
-            Elige tu pulsera, mira sus detalles y compra directo por WhatsApp.
-            Diseños inspirados en la naturaleza y la energía.
-          </p>
+  <div class="mobileNav" id="mobileNav">
+    <a class="navBtn" href="#catalogo">Catálogo</a>
+    <a class="navBtn" href="#sobre">Sobre</a>
+    <a class="navBtn" href="#contacto">Contacto</a>
+    <a class="navBtn primary" href="#catalogo">Ver productos</a>
+  </div>
 
-          <div class="btnRow">
-            <a class="btn primary" href="#catalogo">Ver catálogo</a>
-            <a class="btn" id="waTop" href="#" target="_blank" rel="noopener">WhatsApp</a>
-          </div>
+  <section class="hero" id="inicio">
+    <div class="wrap heroInner">
+      <div class="kicker">PULSERAS • ARTESANAL • PERÚ</div>
+      <h1 class="heroTitle">Descubre tu energía con estilo</h1>
+      <p class="heroText">
+        Diseños artesanales inspirados en la naturaleza. Mira el catálogo, abre un producto y compra directo por WhatsApp.
+      </p>
 
-          <div class="chips">
-            <span class="chip">Hecho a mano</span>
-            <span class="chip">Personalizable</span>
-            <span class="chip">Perú 🇵🇪</span>
-          </div>
-        </div>
-
-        <div class="panel heroSide">
-          <div class="sideCard">
-            <h3>Gaia vibes</h3>
-            <p>Minerales + macramé + diseño elegante para un estilo limpio y poderoso.</p>
-          </div>
-          <div class="sideCard">
-            <h3>Pedidos</h3>
-            <p class="muted">WhatsApp: <strong>+51 903 534 944</strong></p>
-          </div>
-        </div>
+      <div class="ctaRow">
+        <a class="cta primary" href="#catalogo">Ver catálogo</a>
+        <a class="cta" id="waTop" href="#" target="_blank" rel="noopener">Comprar por WhatsApp</a>
       </div>
-    </section>
+    </div>
+  </section>
 
+  <main>
     <section id="catalogo" class="section">
-      <div class="sectionHead">
+      <div class="wrap">
         <h2>Catálogo</h2>
-        <p>Por ahora mostramos 5 productos de ejemplo (placeholders).</p>
-      </div>
+        <p class="lead">Mostramos 5 productos de ejemplo (placeholders). Luego cambias nombre/precio/foto.</p>
 
-      <div id="grid" class="grid"></div>
-      <div id="status" class="status"></div>
+        <div id="grid" class="grid"></div>
+      </div>
     </section>
 
     <section id="sobre" class="section">
-      <div class="sectionHead">
+      <div class="wrap">
         <h2>Sobre nosotros</h2>
-        <p>Propósito, intención y detalle.</p>
-      </div>
+        <p class="lead">Propósito, intención y detalle en cada pieza.</p>
 
-      <div class="twoCol">
-        <div class="infoCard">
-          <h3>Objetivo</h3>
-          <p>
-            Crear pulseras artesanales que conecten lo material con lo espiritual, uniendo estética elegante
-            con el significado de cada detalle. Queremos transmitir intención, energía y autenticidad en cada pieza.
-          </p>
-        </div>
-        <div class="infoCard">
-          <h3>Misión</h3>
-          <p>
-            Diseñar piezas hechas a mano con dedicación y amor, inspiradas en la naturaleza y la energía personal.
-            Buscamos acompañarte con símbolos que reflejen equilibrio, fuerza y conexión interior.
-          </p>
+        <div class="twoCol">
+          <div class="card">
+            <h3>Objetivo</h3>
+            <p>Crear pulseras artesanales que conecten lo material con lo espiritual, uniendo estética elegante con significado.</p>
+          </div>
+          <div class="card">
+            <h3>Misión</h3>
+            <p>Diseñar piezas hechas a mano con dedicación y amor, inspiradas en la naturaleza y la energía personal.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="contacto" class="section">
-      <div class="sectionHead">
+      <div class="wrap">
         <h2>Contacto</h2>
-        <p>Ventas y coordinación de pedidos.</p>
-      </div>
+        <p class="lead">Ventas y coordinación de pedidos.</p>
 
-      <div class="twoCol">
-        <div class="infoCard">
-          <h3>WhatsApp</h3>
-          <p>Pedidos y consultas.</p>
-          <div style="margin-top:12px">
-            <a class="btn primary" id="waBottom" href="#" target="_blank" rel="noopener">Escribir</a>
+        <div class="twoCol">
+          <div class="card">
+            <h3>WhatsApp</h3>
+            <p>Escríbenos y coordinamos tu pedido al toque.</p>
+            <div style="margin-top:12px">
+              <a class="navBtn primary" id="waBottom" href="#" target="_blank" rel="noopener" style="display:inline-block;">
+                Escribir por WhatsApp
+              </a>
+            </div>
+            <p style="margin-top:12px;color:#5d6a7c"><strong>+51 903 534 944</strong></p>
           </div>
-          <p class="muted" style="margin-top:10px">+51 903 534 944</p>
-        </div>
 
-        <div class="infoCard">
-          <h3>Envíos</h3>
-          <p>
-            Por el momento vendemos y coordinamos envíos <strong>solo dentro de Perú</strong>.
-            Próximamente ampliaremos cobertura.
-          </p>
+          <div class="card">
+            <h3>Envíos</h3>
+            <p>Por ahora vendemos y coordinamos envíos <strong>solo dentro de Perú</strong>. Próximamente ampliaremos cobertura.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <footer>
-      © <span id="year"></span> Gaia Craft
+      <div class="wrap">
+        © <span id="year"></span> Gaia Craft
+      </div>
     </footer>
   </main>
 
@@ -477,7 +539,6 @@
       <div class="modalImg">
         <img id="mImg" alt="">
       </div>
-
       <div class="modalInfo">
         <h3 id="mTitle"></h3>
         <p id="mDesc"></p>
@@ -487,7 +548,9 @@
           <span id="mTag" class="tag"></span>
         </div>
 
-        <a id="mWA" class="btn primary" href="#" target="_blank" rel="noopener">Comprar por WhatsApp</a>
+        <a id="mWA" class="cta primary" href="#" target="_blank" rel="noopener" style="width:100%;justify-content:center;">
+          Comprar por WhatsApp
+        </a>
       </div>
     </div>
   </dialog>
@@ -495,15 +558,14 @@
   <script>
     const WHATSAPP_NUMBER = "51903534944";
 
-    // placeholders SIN links externos (no Unsplash)
+    // Placeholders sin depender de internet
     function placeholderDataURI(seed){
-      // SVG simple con “Producto” (se ve fino y no depende de internet)
       const svg = `
         <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200">
           <defs>
             <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0%" stop-color="#f3f4f7"/>
-              <stop offset="50%" stop-color="#efe7d6"/>
+              <stop offset="55%" stop-color="#efe7d6"/>
               <stop offset="100%" stop-color="#f7f7fb"/>
             </linearGradient>
           </defs>
@@ -511,9 +573,9 @@
           <circle cx="600" cy="520" r="210" fill="rgba(215,180,106,.22)"/>
           <text x="600" y="610" text-anchor="middle"
                 font-family="Inter, Arial" font-size="64" font-weight="800"
-                fill="#1a1a1a" opacity=".85">Producto ${seed}</text>
+                fill="#1a1a1a" opacity=".88">Pulsera ${seed}</text>
           <text x="600" y="690" text-anchor="middle"
-                font-family="Inter, Arial" font-size="30" font-weight="600"
+                font-family="Inter, Arial" font-size="30" font-weight="700"
                 fill="#5f6b7a">Imagen temporal</text>
         </svg>`;
       return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
@@ -528,7 +590,6 @@
     ];
 
     const grid = document.getElementById("grid");
-    const statusEl = document.getElementById("status");
 
     const modal = document.getElementById("modal");
     const backdrop = document.getElementById("backdrop");
@@ -544,15 +605,20 @@
     const waTop = document.getElementById("waTop");
     const waBottom = document.getElementById("waBottom");
 
+    const menuToggle = document.getElementById("menuToggle");
+    const mobileNav = document.getElementById("mobileNav");
+
     document.getElementById("year").textContent = new Date().getFullYear();
 
     function waLink(message){
       return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     }
+
     function setGenericWA(){
       const msg="Hola 😊 Estoy interesado/a en pulseras de Gaia Craft. ¿Me compartes el catálogo?";
       const link=waLink(msg);
-      waTop.href=link; waBottom.href=link;
+      waTop.href = link;
+      waBottom.href = link;
     }
 
     function money(v){
@@ -587,7 +653,6 @@
 
       b.appendChild(img);
       b.appendChild(ov);
-
       b.addEventListener("click", () => openProduct(p));
       return b;
     }
@@ -619,10 +684,25 @@
     document.addEventListener("keydown",(e)=>{ if(e.key==="Escape" && !backdrop.hidden) closeModal(); });
 
     function render(){
-      grid.innerHTML="";
+      grid.innerHTML = "";
       PRODUCTS.forEach(p => grid.appendChild(createTile(p)));
-      statusEl.textContent = `Mostrando ${PRODUCTS.length} productos.`;
     }
+
+    // menú móvil
+    function closeMobile(){
+      mobileNav.classList.remove("show");
+    }
+    menuToggle.addEventListener("click", ()=>{
+      mobileNav.classList.toggle("show");
+    });
+    mobileNav.querySelectorAll("a").forEach(a=>{
+      a.addEventListener("click", closeMobile);
+    });
+
+    // cerrar menú móvil al scrollear un poco
+    window.addEventListener("scroll", ()=>{
+      if(mobileNav.classList.contains("show")) closeMobile();
+    });
 
     setGenericWA();
     render();
