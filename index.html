@@ -8,9 +8,9 @@
 
   <!-- ✅ FAVICON (todo consistente con el nombre real) -->
   <!-- Si tu archivo se llama faviconemp.PNG (con mayúsculas), debe ser EXACTO -->
-  <link rel="icon" type="image/png" href="faviconemp.PNG?v=3">
-  <link rel="shortcut icon" type="image/png" href="faviconemp.png?v=3">
-  <link rel="apple-touch-icon" href="faviconemp.PNG?v=3">
+  <link rel="icon" type="image/png" href="faviconemp.png">
+  <link rel="shortcut icon" type="image/png" href="faviconemp.PNG?v=3">
+  <link rel="apple-touch-icon" href="faviconemp.png">
   <meta name="theme-color" content="#07080a">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -588,7 +588,7 @@
           Una pulsera elegante, intensa y con presencia real.
           Dale click para ver detalles y si te vacila, la compras directo por WhatsApp. 😮‍💨✨
           <br><br>
-          Y ojo… <b>ya se vienen dos diseños más</b> (están cocinándose, pronto los soltamos) 👀
+          Y ojo… <b>ya se vienen más diseños</b> (están cocinándose, pronto los soltamos) 👀
         </p>
 
         <div id="grid" class="grid"></div>
@@ -719,28 +719,45 @@
       return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
     }
 
+    /* ==========================================================
+       ✅ CATÁLOGO (ACTUALIZADO)
+       - 2 productos NUEVOS: Eclipse Azul + Sol Interior
+       - 1 espacio para PRÓXIMAMENTE
+       ========================================================== */
+
     const PRODUCTS = [
       {
         id: "gc-001",
         nombre: "Eclipse Azul",
         precio: 40,
         tag: "Disponible",
-        descripcion: "Eclipse Azul — Pulsera de Ojo de Tigre Azul 💙✨ Hecha con Ojo de Tigre Azul (Ojo de Halcón), una piedra semipreciosa de tonos azules intensos. Se cree que aporta protección, calma, claridad mental y enfoque, ayudando a alejar energías negativas y reforzando la confianza, la creatividad y el equilibrio emocional. En pareja es perfecta: simboliza paciencia, comprensión y conexión, ideal como amuleto de buena vibra para ambos.<br><br><strong>Incluye:</strong><br>• Origen y beneficios del Ojo de Tigre Azul<br>• Cajita GaiaCraft<br>• Bolsa junto con la pulsera<br><br>🔥 <strong>Promo primera compra:</strong> 2 pulseras por S/ 70 para ti y tu pareja. ¡Aprovecha!",        img: "Eclipzu.jpeg"
+        descripcion:
+          "Eclipse Azul — Pulsera de Ojo de Tigre Azul 💙✨ Hecha con Ojo de Tigre Azul (Ojo de Halcón), una piedra semipreciosa de tonos azules intensos. Se cree que aporta protección, calma, claridad mental y enfoque, ayudando a alejar energías negativas y reforzando la confianza, la creatividad y el equilibrio emocional. En pareja es perfecta: simboliza paciencia, comprensión y conexión, ideal como amuleto de buena vibra para ambos." +
+          "<br><br><strong>Incluye:</strong><br>• Origen y beneficios del Ojo de Tigre Azul<br>• Cajita GaiaCraft<br>• Bolsa junto con la pulsera" +
+          "<br><br>🔥 <strong>Promo primera compra:</strong> 2 pulseras por S/ 70 para ti y tu pareja. ¡Aprovecha!",
+        img: "Eclipzu.jpeg"
       },
+
       {
         id: "gc-002",
-        nombre: "Próximamente",
-        precio: 0,
-        tag: "Nuevo",
-        descripcion: "Este diseño se publica pronto. Escríbenos por WhatsApp para enterarte primero.",
-        img: comingSoonDataURI()
+        nombre: "Sol Interior",
+        precio: 80,
+        tag: "Disponible",
+        descripcion:
+          "Sol Interior — Citrino ✨ + Ónix Negro ⚫. Una pulsera equilibrada, elegante y atemporal: el brillo cálido del citrino se une al contraste sobrio del ónix para un look moderno y con presencia." +
+          "<br><br><strong>Intención & energía:</strong><br>✨ Claridad y enfoque (citrino)<br>⚫ Equilibrio y carácter (ónix negro)" +
+          "<br><br><strong>Incluye:</strong><br>• Origen y beneficios del Citrino y del Ónix Negro<br>• Cajita GaiaCraft<br>• Bolsa junto con la pulsera" +
+          "<br><br>🔥 <strong>Promo primera compra:</strong> 2 pulseras por S/ 150 para ti y tu pareja. ¡Aprovecha!",
+        img: "SolInterior.jpeg"
       },
+
+      /* ✅ 1 espacio para el siguiente lanzamiento (edítalo cuando lo tengas listo) */
       {
         id: "gc-003",
         nombre: "Próximamente",
         precio: 0,
         tag: "Nuevo",
-        descripcion: "Estamos preparando un nuevo modelo. Vuelve luego o consulta por WhatsApp.",
+        descripcion: "Este diseño se publica pronto. Escríbenos por WhatsApp para enterarte primero.",
         img: comingSoonDataURI()
       }
     ];
@@ -819,7 +836,6 @@
       mTitle.textContent = p.nombre;
 
       // Si vas a usar <br> en descripción, deja innerHTML.
-      // Si quieres solo texto plano, cambia a: mDesc.textContent = p.descripcion;
       mDesc.innerHTML = p.descripcion;
 
       mPrice.textContent = money(p.precio);
