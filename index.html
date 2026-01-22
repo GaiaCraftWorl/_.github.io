@@ -440,7 +440,7 @@
     }
     .builderTop{
       display:flex;
-      align-items:center;
+      align-items:flex-start;
       justify-content:space-between;
       gap: 12px;
       margin-bottom: 12px;
@@ -448,7 +448,7 @@
     .builderBadges{
       display:flex;
       gap: 10px;
-      align-items:center;
+      align-items:flex-start;
       justify-content:flex-end;
       flex-wrap:wrap;
     }
@@ -547,14 +547,14 @@
     .mobileNav a{display:block; text-align:center; margin: 8px 0;}
     .mobileNav.show{display:block}
 
-    /* ====== PATRÓN ACTIVO (integrado) ====== */
+    /* ====== PATRÓN ACTIVO (bonito + fijo) ====== */
     .builderSeqBox{
       border-radius: 16px;
       border: 1px solid rgba(215,180,106,.35);
-      background: linear-gradient(135deg, rgba(215,180,106,.10), rgba(255,255,255,.95));
-      box-shadow: none;
+      background: linear-gradient(135deg, rgba(215,180,106,.12), rgba(255,255,255,.92));
       padding: 10px 12px;
       max-width: 340px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.55);
     }
 
     /* ====== PRECIO: dorado con letras negras ====== */
@@ -607,45 +607,6 @@
       margin-top: 10px;
     }
     .patternActions .navBtn{ flex: 1 1 160px; text-align:center; }
-
-    /* ====== Editor de precios (admin) ====== */
-    .priceEditor{
-      display:grid;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    .priceEditorHead{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-    }
-    .priceRow{
-      display:grid;
-      grid-template-columns: 1fr 160px;
-      gap: 10px;
-      align-items:center;
-    }
-    .priceRow label{
-      margin:0 !important;
-      font-weight: 900;
-      font-size: 13px;
-      color:#1b1f26;
-    }
-    .priceRow input{
-      width:100%;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(0,0,0,.12);
-      background:#fff;
-      font-weight: 900;
-      color:#1b1f26;
-      outline:none;
-    }
-    .priceRow input:focus{
-      border-color: rgba(215,180,106,.75);
-      box-shadow: 0 0 0 4px rgba(215,180,106,.18);
-    }
   </style>
 </head>
 
@@ -794,24 +755,6 @@
                 </select>
               </div>
 
-              <!-- Editor de precios (admin) -->
-              <div class="field">
-                <div class="priceEditorHead">
-                  <label style="margin:0">Precios por tira (admin)</label>
-                  <button class="navBtn" id="restorePrices" type="button">Restaurar</button>
-                </div>
-
-                <div class="builderSmall" style="margin:6px 0 0">
-                  Ajusta precios según proveedor. Se guarda en tu navegador (localStorage).
-                </div>
-
-                <div id="priceEditor" class="priceEditor"></div>
-
-                <div class="builderSmall" style="margin:8px 0 0">
-                  * Si se usan más de 2 piedras distintas, se suma un extra pequeño automáticamente.
-                </div>
-              </div>
-
               <div class="field">
                 <label for="bNote">Nota (opcional)</label>
                 <input id="bNote" type="text" maxlength="80" placeholder="Ej: para regalo, estilo minimalista, etc.">
@@ -826,6 +769,7 @@
 
             <p class="builderSmall">
               * Precio mostrado es <b>estimado</b>. El precio final depende de stock, tipo de piedra y acabados.
+              <br>* Si se usan más de 2 piedras distintas, el precio sube un poco.
             </p>
           </div>
         </div>
@@ -1097,7 +1041,10 @@
     render();
 
     /* ==========================================================
-       CONFIGURADOR (PATRÓN POR PASOS + SEPARADORES COMO PASO + EDITOR PRECIOS)
+       CONFIGURADOR
+       - Patrón por pasos (piedra + cantidad)
+       - Separadores como paso (no hay sección aparte)
+       - Precios INTERNOS (NO se muestran)
        ========================================================== */
 
     /*
@@ -1110,35 +1057,47 @@
       agared.jpg
       amat.jpg
       volcanicpiedra.jpg
-
-      Separadores:
       dor.jpg
       plat.jpg
     */
     const ASSET_DIR = ""; // si los pones en carpeta: "assets/"
 
-    // ===== PRICING BASE =====
+    // ===== PRICING (INVISIBLE) =====
+    // Material por tira:
     const BEADS_PER_STRAND = 65;
-    const PROFIT_RATE = 0.18;      // interno (NO se muestra)
-    const ROUND_TO = 1;            // redondeo en soles
 
-    // Si usas más de 2 piedras distintas => sube “un poquito”
-    const EXTRA_RATE_PER_EXTRA_STONE = 0.03; // +3% por cada piedra extra (3ra, 4ta, etc.)
+    // Ganancia interna (NO se muestra):
+    const PROFIT_RATE = 0.18;
 
-    // precios por defecto por tamaño (ajústalo como quieras)
+    // Si usa más de 2 piedras distintas => sube “un poquito”
+    const EXTRA_RATE_PER_EXTRA_STONE = 0.03; // +3% por cada piedra extra (3ra, 4ta...)
+
+    // Precio base por tira según tamaño (ajústalo aquí):
     const DEFAULT_STRAND_PRICE_BY_SIZE = { 4: 18, 6: 20, 8: 24 };
 
-    // costos por separador (unidad) por defecto
+    // Citrino más caro (ajústalo aquí):
+    const CITRINE_STRAND_PRICE_BY_SIZE = { 4: 26, 6: 28, 8: 32 };
+
+    // Separadores por unidad (ajústalo aquí):
     const DEFAULT_SPACER_UNIT_COST = { gold: 1.2, silver: 1.0 };
+
+    // Redondeo de precio final (ej: 1 => soles exactos; 5 => múltiplos de 5)
+    const ROUND_TO = 1;
+
+    // ===== Si quieres cambiar precios sin UI =====
+    // Puedes:
+    // 1) editar los valores de arriba, o
+    // 2) usar consola del navegador:
+    //    GC_PRICING.setStoneStrandPrice("onyx", 6, 22);
+    //    GC_PRICING.setStoneStrandPrice("citrine", 6, 30);
+    //    GC_PRICING.setSpacerUnitCost("gold", 1.5);
+    //    GC_PRICING.resetAll();
 
     // ===== MATERIALES =====
     const STONES = [
       { id:"blue_tiger", name:"Ojo de Tigre Azul", img: ASSET_DIR + "otigrea.jpg", fallback:"#2e5f93" },
       { id:"onyx",      name:"Ónix Negro",        img: ASSET_DIR + "onixn.jpg",   fallback:"#14171c" },
-      { id:"citrine",   name:"Citrino",           img: ASSET_DIR + "citrin.jpg",  fallback:"#d7b46a",
-        // AJUSTA el citrino aquí (por tamaño)
-        strandPriceBySize: { 4: 26, 6: 28, 8: 32 }
-      },
+      { id:"citrine",   name:"Citrino",           img: ASSET_DIR + "citrin.jpg",  fallback:"#d7b46a" },
       { id:"jade",      name:"Jade",              img: ASSET_DIR + "jade.jpg",    fallback:"#2f8a6a" },
       { id:"white_q",   name:"Cuarzo Blanco",     img: ASSET_DIR + "cuarbla.jpg", fallback:"#e9eef7" },
       { id:"red_agate", name:"Ágata Roja",        img: ASSET_DIR + "agared.jpg",  fallback:"#b3392f" },
@@ -1151,7 +1110,6 @@
       { id:"spacer_silver", name:"Separador Plateado", img: ASSET_DIR + "plat.jpg", fallback:"#bfc7d6", spacerKey:"silver" }
     ];
 
-    // Unifica todo para el patrón
     const MATERIALS = [
       ...STONES.map(s => ({ ...s, type:"stone" })),
       ...SPACERS_AS_STEPS.map(s => ({ ...s, type:"spacer" }))
@@ -1176,10 +1134,6 @@
     const bReset = document.getElementById("bReset");
 
     const texStatus = document.getElementById("texStatus");
-
-    // Editor precios
-    const priceEditor = document.getElementById("priceEditor");
-    const restorePricesBtn = document.getElementById("restorePrices");
 
     // canvas
     const braceletCanvas = document.getElementById("braceletCanvas");
@@ -1248,26 +1202,25 @@
       return Math.round(value / s) * s;
     }
 
-    // ===== Precios editables =====
+    // ===== Precios internos con override por localStorage (sin UI) =====
     function strandKey(stoneId, size){ return `strandPrice:${stoneId}:${size}`; }
     function spacerUnitKey(k){ return `spacerUnit:${k}`; }
 
-    function getDefaultStrandPrice(stone, beadMm){
+    function getDefaultStrandPrice(stoneId, beadMm){
       const size = Number(beadMm);
-      if(stone.strandPriceBySize && typeof stone.strandPriceBySize[size] === "number"){
-        return stone.strandPriceBySize[size];
+      if(stoneId === "citrine"){
+        return CITRINE_STRAND_PRICE_BY_SIZE[size] ?? DEFAULT_STRAND_PRICE_BY_SIZE[size] ?? 20;
       }
       return DEFAULT_STRAND_PRICE_BY_SIZE[size] ?? 20;
     }
 
     function getStrandPrice(stoneId, beadMm){
-      const st = STONES.find(s=>s.id===stoneId) || STONES[0];
       const size = Number(beadMm);
-      const saved = safeGet(strandKey(st.id, size));
+      const saved = safeGet(strandKey(stoneId, size));
       if(saved !== null && saved !== "" && !Number.isNaN(Number(saved))){
         return Number(saved);
       }
-      return getDefaultStrandPrice(st, size);
+      return getDefaultStrandPrice(stoneId, size);
     }
 
     function getSpacerUnitCost(k){
@@ -1278,85 +1231,29 @@
       return DEFAULT_SPACER_UNIT_COST[k] ?? 1.0;
     }
 
-    function renderPriceEditor(){
-      if(!priceEditor) return;
-      priceEditor.innerHTML = "";
-
-      const size = Number(bBeadSize.value);
-
-      for(const st of STONES){
-        const row = document.createElement("div");
-        row.className = "priceRow";
-
-        const lab = document.createElement("label");
-        lab.textContent = `${st.name} — Precio por tira (${size}mm)`;
-
-        const inp = document.createElement("input");
-        inp.type = "number";
-        inp.min = "0";
-        inp.step = "0.5";
-        inp.value = String(getStrandPrice(st.id, size));
-
-        inp.addEventListener("input", ()=>{
-          const v = Number(inp.value);
-          if(Number.isFinite(v) && v >= 0){
-            safeSet(strandKey(st.id, size), String(v));
-            builderUpdate();
-          }
-        });
-
-        row.appendChild(lab);
-        row.appendChild(inp);
-        priceEditor.appendChild(row);
-      }
-
-      const sepTitle = document.createElement("div");
-      sepTitle.className = "builderSmall";
-      sepTitle.style.marginTop = "6px";
-      sepTitle.innerHTML = `<b>Separadores</b> (costo por unidad)`;
-      priceEditor.appendChild(sepTitle);
-
-      for(const k of ["gold","silver"]){
-        const row = document.createElement("div");
-        row.className = "priceRow";
-
-        const lab = document.createElement("label");
-        lab.textContent = `${k === "gold" ? "Separador Dorado" : "Separador Plateado"} — Costo unitario`;
-
-        const inp = document.createElement("input");
-        inp.type = "number";
-        inp.min = "0";
-        inp.step = "0.1";
-        inp.value = String(getSpacerUnitCost(k));
-
-        inp.addEventListener("input", ()=>{
-          const v = Number(inp.value);
-          if(Number.isFinite(v) && v >= 0){
-            safeSet(spacerUnitKey(k), String(v));
-            builderUpdate();
-          }
-        });
-
-        row.appendChild(lab);
-        row.appendChild(inp);
-        priceEditor.appendChild(row);
-      }
-    }
-
-    if(restorePricesBtn){
-      restorePricesBtn.addEventListener("click", ()=>{
-        for(const st of STONES){
-          for(const size of [4,6,8]){
-            safeDel(strandKey(st.id, size));
-          }
-        }
-        for(const k of ["gold","silver"]){
-          safeDel(spacerUnitKey(k));
-        }
-        renderPriceEditor();
+    // Exponer API interna (no UI)
+    window.GC_PRICING = {
+      setStoneStrandPrice(stoneId, beadMm, price){
+        const v = Number(price);
+        const s = Number(beadMm);
+        if(!stoneId || !Number.isFinite(v) || v < 0) return;
+        safeSet(strandKey(stoneId, s), String(v));
         builderUpdate();
-      });
-    }
+      },
+      setSpacerUnitCost(key, cost){
+        const v = Number(cost);
+        if(!key || !Number.isFinite(v) || v < 0) return;
+        safeSet(spacerUnitKey(key), String(v));
+        builderUpdate();
+      },
+      resetAll(){
+        for(const st of STONES){
+          for(const size of [4,6,8]) safeDel(strandKey(st.id, size));
+        }
+        for(const k of ["gold","silver"]) safeDel(spacerUnitKey(k));
+        builderUpdate();
+      }
+    };
 
     // ===== Patrón por pasos =====
     const MAX_STEPS = 12;
@@ -1591,14 +1488,14 @@
       bSeqPreview.textContent = patternText;
       bBeads.textContent = `${total} posiciones`;
 
-      // conteo por material
+      // conteo por material (en la pulsera final)
       const counts = new Map();
       for(let i=0;i<total;i++){
         const id = seqExpanded[i % seqExpanded.length];
         counts.set(id, (counts.get(id) || 0) + 1);
       }
 
-      // costo material (interno) con compra por tiras (ceil)
+      // costo material (interno) por tiras (ceil) + separadores por unidad
       let materialCost = 0;
 
       const usedStoneIds = new Set();
@@ -1619,6 +1516,7 @@
       const uniqueStoneTypes = usedStoneIds.size;
       const extraRate = uniqueStoneTypes > 2 ? (uniqueStoneTypes - 2) * EXTRA_RATE_PER_EXTRA_STONE : 0;
 
+      // precio final al cliente (sin mostrar desglose ni ganancia)
       const finalExact = materialCost * (1 + PROFIT_RATE + extraRate);
       const finalRounded = roundTo(finalExact, ROUND_TO);
 
@@ -1656,10 +1554,7 @@ ${note ? "\nNota: " + note : ""}
     }
 
     // listeners
-    [bBeadSize, bLength].forEach(el => el.addEventListener("change", ()=>{
-      renderPriceEditor();
-      builderUpdate();
-    }));
+    [bBeadSize, bLength].forEach(el => el.addEventListener("change", builderUpdate));
     bNote.addEventListener("input", builderUpdate);
 
     bRandom.addEventListener("click", ()=>{
@@ -1675,7 +1570,6 @@ ${note ? "\nNota: " + note : ""}
       bBeadSize.value = [4,6,8][Math.floor(Math.random()*3)];
       bLength.value = [18,19,20,21][Math.floor(Math.random()*4)];
       bNote.value = "";
-      renderPriceEditor();
       builderUpdate();
     });
 
@@ -1684,13 +1578,11 @@ ${note ? "\nNota: " + note : ""}
       bBeadSize.value = "6";
       bLength.value = "18";
       bNote.value = "";
-      renderPriceEditor();
       builderUpdate();
     });
 
     // init
     renderPatternUI();
-    renderPriceEditor();
     builderUpdate();
     preloadTextures();
   </script>
