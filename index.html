@@ -6,7 +6,6 @@
   <title>Gaia Craft | Pulseras Artesanales</title>
   <meta name="description" content="Gaia Craft: pulseras artesanales hechas a mano con intención, amor y energía." />
 
-  <!-- ✅ FAVICON (todo consistente con el nombre real) -->
   <link rel="icon" type="image/png" href="faviconemp.png">
   <link rel="shortcut icon" type="image/png" href="faviconemp.PNG?v=3">
   <link rel="apple-touch-icon" href="faviconemp.png">
@@ -30,17 +29,15 @@
       --secGrey:#f2f3f6;
       --secBlack:#07080a;
 
-      --headerH: 78px; /* altura aproximada header desktop */
+      --headerH: 78px;
     }
 
     *{box-sizing:border-box}
     html,body{margin:0;padding:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;color:var(--text);background:var(--bg)}
     a{text-decoration:none;color:inherit}
     img{display:block;max-width:100%}
-
     .wrap{width:min(1200px, 92vw); margin: 0 auto;}
 
-    /* Para que al dar click en "Catálogo/Sobre/Contacto/Configurador" no quede tapado por header */
     #catalogo, #configurador, #sobre, #contacto{
       scroll-margin-top: calc(var(--headerH) + 14px);
     }
@@ -146,9 +143,8 @@
       font-size: 18px;
     }
 
-    /* HERO */
     .hero{
-      min-height: 100svh; /* mejor en móvil que 92vh */
+      min-height: 100svh;
       display:flex;
       align-items:center;
       position: relative;
@@ -157,7 +153,6 @@
       overflow:hidden;
       background:#0b0b0d;
     }
-
     .hero::before{
       content:"";
       position:absolute;
@@ -167,8 +162,6 @@
         url("Hero.jpeg") center/cover no-repeat;
       transform: scale(1.02);
     }
-
-    /* glow dorado sutil */
     .hero::after{
       content:"";
       position:absolute;
@@ -188,8 +181,6 @@
       color: #fff;
       text-align:center;
     }
-
-    /* ✅ Caja para que en móvil se vea PRO y legible */
     .heroBox{
       width: min(860px, 92vw);
       margin: 0 auto;
@@ -200,7 +191,6 @@
       backdrop-filter: blur(8px);
       box-shadow: 0 22px 80px rgba(0,0,0,.35);
     }
-
     .kicker{
       font-weight: 900;
       letter-spacing: 2.2px;
@@ -209,7 +199,6 @@
       text-transform: uppercase;
       margin-bottom: 10px;
     }
-
     .heroTitle{
       margin: 0 auto 14px;
       font-size: clamp(38px, 5.2vw, 74px);
@@ -219,7 +208,6 @@
       max-width: 18ch;
       text-shadow: 0 22px 60px rgba(0,0,0,.38);
     }
-
     .heroText{
       margin: 0 auto 22px;
       max-width: 70ch;
@@ -227,7 +215,6 @@
       line-height: 1.7;
       font-size: 16px;
     }
-
     .ctaRow{
       display:flex;
       justify-content:center;
@@ -235,7 +222,6 @@
       flex-wrap:wrap;
       margin-top: 10px;
     }
-
     .cta{
       display:inline-flex;
       align-items:center;
@@ -265,29 +251,13 @@
       box-shadow: 0 22px 60px rgba(0,0,0,.34);
     }
 
-    /* SECCIONES */
     main{background:#fff;}
-    .section{
-      padding: 62px 0;
-      position: relative;
-    }
-    .sectionDivider{
-      border-top: 1px solid rgba(0,0,0,.08);
-    }
-    .section h2{
-      margin:0 0 10px;
-      font-size: 28px;
-      letter-spacing: -.3px;
-    }
-    .section p.lead{
-      margin:0 0 20px;
-      color: #5d6a7c;
-      line-height:1.7;
-      font-size: 16px;
-    }
+    .section{ padding: 62px 0; position: relative; }
+    .sectionDivider{ border-top: 1px solid rgba(0,0,0,.08); }
+    .section h2{ margin:0 0 10px; font-size: 28px; letter-spacing: -.3px; }
+    .section p.lead{ margin:0 0 20px; color: #5d6a7c; line-height:1.7; font-size: 16px; }
     .lead b{color:#1a1408}
 
-    /* catálogo */
     .grid{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
@@ -327,7 +297,6 @@
       color:#fff;
       background: linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.72));
     }
-
     .overlay .name{
       margin:0;
       font-weight: 950;
@@ -359,14 +328,9 @@
     .card h3{margin:0 0 10px}
     .card p{margin:0;color:#5d6a7c;line-height:1.75}
 
-    /* SOBRE (plomo) */
     .sectionGrey{ background: var(--secGrey); }
-    .sectionGrey .card{
-      background: rgba(255,255,255,.72);
-      border-color: rgba(0,0,0,.07);
-    }
+    .sectionGrey .card{ background: rgba(255,255,255,.72); border-color: rgba(0,0,0,.07); }
 
-    /* CONTACTO (negro total) */
     .sectionBlack{
       background: var(--secBlack);
       color:#fff;
@@ -378,9 +342,7 @@
       border: 1px solid rgba(255,255,255,.14);
       box-shadow: 0 18px 55px rgba(0,0,0,.35);
     }
-    .sectionBlack .card p{
-      color: rgba(255,255,255,.74);
-    }
+    .sectionBlack .card p{ color: rgba(255,255,255,.74); }
 
     .waBtn{
       display:inline-flex;
@@ -416,7 +378,6 @@
       background: var(--secBlack);
     }
 
-    /* modal */
     .backdrop{
       position:fixed; inset:0;
       background: rgba(0,0,0,.45);
@@ -470,16 +431,13 @@
       border: 1px solid rgba(215,180,106,.35);
     }
 
-    /* =========================
-       CONFIGURADOR (Crea tu pulsera)
-       ========================= */
+    /* CONFIGURADOR */
     .builder{
       display:grid;
       grid-template-columns: 1.15fr .85fr;
       gap: 14px;
       margin-top: 18px;
     }
-
     .builderTop{
       display:flex;
       align-items:flex-start;
@@ -487,7 +445,6 @@
       gap: 12px;
       margin-bottom: 12px;
     }
-
     .builderBadges{
       display:flex;
       gap: 10px;
@@ -495,7 +452,6 @@
       justify-content:flex-end;
       flex-wrap:wrap;
     }
-
     .builderPreview canvas{
       width:100%;
       height:auto;
@@ -504,18 +460,10 @@
       background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(242,243,246,.95));
       box-shadow: 0 14px 34px rgba(0,0,0,.08);
     }
+    .builderNote{ margin: 12px 0 0; color:#5d6a7c; line-height:1.7; }
+    .builderSmall{ margin: 12px 0 0; color:#5d6a7c; font-size: 12.5px; line-height:1.6; }
 
-    .builderNote{
-      margin: 12px 0 0;
-      color:#5d6a7c;
-      line-height:1.7;
-    }
-
-    .fields{
-      display:grid;
-      gap: 12px;
-    }
-
+    .fields{ display:grid; gap: 12px; }
     .field label{
       display:block;
       margin-bottom: 8px;
@@ -523,7 +471,6 @@
       font-size: 13px;
       color:#1b1f26;
     }
-
     .field select,
     .field input{
       width:100%;
@@ -535,13 +482,11 @@
       color:#1b1f26;
       outline: none;
     }
-
     .field select:focus,
     .field input:focus{
       border-color: rgba(215,180,106,.75);
       box-shadow: 0 0 0 4px rgba(215,180,106,.18);
     }
-
     .rangeRow{
       display:flex;
       align-items:center;
@@ -549,10 +494,7 @@
       gap: 10px;
       margin-bottom: 8px;
     }
-
-    input[type="range"]{
-      width:100%;
-    }
+    input[type="range"]{ width:100%; }
 
     .builderBtns{
       display:flex;
@@ -560,20 +502,8 @@
       flex-wrap:wrap;
       margin-top: 14px;
     }
+    .builderBtns .navBtn{ flex: 1 1 140px; text-align:center; }
 
-    .builderBtns .navBtn{
-      flex: 1 1 140px;
-      text-align:center;
-    }
-
-    .builderSmall{
-      margin: 12px 0 0;
-      color:#5d6a7c;
-      font-size: 12.5px;
-      line-height:1.6;
-    }
-
-    /* ✅ RESPONSIVE MOBILE (aquí está el fix real) */
     @media (max-width: 920px){
       :root{ --headerH: 72px; }
       .menuToggle{display:inline-flex; align-items:center; justify-content:center;}
@@ -587,39 +517,27 @@
       .modalBody{grid-template-columns: 1fr}
       .overlay .name{font-size:17px}
       .overlay .price{font-size:15px}
-
-      /* configurador */
       .builder{ grid-template-columns: 1fr; }
     }
 
     @media (max-width: 520px){
       :root{ --headerH: 68px; }
-
       .wrap{width: min(1100px, 92vw);}
-
       .topbar{padding: 10px 0;}
       .brand{min-width: unset;}
       .brand-logo{width: 48px; height: 48px;}
       .brand-name strong{font-size: 18px;}
       .brand-name span{display:none;}
-
-      /* Hero mejor para celular */
       .hero{ padding-top: calc(var(--headerH) + 14px); }
-      .hero::before{
-        background-position: 55% center; /* mueve un poquito el enfoque en celular */
-      }
+      .hero::before{ background-position: 55% center; }
       .heroBox{ width: 92vw; padding: 16px; border-radius: 18px; }
       .kicker{font-size: 11px; letter-spacing: 1.8px;}
       .heroText{font-size: 15px}
-
-      /* ✅ Botones full width en celular */
       .ctaRow{ flex-direction: column; gap: 10px; }
       .cta{ width: 100%; min-width: unset; }
-
       .grid{grid-template-columns: 1fr}
     }
 
-    /* menú móvil */
     .mobileNav{
       position: fixed;
       top: calc(var(--headerH) + 10px);
@@ -694,24 +612,21 @@
         <h2>Catálogo</h2>
         <p class="lead">
           🔥 <b>¡Ya salió nuestro primer lanzamiento!</b> Con ustedes: <b>Eclipse Azul</b>.
-          Una pulsera elegante, intensa y con presencia real.
           Dale click para ver detalles y si te vacila, la compras directo por WhatsApp. 😮‍💨✨
           <br><br>
-          Y ojo… <b>ya se vienen más diseños</b> (están cocinándose, pronto los soltamos) 👀
+          Y ojo… <b>ya se vienen más diseños</b> 👀
         </p>
 
         <div id="grid" class="grid"></div>
       </div>
     </section>
 
-    <!-- =========================
-         NUEVA SECCIÓN: CREA TU PULSERA
-         ========================= -->
+    <!-- NUEVA SECCIÓN: CREA TU PULSERA -->
     <section id="configurador" class="section sectionGrey sectionDivider">
       <div class="wrap">
         <h2>Crea tu pulsera</h2>
         <p class="lead">
-          Arma tu diseño en segundos. La vista previa es referencial (colores), y el botón te manda a WhatsApp con tu configuración lista.
+          <b>TEXTURAS v2:</b> cada cuenta se dibuja usando <b>la imagen real</b> (crop + variación), no colores planos.
         </p>
 
         <div class="builder">
@@ -719,7 +634,7 @@
             <div class="builderTop">
               <div>
                 <h3 style="margin:0 0 6px">Vista previa</h3>
-                <p class="builderSmall" style="margin:0">Pulsera renderizada con cuentas (demo).</p>
+                <p class="builderSmall" style="margin:0">Pulsera renderizada con <b>IMÁGENES</b> (texturas v2).</p>
               </div>
               <div class="builderBadges">
                 <span class="tag" id="bBeads">—</span>
@@ -729,6 +644,7 @@
 
             <canvas id="braceletCanvas" width="520" height="520" aria-label="Vista previa de pulsera"></canvas>
             <p class="builderNote" id="bSummary"></p>
+            <p class="builderSmall" id="texStatus"></p>
           </div>
 
           <div class="card builderControls">
@@ -928,12 +844,9 @@
       return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
     }
 
-    /* ==========================================================
-       ✅ CATÁLOGO (ACTUALIZADO)
-       - 2 productos NUEVOS: Eclipse Azul + Sol Interior
-       - 1 espacio para PRÓXIMAMENTE
-       ========================================================== */
-
+    /* =========================
+       CATÁLOGO
+       ========================= */
     const PRODUCTS = [
       {
         id: "gc-001",
@@ -941,26 +854,20 @@
         precio: 40,
         tag: "Disponible",
         descripcion:
-          "Eclipse Azul — Pulsera de Ojo de Tigre Azul 💙✨ Hecha con Ojo de Tigre Azul (Ojo de Halcón), una piedra semipreciosa de tonos azules intensos. Se cree que aporta protección, calma, claridad mental y enfoque, ayudando a alejar energías negativas y reforzando la confianza, la creatividad y el equilibrio emocional. En pareja es perfecta: simboliza paciencia, comprensión y conexión, ideal como amuleto de buena vibra para ambos." +
-          "<br><br><strong>Incluye:</strong><br>• Origen y beneficios del Ojo de Tigre Azul<br>• Cajita GaiaCraft<br>• Bolsa junto con la pulsera" +
-          "<br><br>🔥 <strong>Promo primera compra:</strong> 2 pulseras por S/ 70 para ti y tu pareja. ¡Aprovecha!",
+          "Eclipse Azul — Pulsera de Ojo de Tigre Azul 💙✨" +
+          "<br><br><strong>Incluye:</strong><br>• Cajita GaiaCraft<br>• Bolsa junto con la pulsera",
         img: "Eclipzu.jpeg"
       },
-
       {
         id: "gc-002",
         nombre: "Sol Interior",
         precio: 80,
         tag: "Disponible",
         descripcion:
-          "Sol Interior — Citrino ✨ + Ónix Negro ⚫. Una pulsera equilibrada, elegante y atemporal: el brillo cálido del citrino se une al contraste sobrio del ónix para un look moderno y con presencia." +
-          "<br><br><strong>Intención & energía:</strong><br>✨ Claridad y enfoque (citrino)<br>⚫ Equilibrio y carácter (ónix negro)" +
-          "<br><br><strong>Incluye:</strong><br>• Origen y beneficios del Citrino y del Ónix Negro<br>• Cajita GaiaCraft<br>• Bolsa junto con la pulsera" +
-          "<br><br>🔥 <strong>Promo primera compra:</strong> 2 pulseras por S/ 150 para ti y tu pareja. ¡Aprovecha!",
+          "Sol Interior — Citrino ✨ + Ónix Negro ⚫." +
+          "<br><br><strong>Incluye:</strong><br>• Cajita GaiaCraft<br>• Bolsa junto con la pulsera",
         img: "SolInterior.jpeg"
       },
-
-      /* ✅ 1 espacio para el siguiente lanzamiento (edítalo cuando lo tengas listo) */
       {
         id: "gc-003",
         nombre: "Próximamente",
@@ -995,14 +902,12 @@
     function waLink(message){
       return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     }
-
     function setGenericWA(){
       const msg="Hola 😊 Estoy interesado/a en pulseras de Gaia Craft. ¿Me compartes el catálogo?";
       const link=waLink(msg);
       waTop.href = link;
       waBottom.href = link;
     }
-
     function money(v){
       if(Number(v) === 0) return "Precio: consultar";
       return `S/ ${Number(v).toFixed(2)}`;
@@ -1043,8 +948,6 @@
       mImg.src = p.img;
       mImg.alt = p.nombre;
       mTitle.textContent = p.nombre;
-
-      // Si vas a usar <br> en descripción, deja innerHTML.
       mDesc.innerHTML = p.descripcion;
 
       mPrice.textContent = money(p.precio);
@@ -1073,48 +976,56 @@
       PRODUCTS.forEach(p => grid.appendChild(createTile(p)));
     }
 
-    function closeMobile(){
-      mobileNav.classList.remove("show");
-    }
-    menuToggle.addEventListener("click", ()=>{
-      mobileNav.classList.toggle("show");
-    });
-    mobileNav.querySelectorAll("a").forEach(a=>{
-      a.addEventListener("click", closeMobile);
-    });
-    window.addEventListener("scroll", ()=>{
-      if(mobileNav.classList.contains("show")) closeMobile();
-    });
+    function closeMobile(){ mobileNav.classList.remove("show"); }
+    menuToggle.addEventListener("click", ()=>{ mobileNav.classList.toggle("show"); });
+    mobileNav.querySelectorAll("a").forEach(a=>{ a.addEventListener("click", closeMobile); });
+    window.addEventListener("scroll", ()=>{ if(mobileNav.classList.contains("show")) closeMobile(); });
 
     setGenericWA();
     render();
 
-    /* =========================
-       CONFIGURADOR (JS)
-       ========================= */
+    /* ==========================================================
+       CONFIGURADOR (TEXTURAS v2)
+       ========================================================== */
+
+    /*
+      ✅ NOMBRES EXACTOS de tus archivos:
+      Piedras:
+      otigrea.jpg
+      onixn.jpg
+      citrin.jpg
+      jade.jpg
+      cuarbla.jpg
+      agared.jpg
+      amat.jpg
+      volcanicpiedra.jpg
+
+      Separadores:
+      dor.jpg
+      plat.jpg
+    */
+    const ASSET_DIR = ""; // si los pones en una carpeta: "assets/"
+
     const STONES = [
-      { id:"blue_tiger", name:"Ojo de Tigre Azul", color:"#2e5f93", cost:2.6 },
-      { id:"onyx",      name:"Ónix Negro",        color:"#14171c", cost:2.2 },
-      { id:"citrine",   name:"Citrino",           color:"#d7b46a", cost:2.8 },
-      { id:"jade",      name:"Jade",              color:"#2f8a6a", cost:2.8 },
-      { id:"white_q",   name:"Cuarzo Blanco",     color:"#e9eef7", cost:2.0 },
-      { id:"red_agate", name:"Ágata Roja",        color:"#b3392f", cost:2.4 },
-      { id:"amethyst",  name:"Amatista",          color:"#6b44c6", cost:2.6 },
-      { id:"lava",      name:"Piedra Volcánica",  color:"#2b2b2b", cost:1.8 }
+      { id:"blue_tiger", name:"Ojo de Tigre Azul", img: ASSET_DIR + "otigrea.jpg", cost:2.6, fallback:"#2e5f93" },
+      { id:"onyx",      name:"Ónix Negro",        img: ASSET_DIR + "onixn.jpg",   cost:2.2, fallback:"#14171c" },
+      { id:"citrine",   name:"Citrino",           img: ASSET_DIR + "citrin.jpg",  cost:2.8, fallback:"#d7b46a" },
+      { id:"jade",      name:"Jade",              img: ASSET_DIR + "jade.jpg",    cost:2.8, fallback:"#2f8a6a" },
+      { id:"white_q",   name:"Cuarzo Blanco",     img: ASSET_DIR + "cuarbla.jpg", cost:2.0, fallback:"#e9eef7" },
+      { id:"red_agate", name:"Ágata Roja",        img: ASSET_DIR + "agared.jpg",  cost:2.4, fallback:"#b3392f" },
+      { id:"amethyst",  name:"Amatista",          img: ASSET_DIR + "amat.jpg",    cost:2.6, fallback:"#6b44c6" },
+      { id:"lava",      name:"Piedra Volcánica",  img: ASSET_DIR + "volcanicpiedra.jpg", cost:1.8, fallback:"#2b2b2b" }
     ];
 
     const SPACERS = {
-      none:   { name:"Sin separadores", color:null, cost:0 },
-      gold:   { name:"Dorado",          color:"#d7b46a", cost:1.2 },
-      silver: { name:"Plateado",        color:"#bfc7d6", cost:1.0 }
+      none:   { name:"Sin separadores", img:null, cost:0, fallback:"#ffffff" },
+      gold:   { name:"Dorado",          img: ASSET_DIR + "dor.jpg",  cost:1.2, fallback:"#d7b46a" },
+      silver: { name:"Plateado",        img: ASSET_DIR + "plat.jpg", cost:1.0, fallback:"#bfc7d6" }
     };
 
-    const BUILDER = {
-      baseLabor: 18, // mano de obra (demo)
-      spacerEvery: 6 // cada cuántas cuentas aparece separador
-    };
+    const BUILDER = { baseLabor: 18, spacerEvery: 6 };
 
-    // refs
+    // refs UI
     const bMainStone = document.getElementById("bMainStone");
     const bAccentStone = document.getElementById("bAccentStone");
     const bAccentPercent = document.getElementById("bAccentPercent");
@@ -1128,12 +1039,64 @@
     const bPrice = document.getElementById("bPrice");
     const bSummary = document.getElementById("bSummary");
     const bWA = document.getElementById("bWA");
-
     const bRandom = document.getElementById("bRandom");
     const bReset = document.getElementById("bReset");
 
+    const texStatus = document.getElementById("texStatus");
+
+    // canvas
     const braceletCanvas = document.getElementById("braceletCanvas");
-    const ctxB = braceletCanvas.getContext("2d");
+    const ctxB = braceletCanvas.getContext("2d", { alpha: true });
+    ctxB.imageSmoothingEnabled = true;
+
+    // cache de imágenes
+    const TEXTURES = new Map();  // key -> Image
+    const MISSING = new Set();   // srcs que fallaron
+
+    function loadImage(src){
+      return new Promise((resolve) => {
+        if(!src) return resolve(null);
+        const img = new Image();
+        img.decoding = "async";
+        img.src = src;
+        img.onload = () => resolve(img);
+        img.onerror = () => resolve(null);
+      });
+    }
+
+    async function preloadTextures(){
+      MISSING.clear();
+
+      const jobs = [];
+
+      for(const s of STONES){
+        jobs.push(loadImage(s.img).then(img=>{
+          if(img) TEXTURES.set(`stone:${s.id}`, img);
+          else MISSING.add(s.img);
+        }));
+      }
+
+      for(const [k, v] of Object.entries(SPACERS)){
+        if(!v.img) continue;
+        jobs.push(loadImage(v.img).then(img=>{
+          if(img) TEXTURES.set(`spacer:${k}`, img);
+          else MISSING.add(v.img);
+        }));
+      }
+
+      await Promise.all(jobs);
+      updateTextureStatus();
+      builderUpdate(); // render FINAL con texturas cargadas
+    }
+
+    function updateTextureStatus(){
+      if(MISSING.size === 0){
+        texStatus.innerHTML = `✅ Texturas cargadas.`;
+      } else {
+        const list = Array.from(MISSING).map(s=>`<code>${s}</code>`).join(", ");
+        texStatus.innerHTML = `⚠️ No cargaron: ${list} <br>Revisa nombres/ruta (ASSET_DIR).`;
+      }
+    }
 
     function fillStoneSelect(select, { includeNone=false } = {}){
       select.innerHTML = "";
@@ -1167,13 +1130,11 @@
     }
 
     function estimateBeadCount(lengthCm, beadMm){
-      // aproximación: largo(cm)*10 = mm; consideramos holgura (1.08)
       const raw = (Number(lengthCm) * 10) / (Number(beadMm) * 1.08);
       return Math.max(18, Math.round(raw));
     }
 
     function getSpacerCount(total, spacerEvery){
-      // número de índices i en [0,total-1] donde i%spacerEvery==0
       return Math.floor((total - 1) / spacerEvery) + 1;
     }
 
@@ -1181,7 +1142,7 @@
       const mask = new Array(total).fill(false);
       if(accentCount <= 0) return mask;
 
-      let available = [];
+      const available = [];
       for(let i=0;i<total;i++){
         if(spacerActive && i % spacerEvery === 0) continue;
         available.push(i);
@@ -1196,7 +1157,6 @@
         let idx = Math.round(k * step);
         if(idx >= available.length) idx = available.length - 1;
 
-        // asegurar único si redondeo repite
         let tries = 0;
         while(used.has(available[idx]) && tries < available.length){
           idx = (idx + 1) % available.length;
@@ -1208,26 +1168,81 @@
       return mask;
     }
 
-    function drawBead(x,y,r, baseColor){
+    // ===== random reproducible por bead =====
+    function hashString(str){
+      let h = 2166136261;
+      for(let i=0;i<str.length;i++){
+        h ^= str.charCodeAt(i);
+        h = Math.imul(h, 16777619);
+      }
+      return h >>> 0;
+    }
+    function mulberry32(a){
+      return function(){
+        let t = a += 0x6D2B79F5;
+        t = Math.imul(t ^ (t >>> 15), t | 1);
+        t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+        return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+      };
+    }
+
+    // Dibuja una cuenta con textura (crop + rot leve + brillo 3D)
+    function drawTexturedBead(x, y, r, img, fallbackColor, seedStr){
       // sombra
       ctxB.beginPath();
       ctxB.arc(x+2, y+3, r, 0, Math.PI*2);
-      ctxB.fillStyle = "rgba(0,0,0,.18)";
+      ctxB.fillStyle = "rgba(0,0,0,.20)";
       ctxB.fill();
 
-      // cuerpo
+      // clip
+      ctxB.save();
       ctxB.beginPath();
       ctxB.arc(x, y, r, 0, Math.PI*2);
-      ctxB.fillStyle = baseColor;
-      ctxB.fill();
+      ctxB.closePath();
+      ctxB.clip();
+
+      if(img){
+        const rnd = mulberry32(hashString(seedStr));
+        const s = r * 2;
+
+        // crop cuadrado con escala variable
+        const minSide = Math.min(img.width, img.height);
+        const scale = 1.05 + rnd() * 0.55;     // 1.05 .. 1.60
+        const crop = minSide / scale;
+
+        const sx = Math.floor(rnd() * (img.width  - crop));
+        const sy = Math.floor(rnd() * (img.height - crop));
+
+        // rotación leve para que no se vea clon
+        const rot = (rnd() - 0.5) * 0.40;      // -0.2..0.2 rad aprox
+
+        ctxB.translate(x, y);
+        ctxB.rotate(rot);
+        ctxB.drawImage(img, sx, sy, crop, crop, -r, -r, s, s);
+        ctxB.rotate(-rot);
+        ctxB.translate(-x, -y);
+      } else {
+        ctxB.fillStyle = fallbackColor || "#cfd6e2";
+        ctxB.fillRect(x - r, y - r, r*2, r*2);
+      }
+
+      // sombreado 3D
+      const shade = ctxB.createRadialGradient(x - r*0.35, y - r*0.35, r*0.2, x, y, r*1.15);
+      shade.addColorStop(0, "rgba(255,255,255,.16)");
+      shade.addColorStop(0.65, "rgba(0,0,0,0)");
+      shade.addColorStop(1, "rgba(0,0,0,.24)");
+      ctxB.fillStyle = shade;
+      ctxB.fillRect(x - r, y - r, r*2, r*2);
+
+      ctxB.restore();
 
       // brillo
       ctxB.beginPath();
       ctxB.arc(x - r*0.35, y - r*0.35, r*0.42, 0, Math.PI*2);
-      ctxB.fillStyle = "rgba(255,255,255,.35)";
+      ctxB.fillStyle = "rgba(255,255,255,.20)";
       ctxB.fill();
 
-      // borde sutil
+      // borde
       ctxB.beginPath();
       ctxB.arc(x, y, r, 0, Math.PI*2);
       ctxB.strokeStyle = "rgba(0,0,0,.10)";
@@ -1235,7 +1250,7 @@
       ctxB.stroke();
     }
 
-    function renderBracelet({ total, beadMm, mainColor, accentColor, accentMask, spacerKey }){
+    function renderBracelet({ total, beadMm, mainStoneId, accentStoneId, accentMask, spacerKey }){
       const w = braceletCanvas.width;
       const h = braceletCanvas.height;
       const cx = w/2;
@@ -1250,13 +1265,19 @@
       ctxB.fillStyle = bg;
       ctxB.fillRect(0,0,w,h);
 
-      // escala según canvas
       const scale = w / 520;
       const rMap = {4:14, 6:18, 8:22};
       const beadR = (rMap[Number(beadMm)] || 18) * scale;
-
       const ringR = (w * 0.33);
+
+      const main = getStone(mainStoneId);
+      const accent = (accentStoneId && accentStoneId !== "none") ? getStone(accentStoneId) : null;
       const spacer = SPACERS[spacerKey] || SPACERS.none;
+
+      const mainImg   = TEXTURES.get(`stone:${main.id}`) || null;
+      const accentImg = accent ? (TEXTURES.get(`stone:${accent.id}`) || null) : null;
+      const spacerImg = spacerKey !== "none" ? (TEXTURES.get(`spacer:${spacerKey}`) || null) : null;
+
       const spacerActive = spacerKey !== "none";
 
       for(let i=0;i<total;i++){
@@ -1264,19 +1285,24 @@
         const x = cx + ringR * Math.cos(a);
         const y = cy + ringR * Math.sin(a);
 
-        let color = mainColor;
+        let img = mainImg;
+        let fallback = main.fallback;
+        let seed = `main:${main.id}:${i}:${total}`;
 
-        // separadores (prioridad)
         if(spacerActive && i % BUILDER.spacerEvery === 0){
-          color = spacer.color;
-        } else if(accentColor && accentMask[i]){
-          color = accentColor;
+          img = spacerImg;
+          fallback = spacer.fallback;
+          seed = `spacer:${spacerKey}:${i}:${total}`;
+        } else if(accent && accentMask[i]){
+          img = accentImg;
+          fallback = accent.fallback;
+          seed = `accent:${accent.id}:${i}:${total}`;
         }
 
-        drawBead(x, y, beadR, color);
+        drawTexturedBead(x, y, beadR, img, fallback, seed);
       }
 
-      // agujero central (estético)
+      // agujero centro (estético)
       ctxB.beginPath();
       ctxB.arc(cx, cy, w*0.12, 0, Math.PI*2);
       ctxB.fillStyle = "rgba(0,0,0,.04)";
@@ -1285,7 +1311,6 @@
 
     function builderUpdate(){
       const main = getStone(bMainStone.value);
-
       const accentId = bAccentStone.value;
       const accent = accentId !== "none" ? getStone(accentId) : null;
 
@@ -1318,10 +1343,8 @@
         + (accentCount * (accent ? accent.cost : 0))
         + (spacerCount * spacerCost);
 
-      // redondeo bonito
       est = Math.round(est / 5) * 5;
 
-      // labels
       bBeads.textContent = `${total} cuentas`;
       bPrice.textContent = `Estimado: S/ ${est.toFixed(0)}`;
 
@@ -1333,17 +1356,15 @@
         `<b>Tu diseño:</b> ${main.name} · Acento: ${accentText} · ${beadMm}mm · ${lengthCm}cm · Separador: ${spacerText}` +
         (note ? `<br><b>Nota:</b> ${note}` : "");
 
-      // render canvas
       renderBracelet({
         total,
         beadMm,
-        mainColor: main.color,
-        accentColor: accent ? accent.color : null,
+        mainStoneId: main.id,
+        accentStoneId: accent ? accent.id : "none",
         accentMask,
         spacerKey
       });
 
-      // WhatsApp
       const msg =
 `Hola 😊 Quiero una pulsera personalizada Gaia Craft:
 
@@ -1358,12 +1379,10 @@ ${note ? "• Nota: " + note + "\n" : ""}
       bWA.href = waLink(msg);
     }
 
-    // listeners
     [bMainStone, bAccentStone, bBeadSize, bLength, bSpacer].forEach(el => el.addEventListener("change", builderUpdate));
     bAccentPercent.addEventListener("input", builderUpdate);
     bNote.addEventListener("input", builderUpdate);
 
-    // random / reset
     bRandom.addEventListener("click", ()=>{
       const main = STONES[Math.floor(Math.random()*STONES.length)];
       let accent = Math.random() < 0.65 ? STONES[Math.floor(Math.random()*STONES.length)] : null;
@@ -1391,8 +1410,10 @@ ${note ? "• Nota: " + note + "\n" : ""}
       builderUpdate();
     });
 
-    // init
+    // init: primero dibuja con fallback, luego con texturas cuando carguen
     builderUpdate();
+    preloadTextures();
   </script>
 </body>
 </html>
+
