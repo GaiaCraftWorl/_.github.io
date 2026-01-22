@@ -453,11 +453,11 @@
       gap: 10px;
       flex-wrap:wrap;
       justify-content:flex-end;
-      max-width: 55%;
+      max-width: 62%;
     }
 
     .builderSeqBox{
-      width: min(360px, 100%);
+      width: min(430px, 100%);
       border-radius: 16px;
       border: 1px solid rgba(0,0,0,.10);
       background: rgba(255,255,255,.85);
@@ -522,17 +522,51 @@
       box-shadow: 0 0 0 4px rgba(215,180,106,.18);
     }
 
-    .stoneGrid{
+    /* NUEVO: patrón por pasos */
+    .patternList{
       display:grid;
-      grid-template-columns: 1fr;
       gap: 10px;
     }
-    .stoneRow{
+    .patternItem{
       display:grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 120px 36px 36px 44px;
       gap: 8px;
+      align-items:center;
     }
-    .stoneRow.hidden{ display:none; }
+    .patternItem select{
+      padding: 11px 12px;
+      border-radius: 14px;
+    }
+    .patternItem .smallBtn{
+      width: 36px;
+      height: 42px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.85);
+      box-shadow: 0 10px 22px rgba(0,0,0,.08);
+      cursor:pointer;
+      font-weight: 950;
+    }
+    .patternItem .delBtn{
+      width: 44px;
+      height: 42px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.85);
+      box-shadow: 0 10px 22px rgba(0,0,0,.08);
+      cursor:pointer;
+      font-weight: 950;
+    }
+    .patternBtns{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+    }
+    .patternBtns .navBtn{
+      flex: 1 1 160px;
+      text-align:center;
+    }
 
     .builderBtns{
       display:flex;
@@ -557,6 +591,7 @@
       .overlay .price{font-size:15px}
       .builder{ grid-template-columns: 1fr; }
       .builderTopRight{ max-width: 100%; }
+      .patternItem{ grid-template-columns: 1fr 120px 36px 36px 44px; }
     }
 
     @media (max-width: 520px){
@@ -575,6 +610,8 @@
       .ctaRow{ flex-direction: column; gap: 10px; }
       .cta{ width: 100%; min-width: unset; }
       .grid{grid-template-columns: 1fr}
+      .patternItem{ grid-template-columns: 1fr 110px 34px 34px 44px; }
+      .patternItem .smallBtn{ width: 34px; }
     }
 
     .mobileNav{
@@ -676,10 +713,10 @@
               </div>
 
               <div class="builderTopRight">
-                <div class="builderSeqBox" aria-label="Secuencia activa">
-                  <div class="t">Secuencia activa</div>
+                <div class="builderSeqBox" aria-label="Patrón activo">
+                  <div class="t">Patrón activo (se repite)</div>
                   <div class="v" id="bSeqPreview">—</div>
-                  <div class="hint">Se repite en círculo según tus selecciones (máx. 3 piedras).</div>
+                  <div class="hint">Define pasos: piedra + cantidad. Se repite hasta completar la pulsera.</div>
                 </div>
 
                 <span class="pill" id="bPrice">Precio: —</span>
@@ -696,32 +733,18 @@
             <h3 style="margin:0 0 12px">Personaliza</h3>
 
             <div class="fields">
-              <!-- ✅ NUEVO: CANTIDAD DE PIEDRAS -->
+              <!-- NUEVO: PATRÓN POR PASOS -->
               <div class="field">
-                <label for="bStoneCount">Cantidad de piedras</label>
-                <select id="bStoneCount">
-                  <option value="1" selected>1 piedra</option>
-                  <option value="2">2 piedras</option>
-                  <option value="3">3 piedras</option>
-                </select>
-              </div>
+                <label>Patrón (piedra + cantidad)</label>
+                <div id="patternList" class="patternList"></div>
 
-              <!-- ✅ NUEVO: SELECTS DE PIEDRAS (1..3) -->
-              <div class="field">
-                <label>Piedras</label>
-                <div class="stoneGrid">
-                  <div class="stoneRow" id="rowStone1">
-                    <select id="bStone1"></select>
-                  </div>
-                  <div class="stoneRow hidden" id="rowStone2">
-                    <select id="bStone2"></select>
-                  </div>
-                  <div class="stoneRow hidden" id="rowStone3">
-                    <select id="bStone3"></select>
-                  </div>
+                <div class="patternBtns">
+                  <button class="navBtn" id="addStep" type="button">+ Añadir paso</button>
+                  <button class="navBtn" id="resetPattern" type="button">Patrón básico</button>
                 </div>
+
                 <p class="builderSmall" style="margin:8px 0 0">
-                  La pulsera se arma repitiendo: <b>Piedra 1 → Piedra 2 → Piedra 3</b> (según la cantidad elegida).
+                  Tip: para replicar un diseño (ej. Eclipse Azul) solo pones los pasos en orden y sus cantidades.
                 </p>
               </div>
 
@@ -769,7 +792,7 @@
             </div>
 
             <p class="builderSmall">
-              * El precio es <b>estimado</b> y se calcula por cantidad de cuentas usadas según el precio por tira (65 cuentas).
+              * El precio es <b>estimado</b> y se calcula por cuentas usadas según precio por tira (65 cuentas).
               <br>
               * Si una piedra es más cara (ej: <b>Citrino</b>), su parte sube el total.
             </p>
@@ -1043,11 +1066,11 @@
     render();
 
     /* ==========================================================
-       CONFIGURADOR (máx 3 piedras + precio interno)
+       CONFIGURADOR (PATRÓN POR PASOS + PRECIO INTERNO)
        ========================================================== */
 
     /*
-      ✅ NOMBRES EXACTOS de tus archivos (según tu lista):
+      ✅ NOMBRES EXACTOS de tus archivos:
       otigrea.jpg
       onixn.jpg
       citrin.jpg
@@ -1067,33 +1090,30 @@
     // 65 cuentas por tira.
     const BEADS_PER_STRAND = 65;
 
-    // Precio por defecto (AJÚSTALO a tu realidad):
-    // Dijiste: "cada tira ... 20 soles" -> lo pongo como default en 6mm, y 4mm un poco más barato.
+    // precios por defecto por tamaño (ajústalo a tu realidad)
     const DEFAULT_STRAND_PRICE_BY_SIZE = {
-      4: 18,  // <-- cámbialo si quieres
-      6: 20,
-      8: 24   // <-- cámbialo si quieres
+      4: 18,  // default 4mm
+      6: 20,  // default 6mm
+      8: 24   // default 8mm
     };
 
-    // Ganancia interna (NO se muestra al cliente)
+    // ganancia interna (NO se muestra al cliente)
     const PROFIT_RATE = 0.18;
 
-    // Redondeo del precio final
-    const ROUND_TO = 1; // 1 sol, o 5 para redondear a múltiplos de 5
+    // redondeo del precio final
+    const ROUND_TO = 1; // 1 sol (pon 5 si quieres múltiplos de 5)
 
-    // Costos internos opcionales
     const BUILDER = {
       spacerEvery: 6,
-      laborCost: 0,   // si quieres agregar mano de obra interna, pon ej 10, 15...
-      extraCost: 0    // elástico/bolsita/cajita etc (si lo quieres considerar)
+      laborCost: 0,  // si quieres agregar mano de obra interna
+      extraCost: 0   // elástico/cajita/etc si lo deseas
     };
 
     const STONES = [
       { id:"blue_tiger", name:"Ojo de Tigre Azul", img: ASSET_DIR + "otigrea.jpg", fallback:"#2e5f93" },
       { id:"onyx",      name:"Ónix Negro",        img: ASSET_DIR + "onixn.jpg",   fallback:"#14171c" },
-      // ✅ Citrino más caro (lo que dijiste: 28)
       { id:"citrine",   name:"Citrino",           img: ASSET_DIR + "citrin.jpg",  fallback:"#d7b46a",
-        strandPriceBySize: { 4: 26, 6: 28, 8: 32 } // <-- ajusta si cambia
+        strandPriceBySize: { 4: 26, 6: 28, 8: 32 } // <- ajusta
       },
       { id:"jade",      name:"Jade",              img: ASSET_DIR + "jade.jpg",    fallback:"#2f8a6a" },
       { id:"white_q",   name:"Cuarzo Blanco",     img: ASSET_DIR + "cuarbla.jpg", fallback:"#e9eef7" },
@@ -1102,9 +1122,6 @@
       { id:"lava",      name:"Piedra Volcánica",  img: ASSET_DIR + "volcanicpiedra.jpg", fallback:"#2b2b2b" }
     ];
 
-    // Si quieres agregar PERLA, descomenta y crea "perla.jpg" (y añádelo a preload):
-    // STONES.push({ id:"pearl", name:"Perla", img: ASSET_DIR + "perla.jpg", fallback:"#f1f1f1", strandPriceBySize:{4:18,6:20,8:24} });
-
     const SPACERS = {
       none:   { name:"Sin separadores", img:null, unitCost:0, fallback:"#ffffff" },
       gold:   { name:"Dorado",          img: ASSET_DIR + "dor.jpg",  unitCost:1.2, fallback:"#d7b46a" },
@@ -1112,13 +1129,9 @@
     };
 
     // refs UI
-    const bStoneCount = document.getElementById("bStoneCount");
-    const bStone1 = document.getElementById("bStone1");
-    const bStone2 = document.getElementById("bStone2");
-    const bStone3 = document.getElementById("bStone3");
-
-    const rowStone2 = document.getElementById("rowStone2");
-    const rowStone3 = document.getElementById("rowStone3");
+    const patternList = document.getElementById("patternList");
+    const addStepBtn = document.getElementById("addStep");
+    const resetPatternBtn = document.getElementById("resetPattern");
 
     const bBeadSize = document.getElementById("bBeadSize");
     const bLength = document.getElementById("bLength");
@@ -1141,8 +1154,8 @@
     ctxB.imageSmoothingEnabled = true;
 
     // cache de imágenes
-    const TEXTURES = new Map();  // key -> Image
-    const MISSING = new Set();   // srcs que fallaron
+    const TEXTURES = new Map();
+    const MISSING = new Set();
 
     function loadImage(src){
       return new Promise((resolve) => {
@@ -1188,6 +1201,10 @@
       }
     }
 
+    function getStone(id){
+      return STONES.find(s=>s.id===id) || STONES[0];
+    }
+
     function fillStoneSelect(select){
       select.innerHTML = "";
       STONES.forEach(s=>{
@@ -1196,20 +1213,6 @@
         o.textContent = s.name;
         select.appendChild(o);
       });
-    }
-
-    fillStoneSelect(bStone1);
-    fillStoneSelect(bStone2);
-    fillStoneSelect(bStone3);
-
-    // defaults
-    bStoneCount.value = "1";
-    bStone1.value = "blue_tiger";
-    bStone2.value = "onyx";
-    bStone3.value = "white_q";
-
-    function getStone(id){
-      return STONES.find(s=>s.id===id) || STONES[0];
     }
 
     function estimateBeadCount(lengthCm, beadMm){
@@ -1234,21 +1237,128 @@
       return Math.round(value / s) * s;
     }
 
-    function getSelectedSequenceIds(){
-      const n = Number(bStoneCount.value);
-      const seq = [bStone1.value];
-      if(n >= 2) seq.push(bStone2.value);
-      if(n >= 3) seq.push(bStone3.value);
-      return seq.filter(Boolean);
+    // ====== PATRÓN POR PASOS (state) ======
+    const MAX_STEPS = 10;
+    const MAX_QTY_PER_STEP = 12;
+
+    let patternSteps = [
+      // default
+      { stoneId: "blue_tiger", qty: 6 }
+    ];
+
+    function createQtySelect(value){
+      const sel = document.createElement("select");
+      for(let i=1;i<=MAX_QTY_PER_STEP;i++){
+        const o = document.createElement("option");
+        o.value = String(i);
+        o.textContent = `${i}x`;
+        sel.appendChild(o);
+      }
+      sel.value = String(value || 1);
+      return sel;
     }
 
-    function updateStoneRows(){
-      const n = Number(bStoneCount.value);
-      rowStone2.classList.toggle("hidden", n < 2);
-      rowStone3.classList.toggle("hidden", n < 3);
+    function renderPatternUI(){
+      patternList.innerHTML = "";
+
+      patternSteps.forEach((step, idx) => {
+        const row = document.createElement("div");
+        row.className = "patternItem";
+
+        const stoneSel = document.createElement("select");
+        fillStoneSelect(stoneSel);
+        stoneSel.value = step.stoneId;
+
+        const qtySel = createQtySelect(step.qty);
+
+        const upBtn = document.createElement("button");
+        upBtn.type = "button";
+        upBtn.className = "smallBtn";
+        upBtn.title = "Subir";
+        upBtn.textContent = "↑";
+
+        const downBtn = document.createElement("button");
+        downBtn.type = "button";
+        downBtn.className = "smallBtn";
+        downBtn.title = "Bajar";
+        downBtn.textContent = "↓";
+
+        const delBtn = document.createElement("button");
+        delBtn.type = "button";
+        delBtn.className = "delBtn";
+        delBtn.title = "Eliminar";
+        delBtn.textContent = "✕";
+
+        stoneSel.addEventListener("change", () => {
+          patternSteps[idx].stoneId = stoneSel.value;
+          builderUpdate();
+        });
+        qtySel.addEventListener("change", () => {
+          patternSteps[idx].qty = Number(qtySel.value);
+          builderUpdate();
+        });
+
+        upBtn.addEventListener("click", () => {
+          if(idx === 0) return;
+          const tmp = patternSteps[idx-1];
+          patternSteps[idx-1] = patternSteps[idx];
+          patternSteps[idx] = tmp;
+          renderPatternUI();
+          builderUpdate();
+        });
+
+        downBtn.addEventListener("click", () => {
+          if(idx === patternSteps.length - 1) return;
+          const tmp = patternSteps[idx+1];
+          patternSteps[idx+1] = patternSteps[idx];
+          patternSteps[idx] = tmp;
+          renderPatternUI();
+          builderUpdate();
+        });
+
+        delBtn.addEventListener("click", () => {
+          if(patternSteps.length <= 1) return; // mínimo 1 paso
+          patternSteps.splice(idx, 1);
+          renderPatternUI();
+          builderUpdate();
+        });
+
+        row.appendChild(stoneSel);
+        row.appendChild(qtySel);
+        row.appendChild(upBtn);
+        row.appendChild(downBtn);
+        row.appendChild(delBtn);
+
+        patternList.appendChild(row);
+      });
     }
 
-    // Dibuja cuenta con textura (cover)
+    function addStep(){
+      if(patternSteps.length >= MAX_STEPS) return;
+      patternSteps.push({ stoneId: STONES[0].id, qty: 1 });
+      renderPatternUI();
+      builderUpdate();
+    }
+
+    function resetPatternBasic(){
+      patternSteps = [{ stoneId: "blue_tiger", qty: 6 }];
+      renderPatternUI();
+      builderUpdate();
+    }
+
+    addStepBtn.addEventListener("click", addStep);
+    resetPatternBtn.addEventListener("click", resetPatternBasic);
+
+    function buildExpandedSequence(){
+      const seq = [];
+      for(const s of patternSteps){
+        const qty = Math.max(1, Math.min(MAX_QTY_PER_STEP, Number(s.qty || 1)));
+        for(let k=0;k<qty;k++) seq.push(s.stoneId);
+      }
+      return seq.length ? seq : ["blue_tiger"];
+    }
+
+    // ===== DIBUJO =====
     function drawBeadImage(x, y, r, img, fallbackColor){
       ctxB.beginPath();
       ctxB.arc(x+2, y+3, r, 0, Math.PI*2);
@@ -1330,22 +1440,25 @@
       ctxB.fill();
     }
 
-    function builderUpdate(){
-      updateStoneRows();
+    function patternHumanText(){
+      return patternSteps
+        .map(s => `${s.qty}× ${getStone(s.stoneId).name}`)
+        .join("  →  ");
+    }
 
+    function builderUpdate(){
       const beadMm = Number(bBeadSize.value);
       const lengthCm = Number(bLength.value);
       const spacerKey = bSpacer.value;
 
       const total = estimateBeadCount(lengthCm, beadMm);
+
       const spacerActive = spacerKey !== "none";
       const spacerCount = spacerActive ? getSpacerCount(total, BUILDER.spacerEvery) : 0;
       const baseCount = Math.max(0, total - spacerCount);
 
-      const seqIds = getSelectedSequenceIds();
-      const seqNames = seqIds.map(id => getStone(id).name);
-
-      bSeqPreview.textContent = seqNames.join(" → ");
+      const seqExpanded = buildExpandedSequence();
+      bSeqPreview.textContent = patternHumanText();
 
       // PLAN (orden real)
       const plan = new Array(total);
@@ -1356,7 +1469,7 @@
           plan[i] = { kind:"spacer", spacerKey };
           continue;
         }
-        const stoneId = seqIds[baseIdx % seqIds.length];
+        const stoneId = seqExpanded[baseIdx % seqExpanded.length];
         plan[i] = { kind:"stone", stoneId };
         baseIdx++;
       }
@@ -1370,11 +1483,8 @@
         else stoneCounts.set(item.stoneId, (stoneCounts.get(item.stoneId) || 0) + 1);
       }
 
-      // ===== COSTO INTERNO (NO mostrar breakdown) =====
-      // ✅ Ahora se calcula proporcional por cuentas usadas:
-      // costo piedra = (cuentas_usadas / 65) * precio_tira(según mm y piedra)
+      // COSTO interno: proporcional por cuentas usadas (NO mostrar breakdown)
       let materialCost = 0;
-
       for(const [stoneId, cnt] of stoneCounts.entries()){
         const st = getStone(stoneId);
         const strandPrice = getStrandPrice(st, beadMm);
@@ -1388,24 +1498,24 @@
       materialCost += Number(BUILDER.extraCost || 0);
 
       const baseCost = materialCost + Number(BUILDER.laborCost || 0);
-      const profit = baseCost * PROFIT_RATE;          // interno
-      const finalExact = baseCost + profit;           // interno
+      const profit = baseCost * PROFIT_RATE;   // interno
+      const finalExact = baseCost + profit;    // interno
       const finalRounded = roundTo(finalExact, ROUND_TO);
 
-      // UI: solo precio final (sin costos ni ganancia)
+      // UI: solo precio final
       bPrice.textContent = `Precio: S/ ${finalRounded.toFixed(2)}`;
 
       const spacerText = SPACERS[spacerKey]?.name || "Sin separadores";
       const note = (bNote.value || "").trim();
 
       bSummary.innerHTML =
-        `<b>Tu diseño:</b> ${seqNames.join(" + ")} · ${beadMm}mm · ${lengthCm}cm · ${total} posiciones `
+        `<b>Tu diseño:</b> ${patternHumanText()} · ${beadMm}mm · ${lengthCm}cm · ${total} posiciones `
         + `(${baseCount} cuentas + ${spacerUsed} separadores) · Separador: ${spacerText}`
         + (note ? `<br><b>Nota:</b> ${note}` : "");
 
       renderBracelet({ total, beadMm, plan, spacerKey });
 
-      // WhatsApp (sin exponer ganancias)
+      // WhatsApp (sin exponer ganancia)
       const stonesBreak = Array.from(stoneCounts.entries())
         .map(([id,c]) => `- ${getStone(id).name}: ${c} cuentas`)
         .join("\n");
@@ -1413,7 +1523,7 @@
       const msg =
 `Hola 😊 Quiero una pulsera personalizada Gaia Craft:
 
-• Secuencia: ${seqNames.join(" → ")}
+• Patrón: ${patternHumanText()} (se repite)
 • Tamaño de cuentas: ${beadMm} mm
 • Largo: ${lengthCm} cm
 • Separadores: ${spacerText}
@@ -1431,41 +1541,37 @@ ${note ? "\nNota: " + note : ""}
     }
 
     // listeners
-    [bStoneCount, bStone1, bStone2, bStone3, bBeadSize, bLength, bSpacer].forEach(el => el.addEventListener("change", builderUpdate));
+    [bBeadSize, bLength, bSpacer].forEach(el => el.addEventListener("change", builderUpdate));
     bNote.addEventListener("input", builderUpdate);
 
     bRandom.addEventListener("click", ()=>{
-      const n = [1,2,3][Math.floor(Math.random()*3)];
-      bStoneCount.value = String(n);
+      const steps = 2 + Math.floor(Math.random()*4); // 2..5
+      patternSteps = [];
+      const pickStone = () => STONES[Math.floor(Math.random()*STONES.length)].id;
 
-      const pick = () => STONES[Math.floor(Math.random()*STONES.length)].id;
-      bStone1.value = pick();
-      bStone2.value = pick();
-      bStone3.value = pick();
+      for(let i=0;i<steps;i++){
+        patternSteps.push({ stoneId: pickStone(), qty: 1 + Math.floor(Math.random()*4) }); // 1..4
+      }
+      renderPatternUI();
 
       bBeadSize.value = [4,6,8][Math.floor(Math.random()*3)];
       bLength.value = [18,19,20,21][Math.floor(Math.random()*4)];
       bSpacer.value = ["none","gold","silver"][Math.floor(Math.random()*3)];
       bNote.value = "";
-
       builderUpdate();
     });
 
     bReset.addEventListener("click", ()=>{
-      bStoneCount.value = "1";
-      bStone1.value = "blue_tiger";
-      bStone2.value = "onyx";
-      bStone3.value = "white_q";
-
+      resetPatternBasic();
       bBeadSize.value = "4";
       bLength.value = "18";
       bSpacer.value = "none";
       bNote.value = "";
-
       builderUpdate();
     });
 
     // init
+    renderPatternUI();
     builderUpdate();
     preloadTextures();
   </script>
