@@ -1188,7 +1188,8 @@ function drawBeadImage(x, y, r, img, fallbackColor){
 
   if(img){
     // "cover": la imagen se escala para cubrir todo el círculo, centrada
-    const scale = Math.max((2*r)/img.width, (2*r)/img.height);
+    const BEAD_ZOOM = 1.35; // sube/baja esto
+    const scale = BEAD_ZOOM * Math.max((2*r)/img.width, (2*r)/img.height);
     const dw = img.width * scale;
     const dh = img.height * scale;
     ctxB.drawImage(img, x - dw/2, y - dh/2, dw, dh);
