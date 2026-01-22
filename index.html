@@ -7,7 +7,6 @@
   <meta name="description" content="Gaia Craft: pulseras artesanales hechas a mano con intención, amor y energía." />
 
   <!-- ✅ FAVICON (todo consistente con el nombre real) -->
-  <!-- Si tu archivo se llama faviconemp.PNG (con mayúsculas), debe ser EXACTO -->
   <link rel="icon" type="image/png" href="faviconemp.png">
   <link rel="shortcut icon" type="image/png" href="faviconemp.PNG?v=3">
   <link rel="apple-touch-icon" href="faviconemp.png">
@@ -41,8 +40,8 @@
 
     .wrap{width:min(1200px, 92vw); margin: 0 auto;}
 
-    /* Para que al dar click en "Catálogo/Sobre/Contacto" no quede tapado por header */
-    #catalogo, #sobre, #contacto{
+    /* Para que al dar click en "Catálogo/Sobre/Contacto/Configurador" no quede tapado por header */
+    #catalogo, #configurador, #sobre, #contacto{
       scroll-margin-top: calc(var(--headerH) + 14px);
     }
 
@@ -114,6 +113,7 @@
       color: #1b1f26;
       transition: transform .08s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
       white-space: nowrap;
+      cursor: pointer;
     }
     .navBtn:hover{
       transform: translateY(-1px);
@@ -470,6 +470,109 @@
       border: 1px solid rgba(215,180,106,.35);
     }
 
+    /* =========================
+       CONFIGURADOR (Crea tu pulsera)
+       ========================= */
+    .builder{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .builderTop{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .builderBadges{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      justify-content:flex-end;
+      flex-wrap:wrap;
+    }
+
+    .builderPreview canvas{
+      width:100%;
+      height:auto;
+      border-radius: 18px;
+      border: 1px solid rgba(0,0,0,.08);
+      background: linear-gradient(135deg, rgba(255,255,255,.95), rgba(242,243,246,.95));
+      box-shadow: 0 14px 34px rgba(0,0,0,.08);
+    }
+
+    .builderNote{
+      margin: 12px 0 0;
+      color:#5d6a7c;
+      line-height:1.7;
+    }
+
+    .fields{
+      display:grid;
+      gap: 12px;
+    }
+
+    .field label{
+      display:block;
+      margin-bottom: 8px;
+      font-weight: 950;
+      font-size: 13px;
+      color:#1b1f26;
+    }
+
+    .field select,
+    .field input{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,.12);
+      background:#fff;
+      font-weight: 750;
+      color:#1b1f26;
+      outline: none;
+    }
+
+    .field select:focus,
+    .field input:focus{
+      border-color: rgba(215,180,106,.75);
+      box-shadow: 0 0 0 4px rgba(215,180,106,.18);
+    }
+
+    .rangeRow{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    input[type="range"]{
+      width:100%;
+    }
+
+    .builderBtns{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-top: 14px;
+    }
+
+    .builderBtns .navBtn{
+      flex: 1 1 140px;
+      text-align:center;
+    }
+
+    .builderSmall{
+      margin: 12px 0 0;
+      color:#5d6a7c;
+      font-size: 12.5px;
+      line-height:1.6;
+    }
+
     /* ✅ RESPONSIVE MOBILE (aquí está el fix real) */
     @media (max-width: 920px){
       :root{ --headerH: 72px; }
@@ -484,6 +587,9 @@
       .modalBody{grid-template-columns: 1fr}
       .overlay .name{font-size:17px}
       .overlay .price{font-size:15px}
+
+      /* configurador */
+      .builder{ grid-template-columns: 1fr; }
     }
 
     @media (max-width: 520px){
@@ -548,6 +654,7 @@
 
       <nav aria-label="Navegación">
         <a class="navBtn" href="#catalogo">Catálogo</a>
+        <a class="navBtn" href="#configurador">Crea tu pulsera</a>
         <a class="navBtn" href="#sobre">Sobre</a>
         <a class="navBtn" href="#contacto">Contacto</a>
         <a class="navBtn primary" href="#catalogo">Ver productos</a>
@@ -557,6 +664,7 @@
 
   <div class="mobileNav" id="mobileNav">
     <a class="navBtn" href="#catalogo">Catálogo</a>
+    <a class="navBtn" href="#configurador">Crea tu pulsera</a>
     <a class="navBtn" href="#sobre">Sobre</a>
     <a class="navBtn" href="#contacto">Contacto</a>
     <a class="navBtn primary" href="#catalogo">Ver productos</a>
@@ -568,11 +676,12 @@
         <div class="kicker">PULSERAS • ARTESANAL • PERÚ</div>
         <h1 class="heroTitle">Descubre tu energía con estilo</h1>
         <p class="heroText">
-          Diseños artesanales inspirados en la naturaleza. Mira el catálogo, abre un producto y compra directo por WhatsApp.
+          Diseños artesanales inspirados en la naturaleza. Mira el catálogo, arma tu pulsera personalizada y compra directo por WhatsApp.
         </p>
 
         <div class="ctaRow">
           <a class="cta primary" href="#catalogo">Ver catálogo</a>
+          <a class="cta" href="#configurador">Crear mi pulsera</a>
           <a class="cta" id="waTop" href="#" target="_blank" rel="noopener">Comprar por WhatsApp</a>
         </div>
       </div>
@@ -592,6 +701,106 @@
         </p>
 
         <div id="grid" class="grid"></div>
+      </div>
+    </section>
+
+    <!-- =========================
+         NUEVA SECCIÓN: CREA TU PULSERA
+         ========================= -->
+    <section id="configurador" class="section sectionGrey sectionDivider">
+      <div class="wrap">
+        <h2>Crea tu pulsera</h2>
+        <p class="lead">
+          Arma tu diseño en segundos. La vista previa es referencial (colores), y el botón te manda a WhatsApp con tu configuración lista.
+        </p>
+
+        <div class="builder">
+          <div class="card builderPreview">
+            <div class="builderTop">
+              <div>
+                <h3 style="margin:0 0 6px">Vista previa</h3>
+                <p class="builderSmall" style="margin:0">Pulsera renderizada con cuentas (demo).</p>
+              </div>
+              <div class="builderBadges">
+                <span class="tag" id="bBeads">—</span>
+                <span class="pill" id="bPrice">—</span>
+              </div>
+            </div>
+
+            <canvas id="braceletCanvas" width="520" height="520" aria-label="Vista previa de pulsera"></canvas>
+            <p class="builderNote" id="bSummary"></p>
+          </div>
+
+          <div class="card builderControls">
+            <h3 style="margin:0 0 12px">Personaliza</h3>
+
+            <div class="fields">
+              <div class="field">
+                <label for="bMainStone">Piedra principal</label>
+                <select id="bMainStone"></select>
+              </div>
+
+              <div class="field">
+                <label for="bAccentStone">Acento (opcional)</label>
+                <select id="bAccentStone"></select>
+              </div>
+
+              <div class="field">
+                <div class="rangeRow">
+                  <label for="bAccentPercent" style="margin:0">Cantidad de acento</label>
+                  <span class="pill" id="bAccentLabel">0%</span>
+                </div>
+                <input id="bAccentPercent" type="range" min="0" max="40" step="5" value="15">
+              </div>
+
+              <div class="field">
+                <label for="bBeadSize">Tamaño de cuentas</label>
+                <select id="bBeadSize">
+                  <option value="4">4 mm</option>
+                  <option value="6">6 mm</option>
+                  <option value="8">8 mm</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="bLength">Largo de pulsera</label>
+                <select id="bLength">
+                  <option value="16">16 cm</option>
+                  <option value="17">17 cm</option>
+                  <option value="18" selected>18 cm</option>
+                  <option value="19">19 cm</option>
+                  <option value="20">20 cm</option>
+                  <option value="21">21 cm</option>
+                  <option value="22">22 cm</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="bSpacer">Separadores</label>
+                <select id="bSpacer">
+                  <option value="none" selected>Sin separadores</option>
+                  <option value="gold">Dorado</option>
+                  <option value="silver">Plateado</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="bNote">Nota (opcional)</label>
+                <input id="bNote" type="text" maxlength="80" placeholder="Ej: para regalo, estilo minimalista, etc.">
+              </div>
+            </div>
+
+            <div class="builderBtns">
+              <button class="navBtn" id="bRandom" type="button">Aleatorio</button>
+              <button class="navBtn" id="bReset" type="button">Reset</button>
+              <a class="navBtn primary" id="bWA" href="#" target="_blank" rel="noopener">Pedir por WhatsApp</a>
+            </div>
+
+            <p class="builderSmall">
+              * Precio mostrado es <b>estimado</b> (demo). El precio final depende de stock, tipo de piedra y acabados.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -879,6 +1088,312 @@
 
     setGenericWA();
     render();
+
+    /* =========================
+       CONFIGURADOR (JS)
+       ========================= */
+    const STONES = [
+      { id:"blue_tiger", name:"Ojo de Tigre Azul", color:"#2e5f93", cost:2.6 },
+      { id:"onyx",      name:"Ónix Negro",        color:"#14171c", cost:2.2 },
+      { id:"citrine",   name:"Citrino",           color:"#d7b46a", cost:2.8 },
+      { id:"jade",      name:"Jade",              color:"#2f8a6a", cost:2.8 },
+      { id:"white_q",   name:"Cuarzo Blanco",     color:"#e9eef7", cost:2.0 },
+      { id:"red_agate", name:"Ágata Roja",        color:"#b3392f", cost:2.4 },
+      { id:"amethyst",  name:"Amatista",          color:"#6b44c6", cost:2.6 },
+      { id:"lava",      name:"Piedra Volcánica",  color:"#2b2b2b", cost:1.8 }
+    ];
+
+    const SPACERS = {
+      none:   { name:"Sin separadores", color:null, cost:0 },
+      gold:   { name:"Dorado",          color:"#d7b46a", cost:1.2 },
+      silver: { name:"Plateado",        color:"#bfc7d6", cost:1.0 }
+    };
+
+    const BUILDER = {
+      baseLabor: 18, // mano de obra (demo)
+      spacerEvery: 6 // cada cuántas cuentas aparece separador
+    };
+
+    // refs
+    const bMainStone = document.getElementById("bMainStone");
+    const bAccentStone = document.getElementById("bAccentStone");
+    const bAccentPercent = document.getElementById("bAccentPercent");
+    const bAccentLabel = document.getElementById("bAccentLabel");
+    const bBeadSize = document.getElementById("bBeadSize");
+    const bLength = document.getElementById("bLength");
+    const bSpacer = document.getElementById("bSpacer");
+    const bNote = document.getElementById("bNote");
+
+    const bBeads = document.getElementById("bBeads");
+    const bPrice = document.getElementById("bPrice");
+    const bSummary = document.getElementById("bSummary");
+    const bWA = document.getElementById("bWA");
+
+    const bRandom = document.getElementById("bRandom");
+    const bReset = document.getElementById("bReset");
+
+    const braceletCanvas = document.getElementById("braceletCanvas");
+    const ctxB = braceletCanvas.getContext("2d");
+
+    function fillStoneSelect(select, { includeNone=false } = {}){
+      select.innerHTML = "";
+      if(includeNone){
+        const o = document.createElement("option");
+        o.value = "none";
+        o.textContent = "Sin acento";
+        select.appendChild(o);
+      }
+      STONES.forEach(s=>{
+        const o = document.createElement("option");
+        o.value = s.id;
+        o.textContent = s.name;
+        select.appendChild(o);
+      });
+    }
+
+    fillStoneSelect(bMainStone);
+    fillStoneSelect(bAccentStone, { includeNone:true });
+
+    // defaults
+    bMainStone.value = "blue_tiger";
+    bAccentStone.value = "none";
+    bAccentPercent.value = "15";
+    bSpacer.value = "none";
+    bBeadSize.value = "4";
+    bLength.value = "18";
+
+    function getStone(id){
+      return STONES.find(s=>s.id===id) || STONES[0];
+    }
+
+    function estimateBeadCount(lengthCm, beadMm){
+      // aproximación: largo(cm)*10 = mm; consideramos holgura (1.08)
+      const raw = (Number(lengthCm) * 10) / (Number(beadMm) * 1.08);
+      return Math.max(18, Math.round(raw));
+    }
+
+    function getSpacerCount(total, spacerEvery){
+      // número de índices i en [0,total-1] donde i%spacerEvery==0
+      return Math.floor((total - 1) / spacerEvery) + 1;
+    }
+
+    function buildAccentMask(total, accentCount, spacerEvery, spacerActive){
+      const mask = new Array(total).fill(false);
+      if(accentCount <= 0) return mask;
+
+      let available = [];
+      for(let i=0;i<total;i++){
+        if(spacerActive && i % spacerEvery === 0) continue;
+        available.push(i);
+      }
+      if(available.length === 0) return mask;
+
+      accentCount = Math.min(accentCount, available.length);
+      const step = available.length / accentCount;
+
+      const used = new Set();
+      for(let k=0;k<accentCount;k++){
+        let idx = Math.round(k * step);
+        if(idx >= available.length) idx = available.length - 1;
+
+        // asegurar único si redondeo repite
+        let tries = 0;
+        while(used.has(available[idx]) && tries < available.length){
+          idx = (idx + 1) % available.length;
+          tries++;
+        }
+        used.add(available[idx]);
+        mask[available[idx]] = true;
+      }
+      return mask;
+    }
+
+    function drawBead(x,y,r, baseColor){
+      // sombra
+      ctxB.beginPath();
+      ctxB.arc(x+2, y+3, r, 0, Math.PI*2);
+      ctxB.fillStyle = "rgba(0,0,0,.18)";
+      ctxB.fill();
+
+      // cuerpo
+      ctxB.beginPath();
+      ctxB.arc(x, y, r, 0, Math.PI*2);
+      ctxB.fillStyle = baseColor;
+      ctxB.fill();
+
+      // brillo
+      ctxB.beginPath();
+      ctxB.arc(x - r*0.35, y - r*0.35, r*0.42, 0, Math.PI*2);
+      ctxB.fillStyle = "rgba(255,255,255,.35)";
+      ctxB.fill();
+
+      // borde sutil
+      ctxB.beginPath();
+      ctxB.arc(x, y, r, 0, Math.PI*2);
+      ctxB.strokeStyle = "rgba(0,0,0,.10)";
+      ctxB.lineWidth = 1;
+      ctxB.stroke();
+    }
+
+    function renderBracelet({ total, beadMm, mainColor, accentColor, accentMask, spacerKey }){
+      const w = braceletCanvas.width;
+      const h = braceletCanvas.height;
+      const cx = w/2;
+      const cy = h/2;
+
+      ctxB.clearRect(0,0,w,h);
+
+      // fondo
+      const bg = ctxB.createRadialGradient(cx, cy, 10, cx, cy, w*0.55);
+      bg.addColorStop(0, "rgba(255,255,255,1)");
+      bg.addColorStop(1, "rgba(242,243,246,1)");
+      ctxB.fillStyle = bg;
+      ctxB.fillRect(0,0,w,h);
+
+      // escala según canvas
+      const scale = w / 520;
+      const rMap = {4:14, 6:18, 8:22};
+      const beadR = (rMap[Number(beadMm)] || 18) * scale;
+
+      const ringR = (w * 0.33);
+      const spacer = SPACERS[spacerKey] || SPACERS.none;
+      const spacerActive = spacerKey !== "none";
+
+      for(let i=0;i<total;i++){
+        const a = (Math.PI * 2) * (i / total) - Math.PI/2;
+        const x = cx + ringR * Math.cos(a);
+        const y = cy + ringR * Math.sin(a);
+
+        let color = mainColor;
+
+        // separadores (prioridad)
+        if(spacerActive && i % BUILDER.spacerEvery === 0){
+          color = spacer.color;
+        } else if(accentColor && accentMask[i]){
+          color = accentColor;
+        }
+
+        drawBead(x, y, beadR, color);
+      }
+
+      // agujero central (estético)
+      ctxB.beginPath();
+      ctxB.arc(cx, cy, w*0.12, 0, Math.PI*2);
+      ctxB.fillStyle = "rgba(0,0,0,.04)";
+      ctxB.fill();
+    }
+
+    function builderUpdate(){
+      const main = getStone(bMainStone.value);
+
+      const accentId = bAccentStone.value;
+      const accent = accentId !== "none" ? getStone(accentId) : null;
+
+      const beadMm = Number(bBeadSize.value);
+      const lengthCm = Number(bLength.value);
+      const spacerKey = bSpacer.value;
+
+      const accentOn = !!accent;
+      const accentPct = Number(bAccentPercent.value);
+      const accentPctEff = accentOn ? accentPct : 0;
+
+      bAccentPercent.disabled = !accentOn;
+      bAccentLabel.textContent = `${accentPctEff}%`;
+
+      const total = estimateBeadCount(lengthCm, beadMm);
+
+      const spacerActive = spacerKey !== "none";
+      const spacerCount = spacerActive ? getSpacerCount(total, BUILDER.spacerEvery) : 0;
+
+      const baseCount = Math.max(0, total - spacerCount);
+      const accentCount = accentOn ? Math.round(baseCount * (accentPctEff/100)) : 0;
+      const mainCount = Math.max(0, baseCount - accentCount);
+
+      const accentMask = buildAccentMask(total, accentCount, BUILDER.spacerEvery, spacerActive);
+
+      // precio estimado (demo)
+      const spacerCost = SPACERS[spacerKey]?.cost || 0;
+      let est = BUILDER.baseLabor
+        + (mainCount * main.cost)
+        + (accentCount * (accent ? accent.cost : 0))
+        + (spacerCount * spacerCost);
+
+      // redondeo bonito
+      est = Math.round(est / 5) * 5;
+
+      // labels
+      bBeads.textContent = `${total} cuentas`;
+      bPrice.textContent = `Estimado: S/ ${est.toFixed(0)}`;
+
+      const accentText = accent ? `${accent.name} (${accentPctEff}%)` : "Sin acento";
+      const spacerText = SPACERS[spacerKey]?.name || "Sin separadores";
+      const note = (bNote.value || "").trim();
+
+      bSummary.innerHTML =
+        `<b>Tu diseño:</b> ${main.name} · Acento: ${accentText} · ${beadMm}mm · ${lengthCm}cm · Separador: ${spacerText}` +
+        (note ? `<br><b>Nota:</b> ${note}` : "");
+
+      // render canvas
+      renderBracelet({
+        total,
+        beadMm,
+        mainColor: main.color,
+        accentColor: accent ? accent.color : null,
+        accentMask,
+        spacerKey
+      });
+
+      // WhatsApp
+      const msg =
+`Hola 😊 Quiero una pulsera personalizada Gaia Craft:
+
+• Piedra principal: ${main.name}
+• Acento: ${accentText}
+• Tamaño de cuentas: ${beadMm} mm
+• Largo: ${lengthCm} cm
+• Separadores: ${spacerText}
+${note ? "• Nota: " + note + "\n" : ""}
+¿Me confirmas precio final y stock?`;
+
+      bWA.href = waLink(msg);
+    }
+
+    // listeners
+    [bMainStone, bAccentStone, bBeadSize, bLength, bSpacer].forEach(el => el.addEventListener("change", builderUpdate));
+    bAccentPercent.addEventListener("input", builderUpdate);
+    bNote.addEventListener("input", builderUpdate);
+
+    // random / reset
+    bRandom.addEventListener("click", ()=>{
+      const main = STONES[Math.floor(Math.random()*STONES.length)];
+      let accent = Math.random() < 0.65 ? STONES[Math.floor(Math.random()*STONES.length)] : null;
+      if(accent && accent.id === main.id) accent = null;
+
+      bMainStone.value = main.id;
+      bAccentStone.value = accent ? accent.id : "none";
+      bAccentPercent.value = accent ? [10,15,20,25,30][Math.floor(Math.random()*5)] : 15;
+      bBeadSize.value = [4,6,8][Math.floor(Math.random()*3)];
+      bLength.value = [18,19,20,21][Math.floor(Math.random()*4)];
+      bSpacer.value = ["none","gold","silver"][Math.floor(Math.random()*3)];
+      bNote.value = "";
+
+      builderUpdate();
+    });
+
+    bReset.addEventListener("click", ()=>{
+      bMainStone.value = "blue_tiger";
+      bAccentStone.value = "none";
+      bAccentPercent.value = 15;
+      bBeadSize.value = 4;
+      bLength.value = 18;
+      bSpacer.value = "none";
+      bNote.value = "";
+      builderUpdate();
+    });
+
+    // init
+    builderUpdate();
   </script>
 </body>
 </html>
+
