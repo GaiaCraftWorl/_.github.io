@@ -420,6 +420,7 @@
       border-radius: 999px;
       border: 1px solid rgba(0,0,0,.10);
       background:#fff;
+      white-space: nowrap;
     }
     .tag{
       font-weight: 950;
@@ -446,9 +447,17 @@
       margin-bottom: 12px;
     }
 
-    /* ✅ REEMPLAZO de "precio + cuentas" por CUADRO DE SECUENCIA */
+    .builderTopRight{
+      display:flex;
+      align-items:stretch;
+      gap: 10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      max-width: 55%;
+    }
+
     .builderSeqBox{
-      width: min(360px, 54%);
+      width: min(360px, 100%);
       border-radius: 16px;
       border: 1px solid rgba(0,0,0,.10);
       background: rgba(255,255,255,.85);
@@ -486,7 +495,7 @@
       box-shadow: 0 14px 34px rgba(0,0,0,.08);
     }
     .builderNote{ margin: 12px 0 0; color:#5d6a7c; line-height:1.7; }
-    .builderSmall{ margin: 12px 0 0; color:#5d6a7c; font-size: 12.5px; line-height:1.6; }
+    .builderSmall{ margin: 10px 0 0; color:#5d6a7c; font-size: 12.5px; line-height:1.6; }
 
     .fields{ display:grid; gap: 12px; }
     .field label{
@@ -512,14 +521,18 @@
       border-color: rgba(215,180,106,.75);
       box-shadow: 0 0 0 4px rgba(215,180,106,.18);
     }
-    .rangeRow{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+
+    .stoneGrid{
+      display:grid;
+      grid-template-columns: 1fr;
       gap: 10px;
-      margin-bottom: 8px;
     }
-    input[type="range"]{ width:100%; }
+    .stoneRow{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .stoneRow.hidden{ display:none; }
 
     .builderBtns{
       display:flex;
@@ -543,7 +556,7 @@
       .overlay .name{font-size:17px}
       .overlay .price{font-size:15px}
       .builder{ grid-template-columns: 1fr; }
-      .builderSeqBox{ width: 100%; }
+      .builderTopRight{ max-width: 100%; }
     }
 
     @media (max-width: 520px){
@@ -647,7 +660,6 @@
       </div>
     </section>
 
-    <!-- CREA TU PULSERA -->
     <section id="configurador" class="section sectionGrey sectionDivider">
       <div class="wrap">
         <h2>Crea tu pulsera</h2>
@@ -663,18 +675,20 @@
                 <p class="builderSmall" style="margin:0">Pulsera renderizada con <b>IMÁGENES</b> (texturas v2).</p>
               </div>
 
-              <!-- ✅ AQUÍ se reemplazó "cantas+precio" por el cuadro de secuencia -->
-              <div class="builderSeqBox" aria-label="Secuencia activa">
-                <div class="t">Secuencia activa</div>
-                <div class="v" id="bSeqPreview">Auto (principal + acento)</div>
-                <div class="hint">Escribe una secuencia abajo y se repite alrededor de la pulsera.</div>
+              <div class="builderTopRight">
+                <div class="builderSeqBox" aria-label="Secuencia activa">
+                  <div class="t">Secuencia activa</div>
+                  <div class="v" id="bSeqPreview">—</div>
+                  <div class="hint">Se repite en círculo según tus selecciones (máx. 3 piedras).</div>
+                </div>
+
+                <span class="pill" id="bPrice">Precio: —</span>
               </div>
             </div>
 
             <canvas id="braceletCanvas" width="520" height="520" aria-label="Vista previa de pulsera"></canvas>
 
             <p class="builderNote" id="bSummary"></p>
-            <p class="builderSmall" id="bPricing"></p>
             <p class="builderSmall" id="texStatus"></p>
           </div>
 
@@ -682,39 +696,39 @@
             <h3 style="margin:0 0 12px">Personaliza</h3>
 
             <div class="fields">
-              <!-- ✅ NUEVO: SECUENCIA -->
+              <!-- ✅ NUEVO: CANTIDAD DE PIEDRAS -->
               <div class="field">
-                <label for="bSequence">Secuencia de piedras (opcional)</label>
-                <input id="bSequence" type="text" maxlength="140"
-                  placeholder="Ej: Ónix Negro, Cuarzo Blanco, Ónix Negro">
-                <p class="builderSmall" style="margin:8px 0 0">
-                  Separar con <b>comas</b> o <b>|</b>. Si escribes secuencia, se usa ese orden y se repite.
-                  <br>Ej: <b>Onix Negro | Cuarzo Blanco | Onix Negro</b>
-                </p>
+                <label for="bStoneCount">Cantidad de piedras</label>
+                <select id="bStoneCount">
+                  <option value="1" selected>1 piedra</option>
+                  <option value="2">2 piedras</option>
+                  <option value="3">3 piedras</option>
+                </select>
               </div>
 
+              <!-- ✅ NUEVO: SELECTS DE PIEDRAS (1..3) -->
               <div class="field">
-                <label for="bMainStone">Piedra principal</label>
-                <select id="bMainStone"></select>
-              </div>
-
-              <div class="field">
-                <label for="bAccentStone">Acento (opcional)</label>
-                <select id="bAccentStone"></select>
-              </div>
-
-              <div class="field">
-                <div class="rangeRow">
-                  <label for="bAccentPercent" style="margin:0">Cantidad de acento</label>
-                  <span class="pill" id="bAccentLabel">0%</span>
+                <label>Piedras</label>
+                <div class="stoneGrid">
+                  <div class="stoneRow" id="rowStone1">
+                    <select id="bStone1"></select>
+                  </div>
+                  <div class="stoneRow hidden" id="rowStone2">
+                    <select id="bStone2"></select>
+                  </div>
+                  <div class="stoneRow hidden" id="rowStone3">
+                    <select id="bStone3"></select>
+                  </div>
                 </div>
-                <input id="bAccentPercent" type="range" min="0" max="40" step="5" value="15">
+                <p class="builderSmall" style="margin:8px 0 0">
+                  La pulsera se arma repitiendo: <b>Piedra 1 → Piedra 2 → Piedra 3</b> (según la cantidad elegida).
+                </p>
               </div>
 
               <div class="field">
                 <label for="bBeadSize">Tamaño de cuentas</label>
                 <select id="bBeadSize">
-                  <option value="4">4 mm</option>
+                  <option value="4" selected>4 mm</option>
                   <option value="6">6 mm</option>
                   <option value="8">8 mm</option>
                 </select>
@@ -755,10 +769,9 @@
             </div>
 
             <p class="builderSmall">
-              * El precio se calcula por <b>tiras</b>: <b>S/20</b> por tira y <b>65 cuentas</b> por tira.
-              Si usas 2 piedras diferentes, se considera que necesitas comprar <b>tira por cada piedra</b> (más caro).
+              * El precio es <b>estimado</b> y se calcula por cantidad de cuentas usadas según el precio por tira (65 cuentas).
               <br>
-              * La ganancia es <b>18%</b> del costo total, y se suma al final.
+              * Si una piedra es más cara (ej: <b>Citrino</b>), su parte sube el total.
             </p>
           </div>
         </div>
@@ -1030,12 +1043,11 @@
     render();
 
     /* ==========================================================
-       CONFIGURADOR (SECUENCIA + PRECIO POR TIRAS)
+       CONFIGURADOR (máx 3 piedras + precio interno)
        ========================================================== */
 
     /*
-      ✅ NOMBRES EXACTOS de tus archivos:
-      Piedras:
+      ✅ NOMBRES EXACTOS de tus archivos (según tu lista):
       otigrea.jpg
       onixn.jpg
       citrin.jpg
@@ -1051,23 +1063,47 @@
     */
     const ASSET_DIR = ""; // si los pones en una carpeta: "assets/"
 
-    // ✅ Precio por tira y cuántas cuentas vienen
-    // Si alguna piedra cuesta distinto, cambia "strandPrice" en esa piedra.
+    // ========= PRICING =========
+    // 65 cuentas por tira.
     const BEADS_PER_STRAND = 65;
-    const DEFAULT_STRAND_PRICE = 20; // S/ por tira (según lo que dijiste)
-    const PROFIT_RATE = 0.18;        // 18% de ganancia
-    const ROUND_TO = 1;              // redondeo final (1 = 1 sol, 5 = de 5 en 5)
+
+    // Precio por defecto (AJÚSTALO a tu realidad):
+    // Dijiste: "cada tira ... 20 soles" -> lo pongo como default en 6mm, y 4mm un poco más barato.
+    const DEFAULT_STRAND_PRICE_BY_SIZE = {
+      4: 18,  // <-- cámbialo si quieres
+      6: 20,
+      8: 24   // <-- cámbialo si quieres
+    };
+
+    // Ganancia interna (NO se muestra al cliente)
+    const PROFIT_RATE = 0.18;
+
+    // Redondeo del precio final
+    const ROUND_TO = 1; // 1 sol, o 5 para redondear a múltiplos de 5
+
+    // Costos internos opcionales
+    const BUILDER = {
+      spacerEvery: 6,
+      laborCost: 0,   // si quieres agregar mano de obra interna, pon ej 10, 15...
+      extraCost: 0    // elástico/bolsita/cajita etc (si lo quieres considerar)
+    };
 
     const STONES = [
-      { id:"blue_tiger", name:"Ojo de Tigre Azul", img: ASSET_DIR + "otigrea.jpg", fallback:"#2e5f93", strandPrice: DEFAULT_STRAND_PRICE, aliases:["ojo de tigre azul","tigre azul","otigrea","blue tiger"] },
-      { id:"onyx",      name:"Ónix Negro",        img: ASSET_DIR + "onixn.jpg",   fallback:"#14171c", strandPrice: DEFAULT_STRAND_PRICE, aliases:["onix negro","ónix negro","onyx negro","onix","onyx","onixn"] },
-      { id:"citrine",   name:"Citrino",           img: ASSET_DIR + "citrin.jpg",  fallback:"#d7b46a", strandPrice: DEFAULT_STRAND_PRICE, aliases:["citrino","citrine","citrin"] },
-      { id:"jade",      name:"Jade",              img: ASSET_DIR + "jade.jpg",    fallback:"#2f8a6a", strandPrice: DEFAULT_STRAND_PRICE, aliases:["jade"] },
-      { id:"white_q",   name:"Cuarzo Blanco",     img: ASSET_DIR + "cuarbla.jpg", fallback:"#e9eef7", strandPrice: DEFAULT_STRAND_PRICE, aliases:["cuarzo blanco","cuarzo","white quartz","cuarbla"] },
-      { id:"red_agate", name:"Ágata Roja",        img: ASSET_DIR + "agared.jpg",  fallback:"#b3392f", strandPrice: DEFAULT_STRAND_PRICE, aliases:["agata roja","ágata roja","agata","agate","agared"] },
-      { id:"amethyst",  name:"Amatista",          img: ASSET_DIR + "amat.jpg",    fallback:"#6b44c6", strandPrice: DEFAULT_STRAND_PRICE, aliases:["amatista","amethyst","amat"] },
-      { id:"lava",      name:"Piedra Volcánica",  img: ASSET_DIR + "volcanicpiedra.jpg", fallback:"#2b2b2b", strandPrice: DEFAULT_STRAND_PRICE, aliases:["piedra volcanica","piedra volcánica","volcanica","volcánica","lava","volcanic","volcanicpiedra"] }
+      { id:"blue_tiger", name:"Ojo de Tigre Azul", img: ASSET_DIR + "otigrea.jpg", fallback:"#2e5f93" },
+      { id:"onyx",      name:"Ónix Negro",        img: ASSET_DIR + "onixn.jpg",   fallback:"#14171c" },
+      // ✅ Citrino más caro (lo que dijiste: 28)
+      { id:"citrine",   name:"Citrino",           img: ASSET_DIR + "citrin.jpg",  fallback:"#d7b46a",
+        strandPriceBySize: { 4: 26, 6: 28, 8: 32 } // <-- ajusta si cambia
+      },
+      { id:"jade",      name:"Jade",              img: ASSET_DIR + "jade.jpg",    fallback:"#2f8a6a" },
+      { id:"white_q",   name:"Cuarzo Blanco",     img: ASSET_DIR + "cuarbla.jpg", fallback:"#e9eef7" },
+      { id:"red_agate", name:"Ágata Roja",        img: ASSET_DIR + "agared.jpg",  fallback:"#b3392f" },
+      { id:"amethyst",  name:"Amatista",          img: ASSET_DIR + "amat.jpg",    fallback:"#6b44c6" },
+      { id:"lava",      name:"Piedra Volcánica",  img: ASSET_DIR + "volcanicpiedra.jpg", fallback:"#2b2b2b" }
     ];
+
+    // Si quieres agregar PERLA, descomenta y crea "perla.jpg" (y añádelo a preload):
+    // STONES.push({ id:"pearl", name:"Perla", img: ASSET_DIR + "perla.jpg", fallback:"#f1f1f1", strandPriceBySize:{4:18,6:20,8:24} });
 
     const SPACERS = {
       none:   { name:"Sin separadores", img:null, unitCost:0, fallback:"#ffffff" },
@@ -1075,30 +1111,28 @@
       silver: { name:"Plateado",        img: ASSET_DIR + "plat.jpg", unitCost:1.0, fallback:"#bfc7d6" }
     };
 
-    const BUILDER = {
-      spacerEvery: 6,
-      laborCost: 0,            // si quieres sumar mano de obra, pon aquí (ej: 10, 15, 18, etc.)
-      extraCost: 0             // extras (hilo/elástico/empaque) si quieres
-    };
-
     // refs UI
-    const bSequence = document.getElementById("bSequence");
-    const bSeqPreview = document.getElementById("bSeqPreview");
+    const bStoneCount = document.getElementById("bStoneCount");
+    const bStone1 = document.getElementById("bStone1");
+    const bStone2 = document.getElementById("bStone2");
+    const bStone3 = document.getElementById("bStone3");
 
-    const bMainStone = document.getElementById("bMainStone");
-    const bAccentStone = document.getElementById("bAccentStone");
-    const bAccentPercent = document.getElementById("bAccentPercent");
-    const bAccentLabel = document.getElementById("bAccentLabel");
+    const rowStone2 = document.getElementById("rowStone2");
+    const rowStone3 = document.getElementById("rowStone3");
+
     const bBeadSize = document.getElementById("bBeadSize");
     const bLength = document.getElementById("bLength");
     const bSpacer = document.getElementById("bSpacer");
     const bNote = document.getElementById("bNote");
 
+    const bSeqPreview = document.getElementById("bSeqPreview");
+    const bPrice = document.getElementById("bPrice");
     const bSummary = document.getElementById("bSummary");
-    const bPricing = document.getElementById("bPricing");
     const bWA = document.getElementById("bWA");
+
     const bRandom = document.getElementById("bRandom");
     const bReset = document.getElementById("bReset");
+
     const texStatus = document.getElementById("texStatus");
 
     // canvas
@@ -1154,14 +1188,8 @@
       }
     }
 
-    function fillStoneSelect(select, { includeNone=false } = {}){
+    function fillStoneSelect(select){
       select.innerHTML = "";
-      if(includeNone){
-        const o = document.createElement("option");
-        o.value = "none";
-        o.textContent = "Sin acento";
-        select.appendChild(o);
-      }
       STONES.forEach(s=>{
         const o = document.createElement("option");
         o.value = s.id;
@@ -1170,16 +1198,15 @@
       });
     }
 
-    fillStoneSelect(bMainStone);
-    fillStoneSelect(bAccentStone, { includeNone:true });
+    fillStoneSelect(bStone1);
+    fillStoneSelect(bStone2);
+    fillStoneSelect(bStone3);
 
     // defaults
-    bMainStone.value = "blue_tiger";
-    bAccentStone.value = "none";
-    bAccentPercent.value = "15";
-    bSpacer.value = "none";
-    bBeadSize.value = "4";
-    bLength.value = "18";
+    bStoneCount.value = "1";
+    bStone1.value = "blue_tiger";
+    bStone2.value = "onyx";
+    bStone3.value = "white_q";
 
     function getStone(id){
       return STONES.find(s=>s.id===id) || STONES[0];
@@ -1194,98 +1221,40 @@
       return Math.floor((total - 1) / spacerEvery) + 1;
     }
 
-    /* ========= SECUENCIA: parse robusto ========= */
-    function normalizeText(s){
-      return (s || "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g,"")
-        .replace(/\s+/g," ")
-        .trim();
-    }
-
-    const STONE_ALIAS_MAP = new Map();
-    (function buildAliasMap(){
-      for(const s of STONES){
-        const base = normalizeText(s.name);
-        if(base) STONE_ALIAS_MAP.set(base, s.id);
-
-        (s.aliases || []).forEach(a=>{
-          const k = normalizeText(a);
-          if(k) STONE_ALIAS_MAP.set(k, s.id);
-        });
-
-        // permitir id
-        STONE_ALIAS_MAP.set(normalizeText(s.id), s.id);
+    function getStrandPrice(stone, beadMm){
+      const size = Number(beadMm);
+      if(stone.strandPriceBySize && typeof stone.strandPriceBySize[size] === "number"){
+        return stone.strandPriceBySize[size];
       }
-    })();
-
-    function resolveStoneId(token){
-      const t = normalizeText(token);
-      return STONE_ALIAS_MAP.get(t) || null;
+      return DEFAULT_STRAND_PRICE_BY_SIZE[size] ?? 20;
     }
 
-    function parseSequenceInput(raw){
-      raw = (raw || "").trim();
-      if(!raw) return [];
-
-      // si hay separadores claros, split directo
-      if(/[,\|\;\n]/.test(raw)){
-        const parts = raw.split(/[,|;\n]+/).map(s=>s.trim()).filter(Boolean);
-        const out = [];
-        for(const p of parts){
-          const id = resolveStoneId(p);
-          if(id) out.push(id);
-        }
-        return out;
-      }
-
-      // sin separadores: greedy match de aliases (para "onix negro cuarzo blanco onix negro")
-      let rest = normalizeText(raw);
-      const aliases = Array.from(STONE_ALIAS_MAP.keys())
-        .sort((a,b)=>b.length-a.length); // primero los más largos
-
-      const out = [];
-      let guard = 0;
-
-      while(rest && guard < 80){
-        guard++;
-        let matched = false;
-
-        for(const al of aliases){
-          if(rest === al || rest.startsWith(al + " ")){
-            out.push(STONE_ALIAS_MAP.get(al));
-            rest = rest.slice(al.length).trim();
-            matched = true;
-            break;
-          }
-        }
-
-        if(!matched){
-          const sp = rest.indexOf(" ");
-          if(sp === -1) break;
-          rest = rest.slice(sp + 1).trim();
-        }
-      }
-
-      return out;
+    function roundTo(value, step){
+      const s = Number(step) || 1;
+      return Math.round(value / s) * s;
     }
 
-    function sequenceToLabel(seqIds){
-      if(!seqIds || seqIds.length === 0) return "Auto (principal + acento)";
-      const names = seqIds.map(id=>getStone(id).name);
-      return names.join(" → ");
+    function getSelectedSequenceIds(){
+      const n = Number(bStoneCount.value);
+      const seq = [bStone1.value];
+      if(n >= 2) seq.push(bStone2.value);
+      if(n >= 3) seq.push(bStone3.value);
+      return seq.filter(Boolean);
     }
 
-    /* ========= Rendering bead image ========= */
+    function updateStoneRows(){
+      const n = Number(bStoneCount.value);
+      rowStone2.classList.toggle("hidden", n < 2);
+      rowStone3.classList.toggle("hidden", n < 3);
+    }
+
+    // Dibuja cuenta con textura (cover)
     function drawBeadImage(x, y, r, img, fallbackColor){
-      // sombra suave
       ctxB.beginPath();
       ctxB.arc(x+2, y+3, r, 0, Math.PI*2);
       ctxB.fillStyle = "rgba(0,0,0,.16)";
       ctxB.fill();
 
-      // recorte circular
       ctxB.save();
       ctxB.beginPath();
       ctxB.arc(x, y, r, 0, Math.PI*2);
@@ -1293,7 +1262,6 @@
       ctxB.clip();
 
       if(img){
-        // "cover"
         const BEAD_ZOOM = 1.35;
         const scale = BEAD_ZOOM * Math.max((2*r)/img.width, (2*r)/img.height);
         const dw = img.width * scale;
@@ -1306,7 +1274,6 @@
 
       ctxB.restore();
 
-      // borde
       ctxB.beginPath();
       ctxB.arc(x, y, r, 0, Math.PI*2);
       ctxB.strokeStyle = "rgba(0,0,0,.10)";
@@ -1322,7 +1289,6 @@
 
       ctxB.clearRect(0,0,w,h);
 
-      // fondo
       const bg = ctxB.createRadialGradient(cx, cy, 10, cx, cy, w*0.55);
       bg.addColorStop(0, "rgba(255,255,255,1)");
       bg.addColorStop(1, "rgba(242,243,246,1)");
@@ -1358,49 +1324,15 @@
         drawBeadImage(x, y, beadR, img, fallback);
       }
 
-      // agujero centro
       ctxB.beginPath();
       ctxB.arc(cx, cy, w*0.12, 0, Math.PI*2);
       ctxB.fillStyle = "rgba(0,0,0,.04)";
       ctxB.fill();
     }
 
-    function buildAccentMask(total, accentCount, spacerEvery, spacerActive){
-      const mask = new Array(total).fill(false);
-      if(accentCount <= 0) return mask;
-
-      const available = [];
-      for(let i=0;i<total;i++){
-        if(spacerActive && i % spacerEvery === 0) continue;
-        available.push(i);
-      }
-      if(available.length === 0) return mask;
-
-      accentCount = Math.min(accentCount, available.length);
-      const step = available.length / accentCount;
-
-      const used = new Set();
-      for(let k=0;k<accentCount;k++){
-        let idx = Math.round(k * step);
-        if(idx >= available.length) idx = available.length - 1;
-
-        let tries = 0;
-        while(used.has(available[idx]) && tries < available.length){
-          idx = (idx + 1) % available.length;
-          tries++;
-        }
-        used.add(available[idx]);
-        mask[available[idx]] = true;
-      }
-      return mask;
-    }
-
-    function roundTo(value, step){
-      const s = Number(step) || 1;
-      return Math.round(value / s) * s;
-    }
-
     function builderUpdate(){
+      updateStoneRows();
+
       const beadMm = Number(bBeadSize.value);
       const lengthCm = Number(bLength.value);
       const spacerKey = bSpacer.value;
@@ -1410,32 +1342,12 @@
       const spacerCount = spacerActive ? getSpacerCount(total, BUILDER.spacerEvery) : 0;
       const baseCount = Math.max(0, total - spacerCount);
 
-      // === SECUENCIA (si existe, manda) ===
-      const seqIds = parseSequenceInput(bSequence.value);
-      const sequenceActive = seqIds.length > 0;
+      const seqIds = getSelectedSequenceIds();
+      const seqNames = seqIds.map(id => getStone(id).name);
 
-      bSeqPreview.textContent = sequenceToLabel(seqIds);
+      bSeqPreview.textContent = seqNames.join(" → ");
 
-      // si hay secuencia, bloquea principal/acento (para no confundir)
-      bMainStone.disabled = sequenceActive;
-      bAccentStone.disabled = sequenceActive;
-      bAccentPercent.disabled = sequenceActive || (bAccentStone.value === "none");
-
-      const main = getStone(bMainStone.value);
-      const accentId = bAccentStone.value;
-      const accent = (accentId !== "none") ? getStone(accentId) : null;
-
-      const accentOn = !!accent && !sequenceActive;
-      const accentPct = Number(bAccentPercent.value);
-      const accentPctEff = accentOn ? accentPct : 0;
-
-      bAccentLabel.textContent = `${accentPctEff}%`;
-
-      const accentCount = accentOn ? Math.round(baseCount * (accentPctEff/100)) : 0;
-      const mainCount = Math.max(0, baseCount - accentCount);
-      const accentMask = accentOn ? buildAccentMask(total, accentCount, BUILDER.spacerEvery, spacerActive) : new Array(total).fill(false);
-
-      // === construir PLAN (orden real de cuentas) ===
+      // PLAN (orden real)
       const plan = new Array(total);
       let baseIdx = 0;
 
@@ -1444,94 +1356,56 @@
           plan[i] = { kind:"spacer", spacerKey };
           continue;
         }
-
-        if(sequenceActive){
-          const stoneId = seqIds[baseIdx % seqIds.length];
-          plan[i] = { kind:"stone", stoneId };
-          baseIdx++;
-        } else {
-          if(accent && accentMask[i]){
-            plan[i] = { kind:"stone", stoneId: accent.id };
-          } else {
-            plan[i] = { kind:"stone", stoneId: main.id };
-          }
-          baseIdx++;
-        }
+        const stoneId = seqIds[baseIdx % seqIds.length];
+        plan[i] = { kind:"stone", stoneId };
+        baseIdx++;
       }
 
-      // === conteo por piedra (material usado) ===
+      // conteo por piedra
       const stoneCounts = new Map();
       let spacerUsed = 0;
 
       for(const item of plan){
-        if(item.kind === "spacer"){
-          spacerUsed++;
-        } else {
-          stoneCounts.set(item.stoneId, (stoneCounts.get(item.stoneId) || 0) + 1);
-        }
+        if(item.kind === "spacer") spacerUsed++;
+        else stoneCounts.set(item.stoneId, (stoneCounts.get(item.stoneId) || 0) + 1);
       }
 
-      // === COSTO por TIRAS (65 cuentas por tira) ===
-      // si usas varias piedras, se calcula tira por piedra (más caro).
+      // ===== COSTO INTERNO (NO mostrar breakdown) =====
+      // ✅ Ahora se calcula proporcional por cuentas usadas:
+      // costo piedra = (cuentas_usadas / 65) * precio_tira(según mm y piedra)
       let materialCost = 0;
-      const detailLines = [];
 
       for(const [stoneId, cnt] of stoneCounts.entries()){
         const st = getStone(stoneId);
-        const strands = Math.ceil(cnt / BEADS_PER_STRAND);
-        const cost = strands * Number(st.strandPrice || DEFAULT_STRAND_PRICE);
-        materialCost += cost;
-        detailLines.push(`• ${st.name}: ${cnt} cuentas → ${strands} tira(s) = S/ ${cost.toFixed(2)}`);
+        const strandPrice = getStrandPrice(st, beadMm);
+        materialCost += (cnt / BEADS_PER_STRAND) * strandPrice;
       }
 
       const spacerUnit = SPACERS[spacerKey]?.unitCost || 0;
       const spacerCost = spacerUsed * spacerUnit;
-      if(spacerCost > 0){
-        materialCost += spacerCost;
-        detailLines.push(`• Separadores (${SPACERS[spacerKey].name}): ${spacerUsed} × S/ ${spacerUnit.toFixed(2)} = S/ ${spacerCost.toFixed(2)}`);
-      }
 
-      const extraCost = Number(BUILDER.extraCost || 0);
-      if(extraCost > 0){
-        materialCost += extraCost;
-        detailLines.push(`• Extras: S/ ${extraCost.toFixed(2)}`);
-      }
+      materialCost += spacerCost;
+      materialCost += Number(BUILDER.extraCost || 0);
 
-      const laborCost = Number(BUILDER.laborCost || 0);
-      const baseCost = materialCost + laborCost;
-
-      const profit = baseCost * PROFIT_RATE;
-      const finalExact = baseCost + profit;
+      const baseCost = materialCost + Number(BUILDER.laborCost || 0);
+      const profit = baseCost * PROFIT_RATE;          // interno
+      const finalExact = baseCost + profit;           // interno
       const finalRounded = roundTo(finalExact, ROUND_TO);
 
-      // === UI summary ===
+      // UI: solo precio final (sin costos ni ganancia)
+      bPrice.textContent = `Precio: S/ ${finalRounded.toFixed(2)}`;
+
       const spacerText = SPACERS[spacerKey]?.name || "Sin separadores";
       const note = (bNote.value || "").trim();
 
-      const designText = sequenceActive
-        ? `Modo secuencia: ${sequenceToLabel(seqIds)}`
-        : `${main.name} · Acento: ${accent ? `${accent.name} (${accentPctEff}%)` : "Sin acento"}`;
-
       bSummary.innerHTML =
-        `<b>Tu diseño:</b> ${designText} · ${beadMm}mm · ${lengthCm}cm · ${total} posiciones (${baseCount} cuentas + ${spacerUsed} separadores) · Separador: ${spacerText}` +
-        (note ? `<br><b>Nota:</b> ${note}` : "");
+        `<b>Tu diseño:</b> ${seqNames.join(" + ")} · ${beadMm}mm · ${lengthCm}cm · ${total} posiciones `
+        + `(${baseCount} cuentas + ${spacerUsed} separadores) · Separador: ${spacerText}`
+        + (note ? `<br><b>Nota:</b> ${note}` : "");
 
-      bPricing.innerHTML =
-        `<b>Costo material:</b> S/ ${materialCost.toFixed(2)}`
-        + (laborCost > 0 ? ` · <b>Mano de obra:</b> S/ ${laborCost.toFixed(2)}` : "")
-        + ` · <b>Ganancia 18%:</b> S/ ${profit.toFixed(2)}`
-        + ` · <b>Precio sugerido:</b> <span style="color:#1a1408;font-weight:950">S/ ${finalRounded.toFixed(2)}</span>`
-        + ` <span style="opacity:.8">(exacto: S/ ${finalExact.toFixed(2)})</span>`
-        + `<br><span style="display:block;margin-top:6px">${detailLines.join("<br>")}</span>`;
-
-      // render
       renderBracelet({ total, beadMm, plan, spacerKey });
 
-      // === WhatsApp message ===
-      const seqLine = sequenceActive
-        ? `• Secuencia: ${sequenceToLabel(seqIds)}\n`
-        : `• Principal: ${main.name}\n• Acento: ${accent ? `${accent.name} (${accentPctEff}%)` : "Sin acento"}\n`;
-
+      // WhatsApp (sin exponer ganancias)
       const stonesBreak = Array.from(stoneCounts.entries())
         .map(([id,c]) => `- ${getStone(id).name}: ${c} cuentas`)
         .join("\n");
@@ -1539,52 +1413,36 @@
       const msg =
 `Hola 😊 Quiero una pulsera personalizada Gaia Craft:
 
-${seqLine}• Tamaño de cuentas: ${beadMm} mm
+• Secuencia: ${seqNames.join(" → ")}
+• Tamaño de cuentas: ${beadMm} mm
 • Largo: ${lengthCm} cm
 • Separadores: ${spacerText}
 
-Material usado:
+Distribución:
 ${stonesBreak}
 ${spacerUsed ? `- Separadores: ${spacerUsed}\n` : ""}
 
-Costos:
-- Material: S/ ${materialCost.toFixed(2)}
-${laborCost ? `- Mano de obra: S/ ${laborCost.toFixed(2)}\n` : ""}- Ganancia (18%): S/ ${profit.toFixed(2)}
-- Precio sugerido: S/ ${finalRounded.toFixed(2)}
+Precio estimado: S/ ${finalRounded.toFixed(2)}
+${note ? "\nNota: " + note : ""}
 
-${note ? "Nota: " + note + "\n" : ""}¿Me confirmas precio final y stock?`;
+¿Me confirmas precio final y stock?`;
 
       bWA.href = waLink(msg);
     }
 
     // listeners
-    [bMainStone, bAccentStone, bBeadSize, bLength, bSpacer].forEach(el => el.addEventListener("change", builderUpdate));
-    bAccentPercent.addEventListener("input", builderUpdate);
+    [bStoneCount, bStone1, bStone2, bStone3, bBeadSize, bLength, bSpacer].forEach(el => el.addEventListener("change", builderUpdate));
     bNote.addEventListener("input", builderUpdate);
-    bSequence.addEventListener("input", builderUpdate);
 
     bRandom.addEventListener("click", ()=>{
-      // en aleatorio, también genera una secuencia de vez en cuando
-      const useSeq = Math.random() < 0.55;
+      const n = [1,2,3][Math.floor(Math.random()*3)];
+      bStoneCount.value = String(n);
 
-      if(useSeq){
-        const len = [2,3,3,4][Math.floor(Math.random()*4)];
-        const seq = [];
-        for(let i=0;i<len;i++){
-          seq.push(STONES[Math.floor(Math.random()*STONES.length)].name);
-        }
-        bSequence.value = seq.join(" | ");
-      } else {
-        bSequence.value = "";
-      }
+      const pick = () => STONES[Math.floor(Math.random()*STONES.length)].id;
+      bStone1.value = pick();
+      bStone2.value = pick();
+      bStone3.value = pick();
 
-      const main = STONES[Math.floor(Math.random()*STONES.length)];
-      let accent = Math.random() < 0.65 ? STONES[Math.floor(Math.random()*STONES.length)] : null;
-      if(accent && accent.id === main.id) accent = null;
-
-      bMainStone.value = main.id;
-      bAccentStone.value = accent ? accent.id : "none";
-      bAccentPercent.value = accent ? [10,15,20,25,30][Math.floor(Math.random()*5)] : 15;
       bBeadSize.value = [4,6,8][Math.floor(Math.random()*3)];
       bLength.value = [18,19,20,21][Math.floor(Math.random()*4)];
       bSpacer.value = ["none","gold","silver"][Math.floor(Math.random()*3)];
@@ -1594,14 +1452,16 @@ ${note ? "Nota: " + note + "\n" : ""}¿Me confirmas precio final y stock?`;
     });
 
     bReset.addEventListener("click", ()=>{
-      bSequence.value = "";
-      bMainStone.value = "blue_tiger";
-      bAccentStone.value = "none";
-      bAccentPercent.value = 15;
-      bBeadSize.value = 4;
-      bLength.value = 18;
+      bStoneCount.value = "1";
+      bStone1.value = "blue_tiger";
+      bStone2.value = "onyx";
+      bStone3.value = "white_q";
+
+      bBeadSize.value = "4";
+      bLength.value = "18";
       bSpacer.value = "none";
       bNote.value = "";
+
       builderUpdate();
     });
 
@@ -1611,4 +1471,3 @@ ${note ? "Nota: " + note + "\n" : ""}¿Me confirmas precio final y stock?`;
   </script>
 </body>
 </html>
-
